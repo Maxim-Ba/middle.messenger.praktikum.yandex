@@ -1,8 +1,14 @@
-
+@font-face
+  font-family: 'Inter'
+  src: url('./fonts/Inter-Medium.ttf') format('truetype')
+  font-weight: normal
+  font-style: normal
+@import url('./modalWindow')
 *
   box-sizing: border-box
   padding: 0
   margin: 0
+  font-family: 'Inter', sans-serif
 
 html
   font-size: 10px
@@ -42,7 +48,7 @@ html
   flex-direction: column
 
 .form-label
-  font-weight: 500
+  font-weight: normal
   font-size: .9rem
   line-height: .9rem
   color: #999999
@@ -53,18 +59,22 @@ html
   border-bottom: 1px solid #3369F3
   margin-bottom: 1.6rem
   padding-bottom: .8rem
-
-.input_last
-  margin-bottom: 0
-
-.input::placeholder
-  font-weight: 500
-  font-size: 1.3rem
-  line-height: 1.3rem
-  color: #999999
+  &::placeholder
+    font-weight: normal
+    font-size: 1.3rem
+    line-height: 1.3rem
+    color: #999999
+  &_last
+    margin-bottom: 0
 
 .hidden
   visibility: hidden
+
+.display-none
+  display: none
+
+.mb-1rem
+  margin-bottom: 1rem
 
 .button
   font-size: 1.3rem
@@ -72,18 +82,21 @@ html
   text-align: center
   color: #FFFFFF
   height: 37px
+  cursor: pointer
   border: none
+  &_b-r-8px
+    border-radius: 8px
+  &_b-r-5px
+    border-radius: 5px
+  &_grey
+    background-color: #8F97AC
+  &_blue
+    background-color: #3369F3
+  &_auth
+    width: 147.5px
 
-.button_b-r-8px
-  border-radius: 8px
-
-.button_grey
-  background-color: #8F97AC
-
-.button_blue
-  background-color: #3369F3
-
-.button_auth
-  width: 147.5px
-
+img
+  display: block
+  &_round
+    border-radius: 50%
 /*  */

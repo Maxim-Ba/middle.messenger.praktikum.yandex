@@ -4,7 +4,7 @@
   "description": "",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "watch": "parcel serve src/pages/registration/index-registration.html --open --no-cache",
+    "watch": "parcel serve index.html --open --no-cache",
     "build": "parcel build index.hbs --out-dir dist --no-minify"
   },
   "keywords": [],

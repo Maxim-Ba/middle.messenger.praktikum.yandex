@@ -1,12 +1,14 @@
 console.log("loaded");
 import Handlebars from "handlebars";
-import { ModalWindow } from "./src/components/modal-window/modalWindow.partial";
-import { Chat } from "./src/pages/chats/chat";
+import { ModalWindow } from "../../components/modal-window/modalWindow.partial";
+import { Chat } from "./chat";
+import templateFunction from "./chats.hbs";
+// const string = document.getElementById("templ").innerHTML;
 
 const root = document.getElementById("root");
 
 Handlebars.registerPartial("modalWindow", ModalWindow);
-const template = Handlebars.compile(Chat);
+// const template = Handlebars.compile(string);
 Handlebars.registerHelper("include", function (source) {
   return new Handlebars.SafeString(source);
 });
@@ -17,13 +19,13 @@ const dataObj = {
       time: "11:22",
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: "./src/static/img/Chat-picture.svg",
-      newMessageCount: 2,
+      newMessageCount: 3,
     },
     {
       name: "Andrey",
       time: "11:33",
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      imageSrc: "../../static/img/Chat-picture.svg",
+      imageSrc: "./Chat-picture.svg",
       newMessageCount: 3,
     },
     {
@@ -39,6 +41,55 @@ const dataObj = {
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: "../../static/img/Chat-picture.svg",
       newMessageCount: 25,
+    },
+    {
+      name: "Andrey",
+      time: "11:00",
+      lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      imageSrc: "../../static/img/Chat-picture.svg",
+      newMessageCount: 6,
+    },
+    {
+      name: "Andrey",
+      time: "11:00",
+      lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      imageSrc: "../../static/img/Chat-picture.svg",
+      newMessageCount: 6,
+    },
+    {
+      name: "Andrey",
+      time: "11:00",
+      lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      imageSrc: "../../static/img/Chat-picture.svg",
+      newMessageCount: 6,
+    },
+    {
+      name: "Andrey",
+      time: "11:00",
+      lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      imageSrc: "../../static/img/Chat-picture.svg",
+      newMessageCount: 6,
+    },
+    {
+      name: "Andrey",
+      time: "11:00",
+      lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      imageSrc: "../../static/img/Chat-picture.svg",
+      newMessageCount: 6,
+    },
+    {
+      name: "Andrey",
+      time: "11:00",
+      lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      imageSrc: "../../static/img/Chat-picture.svg",
+      newMessageCount: 6,
+    },
+    {
+      name: "Andrey",
+      time: "11:00",
+      lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      imageSrc: "../../static/img/Chat-picture.svg",
+      newMessageCount: 6,
     },
     {
       name: "Andrey",
@@ -86,6 +137,8 @@ const chats = [
     newMessageCount: 6,
   },
 ];
+document.body.innerHTML = templateFunction(dataObj);
+
 const html = template(dataObj);
 root.innerHTML = html;
 

@@ -4,8 +4,8 @@
   "description": "",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "watch": "parcel serve index.html --open --no-cache",
-    "build": "parcel build index.hbs --out-dir dist --no-minify"
+    "watch": "parcel serve src/pages/chats/index.html --open --no-cache",
+    "build": "parcel build src/pages/chats/index.html --no-cache --no-content-hash --public-url ."
   },
   "keywords": [],
   "author": "",

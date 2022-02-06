@@ -3,7 +3,7 @@ export const Chat = `
   {{> modalWindow}}
       <aside class="chats__aside">
         <div class="chats__top-btns">
-          <button class="button chats__button button_b-r-5px button_blue">Профиль</button>
+          <a class="button chats__button button_b-r-5px button_blue">Профиль</a>
           <button class="button chats__button button_b-r-5px button_grey">
             <img src="../../static/img/Search.svg" alt="Поиск" class="chats__img">
             Поиск
@@ -15,198 +15,24 @@ export const Chat = `
 
         </div>
         <div class="chats__list-of-chats">
-          <card class="chats__chat-item chats__chat-item_selected">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
+          {{#each  chats}}
+            <card class="chats__chat-item chats__chat-item_selected">
+              <div class="chats__pic-wrapper">
+                <img src="{{{imageSrc}}}" class="chats__picture"  alt="Картинка чата">
               </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
 
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
+              <div class="chats__item-main-info">
+                <p class="chats__name">{{name}}</p>
+                <p class="chats__last-message"> {{lastMessage}}</p>
               </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
+              <div class="chats__item-info">
+                <p class="chats__time">{{time}}</p>
+                <div class="chats__new-message">
+                  <p class="chats__new-message-p"> {{newMessageCount}}</p>
+                </div>
               </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
-              </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
-              </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
-              </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
-              </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
-              </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
-              </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
-              </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
-              </div>
-            </div>
-          </card>
-          <card class="chats__chat-item">
-            <div class="chats__pic-wrapper">
-              <img class="chats__picture" src="../../static/img/Chat-picture.svg" alt="Картинка чата">
-            </div>
-
-            <div class="chats__item-main-info">
-              <p class="chats__name">Андрей</p>
-              <p class="chats__last-message">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-            <div class="chats__item-info">
-              <p class="chats__time">10:49</p>
-              <div class="chats__new-message">
-                <p class="chats__new-message-p">2</p>
-              </div>
-            </div>
-          </card>
+            </card>
+          {{/each}}
         </div>
       </aside>
       <main class="chats">

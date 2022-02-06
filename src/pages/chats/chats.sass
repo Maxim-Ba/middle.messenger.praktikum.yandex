@@ -13,6 +13,8 @@
     border-right: #EAEAEA 1px solid
     max-height: 100vh
     overflow: hidden
+    display: flex
+    flex-direction: column
     // !!!!!!!!!!!
   &__top-btns
     padding-top: 14px
@@ -65,12 +67,9 @@
     overflow-y: scroll
     scroll-snap-type: y mandatory
     align-items: center
-    // &::-webkit-scrollbar
-    //   display: none
-    // &::-webkit-scrollbar-track
-    //   opacity: .5
-    // &::-webkit-scrollbar-thumb
-    //   opacity: .5
+    flex-grow: 1
+    &::-webkit-scrollbar
+      display: none
   &__chat-item
     scroll-snap-align: start
     height: 71px
@@ -84,6 +83,7 @@
     width: 47px
     height: 47px
     margin-right: 10px
+    border-radius: 50%
     display: block
   &__picture
     width: 47px

@@ -1,6 +1,6 @@
 export const ModalWindow = `
   {{#> layout}}
-  <section class="modal-window">
+  <section class="modal-window display-none">
   <div class="modal-window__wrapper"></div>
   <div class="modal-window__container">
     <p class="modal-window__title">Создать чат</p>

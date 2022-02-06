@@ -2,17 +2,17 @@ console.log("loaded");
 import Handlebars from "handlebars";
 import { ModalWindow } from "../../components/modal-window/modalWindow.partial";
 import templateFunction from "./chats.hbs";
-import svgDefaultChatPic from "../../static/img/Chat-picture.svg";
-import svgSearch from "../../static/img/Search.svg";
-import svgMenu from "../../static/img/Menu.svg";
-import svgCreateChat from "../../static/img/Create-chat.svg";
-import svgDeleteChat from "../../static/img/Delete-chat.svg";
-import svgChangeChat from "../../static/img/Change-ava-chat.svg";
-import svgAddVideoOrFoto from "../../static/img/Video-or-foto.svg";
-import svgAddFile from "../../static/img/File.svg";
-import svgAddLocation from "../../static/img/Location.svg";
-import svgSendFile from "../../static/img/Image.svg";
-import svgArrowRight from "../../static/img/Arrow-right.svg";
+import svgDefaultChatPic from "../../../static/img/Chat-picture.svg";
+import svgSearch from "../../../static/img/Search.svg";
+import svgMenu from "../../../static/img/Menu.svg";
+import svgCreateChat from "../../../static/img/Create-chat.svg";
+import svgDeleteChat from "../../../static/img/Delete-chat.svg";
+import svgChangeChat from "../../../static/img/Change-ava-chat.svg";
+import svgAddVideoOrFoto from "../../../static/img/Video-or-foto.svg";
+import svgAddFile from "../../../static/img/File.svg";
+import svgAddLocation from "../../../static/img/Location.svg";
+import svgSendFile from "../../../static/img/Image.svg";
+import svgArrowRight from "../../../static/img/Arrow-right.svg";
 
 const root = document.getElementById("root");
 

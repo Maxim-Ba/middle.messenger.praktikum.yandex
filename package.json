@@ -4,13 +4,15 @@
   "description": "",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "watch": "parcel serve src/pages/chats/index.html --open --no-cache",
-    "build": "parcel build src/pages/chats/index.html --no-cache --no-content-hash --public-url ."
+    "watch": "parcel serve src/pages/**/index.html --open --no-cache",
+    "build": "parcel build src/pages/**/index.html --no-cache --public-url . --no-content-hash"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/resolver-glob": "^2.2.1",
+    "@parcel/transformer-sass": "^2.2.1",
     "autoprefixer": "^10.4.2",
     "cssnano": "^5.0.16",
     "parcel": "^2.2.1",
@@ -18,7 +20,6 @@
     "postcss-import": "^14.0.2",
     "postcss-sass": "^0.5.0",
     "precss": "^4.0.0",
-    "@parcel/transformer-sass": "^2.2.1",
     "sass": "^1.49.7"
   },
   "dependencies": {

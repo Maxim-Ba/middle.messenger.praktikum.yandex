@@ -3,9 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "browserslist": "> 0.5%, last 2 versions, not dead",
+  "targets": {
+    "default": {
+      "distDir": "./dist"
+    }
+  },
   "scripts": {
-    "watch": "parcel serve src/pages/**/index.html --open --no-cache",
-    "build": "parcel build src/pages/**/index.html --no-cache --public-url . --no-content-hash"
+    "watch": "parcel serve \"src/pages/**/*.html\" --open --no-cache",
+    "build:build": "parcel build \"src/pages/index.html\" --public-url ./ --no-cache --no-content-hash",
+    "build:build2": "parcel build \"src/pages/profile/*.html\" \"src/pages/registration/*.html\" \"src/pages/chats/*.html\" \"src/pages/error-page/*.html\" --dist-dir dist/**  --public-url ../ --no-cache --no-content-hash",
+    "build": "npm run clean && npm run build:build&& npm run build:build2",
+    "clean": "rm -rf dist/*"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +33,6 @@
   "dependencies": {
     "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
     "handlebars": "^4.7.7",
-    "parcel-plugin-handlebars": "^0.4.4",
     "postcss": "^8.4.6"
   }
 }

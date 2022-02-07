@@ -1,6 +1,5 @@
-console.log("loaded");
 import Handlebars from "handlebars";
-import { ModalWindow } from "../../components/modal-window/modalWindow.partial";
+import { modal } from "../../components/modal-window/modalWindow.partial";
 import templateFunction from "./chats.hbs";
 import svgDefaultChatPic from "../../../static/img/Chat-picture.svg";
 import svgSearch from "../../../static/img/Search.svg";
@@ -15,12 +14,14 @@ import svgSendFile from "../../../static/img/Image.svg";
 import svgArrowRight from "../../../static/img/Arrow-right.svg";
 
 const root = document.getElementById("root");
-
-Handlebars.registerPartial("modalWindow", ModalWindow);
+// const body = document.getElementsByTagName("body");
+Handlebars.registerPartial("modalWindow", modal);
 // Handlebars.registerHelper("include", function (source) {
 //   return new Handlebars.SafeString(source);
 // });
+console.log(Handlebars);
 const dataObj = {
+  modal,
   svgDefault: {
     svgDefaultChatPic,
     svgSearch,
@@ -121,8 +122,11 @@ const dataObj = {
     },
   ],
 };
-
+// const chatInnerHtml = templateFunction();
 root.innerHTML = templateFunction(dataObj);
+// let template = Handlebars.compile(chatInnerHtml);
+// let html = template(dataObj);
+// root.innerHTML = html;
 
 // Handlebars.registerPartial("templ", partial);
 // Handlebars.registerPartial("footer", footer);

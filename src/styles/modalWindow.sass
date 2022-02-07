@@ -1,3 +1,16 @@
+*
+  box-sizing: border-box
+  padding: 0
+  margin: 0
+  font-family: 'Inter', sans-serif
+
+html
+  font-size: 10px
+
+.root
+  width: 100vw
+  height: 100vh
+
 .modal-window
   z-index: 1000
   width: 100vw
@@ -36,6 +49,25 @@
     line-height: 9px
     color: #999999
     margin-bottom: 8px
+    &_f-loaded
+      font-weight: 500
+      font-size: 14px
+      line-height: 16px
+      text-align: center
+      color: #8D8D8D
+      display: block
+      margin: 0 auto 60px
+      cursor: pointer
+    &_file-input
+      display: block
+      width: 122px
+      font-size: 12px
+      line-height: 16px
+      text-align: center
+      text-decoration-line: underline
+      color: #3369F3
+      margin: 0 auto 38px
+      cursor: pointer
   &__text-input
     border-right: none
     border-top: none
@@ -49,7 +81,39 @@
     display: flex
     justify-content: space-between
     margin-bottom: 14px
-  &__button
-    width: 110px
+
   &__warning
     margin-bottom: 15px
+    font-weight: normal
+    font-size: px
+    line-height: 30px
+    color: #FF2F2F
+    text-align: center
+
+  &__button
+    font-size: 1.3rem
+    line-height: 1.3rem
+    text-align: center
+    color: #FFFFFF
+    height: 37px
+    cursor: pointer
+    border: none
+
+  &__button_small
+    width: 110px
+
+  &__button_long
+    width: 100%
+
+  &__button_b-r-8px
+    border-radius: 8px
+
+  &__button_grey
+    background-color: #8F97AC
+  &__button_blue
+    background-color: #3369F3
+  &__file-input
+    visibility: visible
+    display: none
+.display-none
+  display: none

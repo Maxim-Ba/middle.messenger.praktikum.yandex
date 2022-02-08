@@ -1,5 +1,6 @@
 import Handlebars from "handlebars";
 import { modal } from "../../components/modal-window/modalWindow.partial";
+import { ModalWindow } from "../../components/modal-window/modalWindow.main";
 import templateFunction from "./chats.hbs";
 import svgDefaultChatPic from "../../../static/img/Chat-picture.svg";
 import svgSearch from "../../../static/img/Search.svg";
@@ -14,12 +15,11 @@ import svgSendFile from "../../../static/img/Image.svg";
 import svgArrowRight from "../../../static/img/Arrow-right.svg";
 
 const root = document.getElementById("root");
-// const body = document.getElementsByTagName("body");
 Handlebars.registerPartial("modalWindow", modal);
 // Handlebars.registerHelper("include", function (source) {
 //   return new Handlebars.SafeString(source);
 // });
-console.log(Handlebars);
+// console.log(Handlebars);
 const dataObj = {
   modal,
   svgDefault: {
@@ -122,11 +122,7 @@ const dataObj = {
     },
   ],
 };
-// const chatInnerHtml = templateFunction();
 root.innerHTML = templateFunction(dataObj);
-// let template = Handlebars.compile(chatInnerHtml);
-// let html = template(dataObj);
-// root.innerHTML = html;
 
 // Handlebars.registerPartial("templ", partial);
 // Handlebars.registerPartial("footer", footer);
@@ -140,3 +136,10 @@ root.innerHTML = templateFunction(dataObj);
 // };
 // var html = template(context);
 // root.append.innerHTML = html
+const modalWindowEl = document.getElementById("modal-window");
+const openModalWindowBtns = root.getElementsByClassName("chats__menue-item");
+
+const modalWindowInstance = new ModalWindow(
+  modalWindowEl,
+  ...openModalWindowBtns,
+);

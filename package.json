@@ -15,7 +15,7 @@
     "build": "npm run clean && npm run build:build && npm run build:build2",
     "clean": "rm -rf dist/*",
     "server": "node server.js",
-    "start": "npm run build && npm run server"
+    "start": "npm run server"
   },
   "keywords": [],
   "author": "",

@@ -16,4 +16,8 @@ https://www.figma.com/file/j34Ef6am5xgwM5rxCZlGVW/Chat-(Copy)?node-id=20%3A287
 
 - npm run watch - для разработки
 - npm run build - сборка проекта в папку ./dist
-- npm run start - статический сервер для раздачи статики
+- npm run start - сервер для раздачи статики, открывается на http://127.0.0.1:3000/login/index.html
+
+### Демо на Netlify
+
+https://admiring-edison-601be4.netlify.app/login/index.html

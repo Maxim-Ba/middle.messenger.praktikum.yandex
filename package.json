@@ -10,12 +10,8 @@
   },
   "scripts": {
     "watch": "parcel serve \"src/pages/**/*.html\" --open --no-cache",
-    "build:build": "parcel build \"src/pages/index.html\" --public-url ./ --no-cache --no-content-hash",
-
-    "build:build1": "npm run clean && parcel build \"src/**/*.html\" --public-url ./ --no-content-hash",
-
-    "build:build2": "parcel build \"src/pages/profile/*.html\" \"src/pages/registration/*.html\" \"src/pages/chats/*.html\" \"src/pages/error-page/*.html\" --dist-dir dist/**  --public-url ../ --no-cache --no-content-hash",
-    "build": "npm run clean && npm run build:build && npm run build:build2",
+    "build:build2": "parcel build \"src/pages/profile/*.html\" \"src/pages/login/*.html\" \"src/pages/registration/*.html\" \"src/pages/chats/*.html\" \"src/pages/error-page/*.html\" --dist-dir dist/**  --public-url ../ --no-cache --no-content-hash",
+    "build": "npm run clean && npm run build:build2",
     "clean": "rm -rf dist/*",
     "server": "node server.js",
     "start": "npm run server"

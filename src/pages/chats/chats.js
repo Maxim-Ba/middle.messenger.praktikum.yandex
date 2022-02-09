@@ -16,10 +16,7 @@ import svgArrowRight from "../../../static/img/Arrow-right.svg";
 
 const root = document.getElementById("root");
 Handlebars.registerPartial("modalWindow", modal);
-// Handlebars.registerHelper("include", function (source) {
-//   return new Handlebars.SafeString(source);
-// });
-// console.log(Handlebars);
+
 const dataObj = {
   modal,
   svgDefault: {
@@ -42,6 +39,7 @@ const dataObj = {
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: svgDefaultChatPic,
       newMessageCount: 3,
+      isSelected: true,
     },
     {
       name: "Andrey",
@@ -49,6 +47,7 @@ const dataObj = {
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: svgDefaultChatPic,
       newMessageCount: 3,
+      isSelected: true,
     },
     {
       name: "Andrey",
@@ -56,6 +55,7 @@ const dataObj = {
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: svgDefaultChatPic,
       newMessageCount: 4,
+      isSelected: true,
     },
     {
       name: "Andrey",
@@ -63,6 +63,7 @@ const dataObj = {
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: svgDefaultChatPic,
       newMessageCount: 25,
+      isSelected: true,
     },
     {
       name: "Andrey",
@@ -70,6 +71,7 @@ const dataObj = {
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: svgDefaultChatPic,
       newMessageCount: 6,
+      isSelected: true,
     },
     {
       name: "Andrey",
@@ -77,6 +79,7 @@ const dataObj = {
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: svgDefaultChatPic,
       newMessageCount: 6,
+      isSelected: true,
     },
     {
       name: "Andrey",
@@ -84,6 +87,7 @@ const dataObj = {
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: svgDefaultChatPic,
       newMessageCount: 6,
+      isSelected: true,
     },
     {
       name: "Andrey",
@@ -124,22 +128,10 @@ const dataObj = {
 };
 root.innerHTML = templateFunction(dataObj);
 
-// Handlebars.registerPartial("templ", partial);
-// Handlebars.registerPartial("footer", footer);
-// Handlebars.registerPartial("header", header);
-
-// var template = Handlebars.compile(partial);
-// var context = {
-//   content: "<b>Thisdgfdfg is some other content</b>",
-//   footer: "footer",
-//   header: "header",
-// };
-// var html = template(context);
-// root.append.innerHTML = html
 const modalWindowEl = document.getElementById("modal-window");
 const openModalWindowBtns = root.getElementsByClassName("chats__menue-item");
 
-const modalWindowInstance = new ModalWindow(
-  modalWindowEl,
-  ...openModalWindowBtns,
-);
+const modalWindowInstance = new ModalWindow(modalWindowEl);
+[...openModalWindowBtns].forEach((btn) => {
+  modalWindowInstance.bindActionsOnButton(btn, null);
+});

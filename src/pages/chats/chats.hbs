@@ -26,7 +26,7 @@
     </div>
     <div class="chats__list-of-chats">
       {{#each chats}}
-        <card class="chats__chat-item chats__chat-item_selected">
+        <card class="chats__chat-item">
           <div class="chats__pic-wrapper">
             <img
               src="{{{imageSrc}}}"
@@ -145,7 +145,12 @@
           alt="Прикрепить
     файл"
         />
-        <input class="chats__input" type="text" placeholder="Сообщение" />
+        <input
+          name="message"
+          class="chats__input"
+          type="text"
+          placeholder="Сообщение"
+        />
         <button class="chats__send-btn">
           <img
             class="chats__send"

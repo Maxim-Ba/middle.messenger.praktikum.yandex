@@ -1,3 +1,4 @@
+{{{modal}}}
 <div class="profile__wrapper">
   <aside class="profile__go-back">
     <a class="profile__link" href="../chats/chats.html">
@@ -21,28 +22,43 @@
 
         <form class="profile__form" id="profile">
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="">Почта</label>
-            <input class="profile__input mb-1rem" type="text" />
+            <label class="profile__label mb-1rem" for="email">Почта</label>
+            <input class="profile__input mb-1rem" type="text" name="email" />
           </div>
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="">Логин</label>
-            <input class="profile__input mb-1rem" type="text" />
+            <label class="profile__label mb-1rem" for="login">Логин</label>
+            <input class="profile__input mb-1rem" type="text" name="login" />
           </div>
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="">Имя</label>
-            <input class="profile__input mb-1rem" type="text" />
+            <label class="profile__label mb-1rem" for="first_name">Имя</label>
+            <input
+              class="profile__input mb-1rem"
+              type="text"
+              name="first_name"
+            />
           </div>
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="">Фамилия</label>
-            <input class="profile__input mb-1rem" type="text" />
+            <label
+              class="profile__label mb-1rem"
+              for="second_name"
+            >Фамилия</label>
+            <input
+              class="profile__input mb-1rem"
+              type="text"
+              name="second_name"
+            />
           </div>
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="">Имя в чате</label>
-            <input class="profile__input mb-1rem" type="text" />
+            <label class="profile__label mb-1rem" for="display_name">Имя в чате</label>
+            <input
+              class="profile__input mb-1rem"
+              type="text"
+              name="display_name"
+            />
           </div>
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="">Телефон</label>
-            <input class="profile__input mb-1rem" type="text" />
+            <label class="profile__label mb-1rem" for="phone">Телефон</label>
+            <input class="profile__input mb-1rem" type="text" name="phone" />
           </div>
         </form>
         <form
@@ -50,12 +66,21 @@
           id="profile-password"
         >
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="">Старый пароль</label>
-            <input class="profile__input mb-1rem" type="password" />
+            <label class="profile__label mb-1rem" for="oldPassword">Старый
+              пароль</label>
+            <input
+              class="profile__input mb-1rem"
+              type="password"
+              name="oldPassword"
+            />
           </div>
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="">Новый пароль</label>
-            <input class="profile__input mb-1rem" type="password" />
+            <label class="profile__label mb-1rem" for="newPassword">Новый пароль</label>
+            <input
+              class="profile__input mb-1rem"
+              type="password"
+              name="newPassword"
+            />
           </div>
           <div class="profile__field">
             <label class="profile__label" for="">Повторите пароль</label>

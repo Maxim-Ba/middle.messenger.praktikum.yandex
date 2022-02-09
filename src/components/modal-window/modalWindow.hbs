@@ -1,9 +1,8 @@
 <section class="modal-window display-none" id="modal-window">
   <div class="modal-window__wrapper"></div>
   <div
-    class="modal-window__container"
+    class="modal-window__container display-none"
     id="modal-window-create-chat"
-    style="display: none;"
   >
     <p class="modal-window__title">Создать чат</p>
     <form class="modal-window__form" id="modal-window-form-create-chat">
@@ -32,9 +31,8 @@
     </form>
   </div>
   <div
-    class="modal-window__container"
+    class="modal-window__container display-none"
     id="modal-window-delete-chat"
-    style="display: none;"
   >
     <p class="modal-window__title">Удалить чат</p>
     <form class="modal-window__form" id="modal-window-form-delete-chat">
@@ -62,10 +60,37 @@
       </p>
     </form>
   </div>
+  <div class="modal-window__container" id="modal-window-upload-pic-profile">
+    <p class="modal-window__title">Загрузите файл</p>
+    <form class="modal-window__form" id="modal-window-form-pic-profile">
+      <label
+        class="modal-window__label_f-loaded"
+        for="file"
+        style="display: none;"
+      >pic.jpg</label>
+      <label class="modal-window__label_file-input" for="avatar">Выбрать файл на
+        компьютере</label>
+      <input
+        class="modal-window__file-input"
+        type="file"
+        name="avatar"
+        id="avatar"
+      />
+      <div class="modal-window__btns">
+        <button
+          class="modal-window__button modal-window__button_long modal-window__button_b-r-8px modal-window__button_blue"
+        >
+          Поменять
+        </button>
+      </div>
+      <p class="modal-window__warning">
+        Нужно выбрать файл
+      </p>
+    </form>
+  </div>
   <div
-    class="modal-window__container"
+    class="modal-window__container display-none"
     id="modal-window-upload-pic-chat"
-    style="display: flex;"
   >
     <p class="modal-window__title">Изменить аватар чата</p>
     <form class="modal-window__form" id="modal-window-form-pic-chat">
@@ -94,11 +119,7 @@
       </p>
     </form>
   </div>
-  <div
-    class="modal-window__container"
-    id="modal-window-add-user"
-    style="display: none;"
-  >
+  <div class="modal-window__container display-none" id="modal-window-add-user">
     <p class="modal-window__title">Добавить пользователя</p>
     <form class="modal-window__form" id="modal-window-form-add-user">
       <label class="modal-window__label" for="chat-name">Логин пользователя</label>
@@ -121,9 +142,8 @@
     </form>
   </div>
   <div
-    class="modal-window__container"
+    class="modal-window__container display-none"
     id="modal-window-delete-user"
-    style="display: none"
   >
     <p class="modal-window__title">Удалить пользователя</p>
     <form class="modal-window__form" id="modal-window-form-delete-user">

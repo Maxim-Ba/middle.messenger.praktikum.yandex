@@ -2,6 +2,9 @@
   "name": "project-chat",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": ">=12"
+  },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "targets": {
     "default": {
@@ -13,7 +16,9 @@
     "build:build": "parcel build \"src/pages/index.html\" --public-url ./ --no-cache --no-content-hash",
     "build:build2": "parcel build \"src/pages/profile/*.html\" \"src/pages/registration/*.html\" \"src/pages/chats/*.html\" \"src/pages/error-page/*.html\" --dist-dir dist/**  --public-url ../ --no-cache --no-content-hash",
     "build": "npm run clean && npm run build:build&& npm run build:build2",
-    "clean": "rm -rf dist/*"
+    "clean": "rm -rf dist/*",
+    "server": "node server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +37,7 @@
   },
   "dependencies": {
     "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
+    "express": "^4.17.2",
     "handlebars": "^4.7.7",
     "postcss": "^8.4.6"
   }

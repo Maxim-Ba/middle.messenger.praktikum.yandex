@@ -87,7 +87,7 @@ class Block {
 
   // Может переопределять пользователь, необязательно трогать
   render() {
-    return this.compile(profileTemplate, { userName: this.props.userName });
+    return this.compile(profileTemplate, this.props);
   }
 
   getContent() {

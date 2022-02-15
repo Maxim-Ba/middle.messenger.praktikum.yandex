@@ -1,4 +1,6 @@
 export class ModalWindow {
+  modalWindowWrapperEl: any;
+  modalWindowEl: any;
   constructor(modalWindowEl) {
     this.modalWindowEl = modalWindowEl;
 
@@ -18,35 +20,6 @@ export class ModalWindow {
   }
   openModalWindow() {
     this.modalWindowEl.classList.toggle("display-none");
-
-    // switch (event.currentTarget) {
-    //   case this.createChatEl:
-    //     this.modalWindowEl.classList.toggle("display-none");
-    //     break;
-    //   case this.deleteChatEl:
-    //     this.modalWindowEl.classList.toggle("display-none");
-    //     break;
-    //   case this.changeAvatarEl:
-    //     this.modalWindowEl.classList.toggle("display-none");
-    //     break;
-    //   case this.addUserEl:
-    //     this.modalWindowEl.classList.toggle("display-none");
-    //     break;
-    //   case this.deleteUserEl:
-    //     this.modalWindowEl.classList.toggle("display-none");
-    //     break;
-    //   case this.sendFotoEl:
-    //     this.modalWindowEl.classList.toggle("display-none");
-    //     break;
-    //   case this.sendFileEl:
-    //     this.modalWindowEl.classList.toggle("display-none");
-    //     break;
-    //   case this.sendLocationEl:
-    //     this.modalWindowEl.classList.toggle("display-none");
-    //     break;
-    //   default:
-    //     break;
-    // }
   }
   bindActionsOnButton(buttonEl, action) {
     const containers = this.modalWindowEl.querySelectorAll(
@@ -62,7 +35,7 @@ export class ModalWindow {
             container.classList.add("display-none");
           }
         });
-        targetToVisible.classList.remove("display-none");
+        targetToVisible?.classList.remove("display-none");
 
         break;
       default:
@@ -72,7 +45,7 @@ export class ModalWindow {
             container.classList.add("display-none");
           }
         });
-        target.classList.remove("display-none");
+        target?.classList.remove("display-none");
         break;
     }
     buttonEl.addEventListener("click", this.openModalWindow);

@@ -1,7 +1,7 @@
-import Handlebars from "handlebars";
+import * as Handlebars from "handlebars";
 import { modal } from "../../components/modal-window/modalWindow.partial";
 import { ModalWindow } from "../../components/modal-window/modalWindow.main";
-import templateFunction from "./chats.hbs";
+import templateFunction from "./test.hbs";
 import svgDefaultChatPic from "../../../static/img/Chat-picture.svg";
 import svgSearch from "../../../static/img/Search.svg";
 import svgMenu from "../../../static/img/Menu.svg";
@@ -126,10 +126,13 @@ const dataObj = {
     },
   ],
 };
-root.innerHTML = templateFunction(dataObj);
+if (root) {
+  root.innerHTML = templateFunction(dataObj);
+}
 
 const modalWindowEl = document.getElementById("modal-window");
-const openModalWindowBtns = root.getElementsByClassName("chats__menue-item");
+const openModalWindowBtns =
+  root?.getElementsByClassName("chats__menue-item") || [];
 
 const modalWindowInstance = new ModalWindow(modalWindowEl);
 [...openModalWindowBtns].forEach((btn) => {

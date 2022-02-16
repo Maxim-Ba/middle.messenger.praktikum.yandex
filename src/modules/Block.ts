@@ -10,7 +10,7 @@ export class Block {
     FLOW_CDU: "flow:component-did-update",
   };
 
-  private _element: HTMLElement;
+  private _element: HTMLTemplateElement;
   private _meta: null | { tagName: string; props: any } = null;
   eventBus: () => EventBus;
   props: any;
@@ -29,7 +29,7 @@ export class Block {
     console.log(children);
 
     this._id = makeUUID();
-    this.props = this._makePropsProxy({ ...props, __id: this._id });
+    this.props = this._makePropsProxy({ ...props, _id: this._id });
 
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
@@ -95,7 +95,9 @@ export class Block {
 
   componentDidMount(oldProps) {}
 
-  dispatchComponentDidMount() {}
+  dispatchComponentDidMount() {
+    console.log("dispatchComponentDidMount");
+  }
 
   private _componentDidUpdate(oldProps, newProps) {
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -124,9 +126,9 @@ export class Block {
 
     this._removeEvents(); //NEW!!!
     this._element.innerHTML = "";
-
-    this._element.appendChild(block);
+    this._element.content.appendChild(block);
     this._addEvents();
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -134,7 +136,7 @@ export class Block {
     const fragment = document.createElement("template");
     const p = document.createElement("p");
     p.textContent = "Заглушка";
-    fragment.append(p);
+    fragment.content.append(p);
     return fragment;
   }
 
@@ -168,20 +170,25 @@ export class Block {
     const propsAndStubs = { ...props };
 
     Object.entries(this.children).forEach(([key, child]) => {
-      propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
+      propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
-    console.log(propsAndStubs, "<-propsAndStubs");
 
     const fragment = this._createDocumentElement("template");
+    const templateResult = template(propsAndStubs);
 
-    fragment.innerHTML = template(propsAndStubs);
-
+    fragment.innerHTML = templateResult;
+    // до сюда работает правильно
     Object.values(this.children).forEach((child) => {
-      const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
-      console.log(stub, "<-stub");
+      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+      // console.log(stub, "<-stub1");
+      // console.log(child.getContent(), "<-child.getContent()");
 
-      stub.replaceWith(child.getContent());
+      const cloneChildNode = child.getContent().content;
+      console.log(cloneChildNode, "<-cloneChildNode");
+
+      stub.replaceWith(cloneChildNode);
     });
+    // console.log(fragment.innerHTML, "<-fragment2.content");
 
     return fragment.content;
   }

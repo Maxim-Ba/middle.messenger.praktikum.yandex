@@ -1,4 +1,3 @@
-import { render } from "../../../utils/renderDOM";
 import { Btn } from "./Btn.block";
 import svgCreateChat from "../../../../static/img/Create-chat.svg";
 export const btn = new Btn({
@@ -10,5 +9,5 @@ export const btn = new Btn({
       modal?.classList.toggle("display-none");
     },
   },
-  svgDefault: svgCreateChat,
+  svgDefault: { svgCreateChat },
 });

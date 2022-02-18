@@ -14,14 +14,5 @@ const test = new Test({
   modal: modalWindow,
   btn,
 });
-console.log(test, "--test--");
 
 render("#root", test);
-
-// Через секунду контент изменится сам, достаточно обновить пропсы
-// setTimeout(() => {
-//   test.setProps({
-//     className: "otherClass",
-//     child: "Click me, please",
-//   });
-// }, 1000);

@@ -1,4 +1,3 @@
-{{{modal}}}
 <div class="chats__wrapper">
   <aside class="chats__aside">
     <div class="chats__top-btns">
@@ -24,28 +23,7 @@
       </div>
     </div>
     <div class="chats__list-of-chats">
-      {{#each chats}}
-        <card class="chats__chat-item">
-          <div class="chats__pic-wrapper">
-            <img
-              src="{{{imageSrc}}}"
-              class="chats__picture"
-              alt="Картинка чата"
-            />
-          </div>
-
-          <div class="chats__item-main-info">
-            <p class="chats__name">{{name}}</p>
-            <p class="chats__last-message"> {{lastMessage}}</p>
-          </div>
-          <div class="chats__item-info">
-            <p class="chats__time">{{time}}</p>
-            <div class="chats__new-message">
-              <p class="chats__new-message-p"> {{newMessageCount}}</p>
-            </div>
-          </div>
-        </card>
-      {{/each}}
+      {{{chatCards}}}
     </div>
   </aside>
   <main class="chats">
@@ -60,84 +38,51 @@
       </div>
       <img class="chats__menu-btn" src={{svgDefault.svgMenu}} alt="меню" />
     </header>
-    <menu class="chats__menu">
-      <div class="chats__menu-content" id="chats">
-        <div class="chats__menue-item">
-          <img
-            src={{svgDefault.svgCreateChat}}
-            alt="Создать чат"
-            class="chats__menue-item-img"
-          />
-          <p class="chats__menue-item-action">Создать чат</p>
-        </div>
-        <div class="chats__menue-item">
-          <img
-            src={{svgDefault.svgDeleteChat}}
-            alt="Удалить чат"
-            class="chats__menue-item-img"
-          />
-          <p class="chats__menue-item-action">Удалить чат</p>
-        </div>
-        <div class="chats__menue-item">
-          <img
-            src={{svgDefault.svgChangeChat}}
-            alt="Изменить аватар чата"
-            class="chats__menue-item-img"
-          />
-          <p class="chats__menue-item-action">Изменить аватар чата</p>
-        </div>
+    {{!-- <menu class="chats__menu">
+      <div class="chats__menu-content display-none" id="chats">
+        {{#each topMenuButtons}}
+          <div class="chats__menue-item" id={{actionId}}>
+            <img
+              src={{iconSvg}}
+              alt="Создать чат"
+              class="chats__menue-item-img"
+            />
+            <p class="chats__menue-item-action">{{actionTitle}}</p>
+          </div>
+        {{/each}}
       </div>
       <div class="chats__menu-content display-none" id="one-chat">
-        <div class="chats__menue-item">
-          <img
-            src={{svgDefault.svgCreateChat}}
-            alt="Добавить пользователя"
-            class="chats__menue-item-img"
-          />
-          <p class="chats__menue-item-action">Добавить пользователя</p>
-        </div>
-        <div class="chats__menue-item">
-          <img
-            src={{svgDefault.svgDeleteChat}}
-            alt="Удалить пользователя"
-            class="chats__menue-item-img"
-          />
-          <p class="chats__menue-item-action">Удалить пользователя</p>
-        </div>
+        {{#each chatsTopMenuButtons}}
+          <div class="chats__menue-item" id={{actionId}}>
+            <img
+              src={{iconSvg}}
+              alt="Создать чат"
+              class="chats__menue-item-img"
+            />
+            <p class="chats__menue-item-action">{{actionTitle}}</p>
+          </div>
+        {{/each}}
       </div>
-    </menu>
+    </menu> --}}
+    {{{topMenuButtons}}}
     <section class="chats__body">
       <div class="chats__messages">
-        <menu class="file-menu">
+        <menu class="file-menu display-none">
           <div class="chats__menu-content">
-            <div class="chats__menue-item">
-              <img
-                src={{svgDefault.svgAddVideoOrFoto}}
-                alt="Фото или видео"
-                class="chats__menue-item-img"
-              />
-              <p class="chats__menue-item-action">Фото или видео</p>
-            </div>
-            <div class="chats__menue-item">
-              <img
-                src={{svgDefault.svgAddFile}}
-                alt="Файл"
-                class="chats__menue-item-img"
-              />
-              <p class="chats__menue-item-action">Файл</p>
-            </div>
-            <div class="chats__menue-item">
-              <img
-                src={{svgDefault.svgAddLocation}}
-                alt="Локация"
-                class="chats__menue-item-img"
-              />
-              <p class="chats__menue-item-action">Локация</p>
-            </div>
+            {{#each bottomMenuButtons}}
+              <div class="chats__menue-item" id={{actionId}}>
+                <img
+                  src={{iconSvg}}
+                  alt="Создать чат"
+                  class="chats__menue-item-img"
+                />
+                <p class="chats__menue-item-action">{{actionTitle}}</p>
+              </div>
+            {{/each}}
           </div>
         </menu>
       </div>
-      <footer class="chats__footer">
+      <form class="chats__footer" id="chats__send-msg-form">
         <img
           class="chats__file-menu"
           src={{svgDefault.svgSendFile}}
@@ -157,7 +102,7 @@
             alt="Прикрепить файл"
           />
         </button>
-      </footer>
+      </form>
     </section>
     <div class="chats__no-chat-selection display-none">
       <p class="chats__no-chat-selection-p">
@@ -166,3 +111,4 @@
     </div>
   </main>
 </div>
+{{{modal}}}

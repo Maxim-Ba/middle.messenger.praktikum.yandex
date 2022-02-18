@@ -19,6 +19,7 @@ export class Block {
 
   constructor(tagName: string = "template", propsAndChildren: object = {}) {
     const eventBus = new EventBus();
+    this._id = makeUUID();
     const { children, props } = this._getChildren(propsAndChildren);
     this._meta = {
       tagName,
@@ -26,9 +27,7 @@ export class Block {
     };
 
     this.children = children;
-    console.log(children);
 
-    this._id = makeUUID();
     this.props = this._makePropsProxy({ ...props, _id: this._id });
 
     this.eventBus = () => eventBus;
@@ -51,20 +50,23 @@ export class Block {
   }
 
   private _removeEvents() {
-    //NEW!!!
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      this._element.removeEventListener(eventName, events[eventName]);
+      this._element.content.firstChild?.removeEventListener(
+        eventName,
+        events[eventName],
+      );
     });
   }
-
   private _addEvents() {
-    //NEW!!!
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      this._element.addEventListener(eventName, events[eventName]);
+      this._element.content.firstChild?.addEventListener(
+        eventName,
+        events[eventName],
+      );
     });
   }
 
@@ -86,24 +88,24 @@ export class Block {
   }
 
   private _componentDidMount(oldProps) {
-    this.componentDidMount(oldProps);
+    this.componentDidMount();
 
     Object.values(this.children).forEach((child) => {
       child.dispatchComponentDidMount();
     });
   }
 
-  componentDidMount(oldProps) {}
+  componentDidMount() {}
 
-  dispatchComponentDidMount() {
-    console.log("dispatchComponentDidMount");
-  }
+  dispatchComponentDidMount() {}
 
   private _componentDidUpdate(oldProps, newProps) {
     const response = this.componentDidUpdate(oldProps, newProps);
+    if (response) {
+      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+    }
   }
 
-  // Может переопределять пользователь, необязательно трогать
   componentDidUpdate(oldProps, newProps) {
     return true;
   }
@@ -124,20 +126,19 @@ export class Block {
   private _render() {
     const block = this.render();
 
-    this._removeEvents(); //NEW!!!
+    this._removeEvents();
     this._element.innerHTML = "";
     this._element.content.appendChild(block);
     this._addEvents();
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  // Может переопределять пользователь, необязательно трогать
   render() {
     const fragment = document.createElement("template");
     const p = document.createElement("p");
     p.textContent = "Заглушка";
     fragment.content.append(p);
-    return fragment;
+    return fragment.content;
   }
 
   getContent() {
@@ -177,18 +178,13 @@ export class Block {
     const templateResult = template(propsAndStubs);
 
     fragment.innerHTML = templateResult;
-    // до сюда работает правильно
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-      // console.log(stub, "<-stub1");
-      // console.log(child.getContent(), "<-child.getContent()");
 
       const cloneChildNode = child.getContent().content;
-      console.log(cloneChildNode, "<-cloneChildNode");
 
       stub.replaceWith(cloneChildNode);
     });
-    // console.log(fragment.innerHTML, "<-fragment2.content");
 
     return fragment.content;
   }

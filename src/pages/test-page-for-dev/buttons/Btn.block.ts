@@ -10,7 +10,5 @@ export class Btn extends Block {
   render() {
     return this.compile(template, this.props);
   }
-  componentDidMount() {
-    console.log("componentDidMount", "Btn");
-  }
+  componentDidMount() {}
 }

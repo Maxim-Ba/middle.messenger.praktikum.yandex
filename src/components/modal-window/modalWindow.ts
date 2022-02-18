@@ -1,10 +1,13 @@
 import { ModalWindowBlock } from "./ModalWindow.block";
-import { render } from "../../utils/renderDOM";
 
 export const modalWindow = new ModalWindowBlock({
   events: {
-    click: (event) => {
-      event.target.classList.toggle("display-none");
+    click: (event: Event) => {
+      const modal = document.querySelector("#modal-window");
+      const modalWrapper = document.getElementById("modal-window__wrapper");
+      if (event.target === modalWrapper) {
+        modal?.classList.add("display-none");
+      }
     },
   },
 });

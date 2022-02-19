@@ -1,7 +1,14 @@
-console.log("login is load");
-import loginTemplate from "./login.hbs";
+import { render } from "../../utils/renderDOM";
+import { Login } from "./Login.block";
+import { loginState } from "./login.state";
+import { input } from "../../components/input/input";
 
-const root = document.getElementById("root");
-if (root) {
-  root.innerHTML = loginTemplate();
-}
+const login = new Login({
+  events: {
+    click: (event: Event) => {},
+  },
+  ...loginState,
+  input,
+});
+
+render("#root", login);

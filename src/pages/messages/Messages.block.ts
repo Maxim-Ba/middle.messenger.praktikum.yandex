@@ -1,7 +1,7 @@
 import { Block } from "../../modules/Block";
-import template from "./chats.hbs";
+import template from "./messages.hbs";
 
-export class Chats extends Block {
+export class Messages extends Block {
   constructor(props) {
     super("template", props, true);
   }

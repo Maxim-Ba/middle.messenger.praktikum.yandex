@@ -16,8 +16,13 @@ export class Block {
   props: any;
   private _id: any;
   children: {} | BlockType;
+  isDeliverPropsChild: boolean;
 
-  constructor(tagName: string = "template", propsAndChildren: object = {}) {
+  constructor(
+    tagName: string = "template",
+    propsAndChildren: object = {},
+    isDeliverPropsChild: boolean = false,
+  ) {
     const eventBus = new EventBus();
     this._id = makeUUID();
     const { children, props } = this._getChildren(propsAndChildren);
@@ -25,7 +30,7 @@ export class Block {
       tagName,
       props,
     };
-
+    this.isDeliverPropsChild = isDeliverPropsChild;
     this.children = children;
 
     this.props = this._makePropsProxy({ ...props, _id: this._id });
@@ -83,11 +88,12 @@ export class Block {
   }
 
   init() {
+    this.isDeliverPropsChild && this._deliverPropsToChildren(); //прокидываем пропсы в child
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  private _componentDidMount(oldProps) {
+  private _componentDidMount() {
     this.componentDidMount();
 
     Object.values(this.children).forEach((child) => {
@@ -107,7 +113,7 @@ export class Block {
   }
 
   componentDidUpdate(oldProps, newProps) {
-    return true;
+    return oldProps !== newProps;
   }
 
   setProps = (nextProps) => {
@@ -119,17 +125,27 @@ export class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDU);
   };
 
+  private _deliverPropsToChildren() {
+    //прокидываем пропсы в child
+    Object.entries(this.children).forEach(([key, child]) => {
+      child.props.parentsProps = { ...this.props };
+    });
+  }
   get element() {
     return this._element;
   }
 
   private _render() {
     const block = this.render();
-
     this._removeEvents();
     this._element.innerHTML = "";
+
     this._element.content.appendChild(block);
     this._addEvents();
+
+    console.log(this, "this._element");
+    console.log(this._element.content, "this._element.content");
+
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
@@ -162,7 +178,7 @@ export class Block {
   }
 
   private _createDocumentElement(tagName) {
-    const element = document.createElement(tagName);
+    const element: HTMLTemplateElement = document.createElement(tagName);
     element.setAttribute("data-id", this._id);
     return element;
   }
@@ -176,14 +192,13 @@ export class Block {
 
     const fragment = this._createDocumentElement("template");
     const templateResult = template(propsAndStubs);
-
     fragment.innerHTML = templateResult;
+
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
       const cloneChildNode = child.getContent().content;
-
-      stub.replaceWith(cloneChildNode);
+      stub?.replaceWith(cloneChildNode);
     });
 
     return fragment.content;

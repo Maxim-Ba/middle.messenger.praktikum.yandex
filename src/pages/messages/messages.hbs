@@ -5,10 +5,7 @@
         <a class="chats__link-to-profile" href="../profile/profile.html">
           Профиль</a>
       </button>
-      <button
-        class="button chats__button button_b-r-5px button_grey"
-        id="search"
-      >
+      <button class="button chats__button button_b-r-5px button_grey">
         <img src={{svgDefault.svgSearch}} alt="Поиск" class="chats__img" />
         Поиск
       </button>
@@ -32,13 +29,45 @@
   <main class="chats">
     <header class="chats__header">
       <div class="chats__current-chat">
+        <img
+          class="chats__current-chat-pic"
+          src={{svgDefault.svgDefaultChatPic}}
+          alt="картинка выбраного чата"
+        />
+        <p class="chats__current-chat-name">Андрей</p>
       </div>
       <img class="chats__menu-btn" src={{svgDefault.svgMenu}} alt="меню" />
     </header>
-
     {{{topMenu}}}
 
-    <div class="chats__no-chat-selection">
+    <section class="chats__body">
+      <div class="chats__messages">
+        {{{bottomMenu}}}
+        {{{message}}}
+      </div>
+      <form class="chats__footer" id="chats__send-msg-form">
+        <img
+          class="chats__file-menu"
+          src={{svgDefault.svgSendFile}}
+          alt="Прикрепить
+    файл"
+        />
+        <input
+          name="message"
+          class="chats__input"
+          type="text"
+          placeholder="Сообщение"
+        />
+        <button class="chats__send-btn">
+          <img
+            class="chats__send"
+            src={{svgDefault.svgArrowRight}}
+            alt="Прикрепить файл"
+          />
+        </button>
+      </form>
+    </section>
+    <div class="chats__no-chat-selection display-none">
       <p class="chats__no-chat-selection-p">
         Выберите чат чтобы отправить сообщение
       </p>

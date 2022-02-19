@@ -1,6 +1,5 @@
-import { topMenuButtons } from "./components/menu/topMenuButtons";
+import { topMenu } from "./components/menu/topMenu";
 import { chatCards } from "./components/chat-card/chatCard";
-import { chatsMenuButton } from "./components/chatMenuButton/chat-menu-button";
 import { chatsState, EnumChatActions } from "./chats.state";
 import { Chats } from "./Chats.block";
 import { modalWindow } from "../../components/modal-window/modalWindow";
@@ -10,31 +9,23 @@ const chats = new Chats({
   ...chatsState,
   events: {
     click: (event: Event) => {
-      const modal = document.querySelector("#modal-window");
-      const msgMenuBtn = document.querySelector(".chats__file-menu");
       const chatsMenuBtn = document.querySelector(".chats__menu-btn");
-      const fileMenu = document.querySelector(".file-menu");
       const chatsMenu = document.querySelector("#chats");
-      const createChat = document.querySelector(
-        `#${EnumChatActions.CREATE_CHAT}`,
-      );
+      const search = document.querySelector("#search");
+      const searchField = document.querySelector(".chats__search");
       switch (event.target) {
-        case msgMenuBtn:
-          fileMenu?.classList.toggle("display-none");
-          break;
         case chatsMenuBtn:
           chatsMenu?.classList.toggle("display-none");
           break;
-        case createChat:
-          modal?.classList.remove("display-none");
-
+        case search:
+          searchField?.classList.toggle("display-none");
           break;
         default:
           break;
       }
     },
   },
-  topMenuButtons,
+  topMenu,
   modal: modalWindow,
   chatCards,
 });

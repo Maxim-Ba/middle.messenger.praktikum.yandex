@@ -1,27 +1,30 @@
-import profileTemplate from "./profile.hbs";
-import svgAvatarProfile from "../../../static/img/Avatar-profile.svg";
-import svgArrowLeft from "../../../static/img/Arrow.svg";
+import { profileState } from "./profile.state";
+import { Profile } from "./Profile.block";
+import { modalWindow } from "../../components/modal-window/modalWindow";
+import { render } from "../../utils/renderDOM";
+import { passwordForm } from "./components/passwordForm/passwordForm";
+import { controlsBtnsForm } from "./components/controlsBtnsForm/controlsBtnsForm";
+import { controlPassword } from "./components/controlPassword/controlPassword";
 
-import { modal } from "../../components/modal-window/modalWindow.partial";
-import { ModalWindow } from "../../components/modal-window/modalWindow.main";
-
-const root = document.getElementById("root");
-const data = {
-  modal,
-  svg: {
-    svgAvatarProfile,
-    svgArrowLeft,
+const profile = new Profile({
+  ...profileState,
+  events: {
+    click: (event: Event) => {
+      const modal = document.querySelector("#modal-window");
+      const openModalWindowBtn = document.getElementsByClassName("img_round profile__img") || [];
+      switch (event.target) {
+        case openModalWindowBtn[0]: //[0]
+          modal?.classList.remove("display-none");
+          break;
+        default:
+          break;
+      }
+    },
   },
-};
-if (root) {
-  root.innerHTML = profileTemplate(data);
-}
-
-const modalWindowEl = document.getElementById("modal-window");
-const openModalWindowBtns =
-  root?.getElementsByClassName("img_round profile__img") || [];
-
-const modalWindow = new ModalWindow(modalWindowEl);
-[...openModalWindowBtns].forEach((btn) => {
-  modalWindow.bindActionsOnButton(btn, "AVATAR_PROFILE");
+  modal: modalWindow,
+  passwordForm,
+  controlsBtnsForm,
+  controlPassword
 });
+
+render("#root", profile);

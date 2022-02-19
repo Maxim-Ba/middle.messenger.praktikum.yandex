@@ -6,7 +6,7 @@
       </h1>
     </div>
     <form class="form" id="login-form">
-      <label class="form-label" for="login">
+      {{! <label class="form-label" for="login">
         Логин
       </label>
       <input name="login" class="input" type="text" placeholder="Логин" />
@@ -18,7 +18,9 @@
         class="input"
         type="password"
         placeholder="Пароль"
-      />
+      /> }}
+      {{{input}}}
+
       <div class="form-warning form-warning_pt-3rem" id="login__form-warning">
         <p class="form-warning-text">Неверный логин или пароль</p>
       </div>

@@ -8,7 +8,5 @@ export class ControlPassword extends Block {
   render() {
     return this.compile(template, this.props);
   }
-  componentDidMount() {
-    console.log("componentDidMount", "ControlPassword");
-  }
+  componentDidMount() {}
 }

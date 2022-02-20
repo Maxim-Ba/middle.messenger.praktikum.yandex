@@ -103,17 +103,28 @@ export class Block {
 
   componentDidMount() {}
 
-  dispatchComponentDidMount() {}
+  dispatchComponentDidMount() {
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+  }
 
   private _componentDidUpdate(oldProps, newProps) {
     const response = this.componentDidUpdate(oldProps, newProps);
+    console.log(response);
+
     if (response) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  componentDidUpdate(oldProps, newProps) {
-    return oldProps !== newProps;
+  componentDidUpdate(oldProps: any, newProps: any): boolean {
+    const result: boolean[] = [];
+    Object.keys(newProps).forEach((newPropKey) => {
+      console.log(oldProps[newPropKey], "oldProps[newPropKey]");
+      console.log(newProps[newPropKey], "newProps[newPropKey]");
+
+      result.push(oldProps[newPropKey] === newProps[newPropKey]);
+    });
+    return result.some((item) => item === false);
   }
 
   setProps = (nextProps) => {
@@ -122,7 +133,9 @@ export class Block {
     }
 
     Object.assign(this.props, nextProps);
-    this.eventBus().emit(Block.EVENTS.FLOW_CDU);
+    console.log(this.props, "_______");
+    // this._componentDidUpdate(this.props, nextProps);
+    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   };
 
   private _deliverPropsToChildren() {
@@ -139,12 +152,11 @@ export class Block {
     const block = this.render();
     this._removeEvents();
     this._element.innerHTML = "";
-
     this._element.content.appendChild(block);
     this._addEvents();
 
-    console.log(this, "this._element");
-    console.log(this._element.content, "this._element.content");
+    // console.log(this, "this._element");
+    // console.log(this._element.content, "this._element.content");
 
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
@@ -171,6 +183,9 @@ export class Block {
         target[prop] = val;
         self.eventBus().emit(Block.EVENTS.FLOW_RENDER);
         return true;
+      },
+      get(target, prop) {
+        return target[prop];
       },
     });
 

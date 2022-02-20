@@ -8,7 +8,5 @@ export class PasswordForm extends Block {
   render() {
     return this.compile(template, this.props);
   }
-  componentDidMount() {
-    console.log("componentDidMount", "PasswordForm");
-  }
+  componentDidMount() {}
 }

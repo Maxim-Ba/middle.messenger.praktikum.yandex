@@ -158,8 +158,9 @@ export class Block {
     this._removeEvents();
     this._element.innerHTML = "";
     console.log(this._element, " this._element");
+    this._element.replaceWith(this.tmpBlock);
 
-    this._element.appendChild(this.tmpBlock);
+    // this._element.appendChild(this.tmpBlock);
     this._addEvents();
 
     // console.log(this, "this._element");

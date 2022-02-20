@@ -4,23 +4,16 @@ import template from "./profile.hbs";
 export class Profile extends Block {
   // modalWindow: HTMLElement;
   constructor(props) {
-    super("template", props);
+    super("div", props, true);
   }
   render() {
     return this.compile(template, this.props);
   }
   componentDidMount() {
-    // console.log("componentDidMount", "Profile");
-    // console.log(this.modalWindow, "this.modalWindow");
+    console.log(this.props, "profile.propsooooooooooooooooooooooo");
+    // this.element.replaceWith(this.tmpBlock);
   }
   changeDisabledInput() {
     this.setProps({ disabledInputs: false });
   }
-  // componentDidUpdate(oldProps: any, newProps: any): boolean {
-  //   const result: boolean[] = [];
-  //   Object.keys(oldProps).forEach((oldPropKey) => {
-  //     result.push(oldProps[oldPropKey] === newProps[oldPropKey]);
-  //   });
-  //   return result.some((item) => item === false);
-  // }
 }

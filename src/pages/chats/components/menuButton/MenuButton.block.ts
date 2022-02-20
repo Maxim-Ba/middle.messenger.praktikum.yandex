@@ -3,7 +3,7 @@ import template from "./menu-button.hbs";
 
 export class MenuButtons extends Block {
   constructor(props) {
-    super("template", props);
+    super("div", props);
   }
   render() {
     return this.compile(template, this.props);

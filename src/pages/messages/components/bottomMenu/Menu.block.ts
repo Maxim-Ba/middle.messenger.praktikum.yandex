@@ -3,7 +3,7 @@ import template from "./bottom-menu.hbs";
 
 export class Menu extends Block {
   constructor(props) {
-    super("template", props);
+    super("div", props);
   }
 
   render() {

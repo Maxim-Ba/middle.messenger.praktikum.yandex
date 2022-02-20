@@ -79,7 +79,7 @@ export const chatsState = {
     {
       name: "Andrey",
       time: "11:22",
-      lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      lastMessage: "aaorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: svgDefaultChatPic,
       newMessageCount: 3,
       isSelected: true,
@@ -89,7 +89,7 @@ export const chatsState = {
       time: "11:33",
       lastMessage: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       imageSrc: svgDefaultChatPic,
-      newMessageCount: 3,
+      newMessageCount: 4,
       isSelected: true,
     },
     {

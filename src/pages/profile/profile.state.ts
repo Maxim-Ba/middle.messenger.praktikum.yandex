@@ -12,5 +12,5 @@ export const profileState = {
   firstNameValue: "NAME",
   secondNameValue: "SECOND",
   displayNameValue: "superMax",
-  phoneNameValue: "89169151748",
+  phoneNameValue: "+7 (123) 456-78-90",
 };

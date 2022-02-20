@@ -5,7 +5,9 @@ import { input } from "../../components/input/input";
 
 const login = new Login({
   events: {
-    click: (event: Event) => {},
+    click: (event: Event) => {
+      console.log(123);
+    },
   },
   ...loginState,
   input,

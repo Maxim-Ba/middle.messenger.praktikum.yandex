@@ -4,7 +4,7 @@ import template from "./registration.hbs";
 export class Registration extends Block {
   registration: HTMLElement | null;
   constructor(props) {
-    super("template", props, true);
+    super("div", props, true);
   }
   render() {
     return this.compile(template, this.props);

@@ -17,9 +17,10 @@ export class Block {
   private _id: any;
   children: {} | BlockType;
   isDeliverPropsChild: boolean;
+  tmpBlock: HTMLElement;
 
   constructor(
-    tagName: string = "template",
+    tagName: string = "div",
     propsAndChildren: object = {},
     isDeliverPropsChild: boolean = false,
   ) {
@@ -58,7 +59,7 @@ export class Block {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      this._element.content.firstChild?.removeEventListener(
+      this._element.firstElementChild?.removeEventListener(
         eventName,
         events[eventName],
       );
@@ -68,7 +69,7 @@ export class Block {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      this._element.content.firstChild?.addEventListener(
+      this._element.firstElementChild?.addEventListener(
         eventName,
         events[eventName],
       );
@@ -119,8 +120,8 @@ export class Block {
   componentDidUpdate(oldProps: any, newProps: any): boolean {
     const result: boolean[] = [];
     Object.keys(newProps).forEach((newPropKey) => {
-      console.log(oldProps[newPropKey], "oldProps[newPropKey]");
-      console.log(newProps[newPropKey], "newProps[newPropKey]");
+      // console.log(oldProps[newPropKey], "oldProps[newPropKey]");
+      // console.log(newProps[newPropKey], "newProps[newPropKey]");
 
       result.push(oldProps[newPropKey] === newProps[newPropKey]);
     });
@@ -149,10 +150,16 @@ export class Block {
   }
 
   private _render() {
-    const block = this.render();
+    this.tmpBlock = this.render();
+    console.log(this.tmpBlock, "1111111");
+    console.log(this, "22222222");
+    console.log(this._element, " this._element");
+
     this._removeEvents();
     this._element.innerHTML = "";
-    this._element.content.appendChild(block);
+    console.log(this._element, " this._element");
+
+    this._element.appendChild(this.tmpBlock);
     this._addEvents();
 
     // console.log(this, "this._element");
@@ -162,11 +169,11 @@ export class Block {
   }
 
   render() {
-    const fragment = document.createElement("template");
+    const fragment = document.createElement("div");
     const p = document.createElement("p");
     p.textContent = "Заглушка";
-    fragment.content.append(p);
-    return fragment.content;
+    fragment.append(p);
+    return fragment;
   }
 
   getContent() {
@@ -193,7 +200,7 @@ export class Block {
   }
 
   private _createDocumentElement(tagName) {
-    const element: HTMLTemplateElement = document.createElement(tagName);
+    const element = document.createElement(tagName);
     element.setAttribute("data-id", this._id);
     return element;
   }
@@ -205,18 +212,17 @@ export class Block {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
 
-    const fragment = this._createDocumentElement("template");
-    const templateResult = template(propsAndStubs);
-    fragment.innerHTML = templateResult;
+    const div = this._createDocumentElement("div");
+    div.innerHTML = template(propsAndStubs);
 
     Object.values(this.children).forEach((child) => {
-      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+      const stub = div.querySelector(`[data-id="${child._id}"]`);
+      console.log(child.getContent());
 
-      const cloneChildNode = child.getContent().content;
-      stub?.replaceWith(cloneChildNode);
+      stub?.replaceWith(child.getContent());
     });
 
-    return fragment.content;
+    return div.firstElementChild;
   }
 
   show() {

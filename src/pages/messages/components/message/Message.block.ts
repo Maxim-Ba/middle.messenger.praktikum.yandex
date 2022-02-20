@@ -3,7 +3,7 @@ import template from "./message.hbs";
 
 export class Message extends Block {
   constructor(props) {
-    super("template", props, true);
+    super("div", props, true);
   }
   render() {
     return this.compile(template, this.props);

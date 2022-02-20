@@ -3,7 +3,7 @@ import template from "./modalWindow.hbs";
 
 export class ModalWindowBlock extends Block {
   constructor(props) {
-    super("template", props);
+    super("div", props);
   }
 
   render() {

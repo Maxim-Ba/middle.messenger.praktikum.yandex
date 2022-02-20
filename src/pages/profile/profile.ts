@@ -30,7 +30,6 @@ const profile = new Profile({
 
           break;
         case changeDataBtns[1]:
-          // const dataForm = document.querySelector("#profile");
           console.log(changeDataBtns[1]);
           break;
         case changeDataBtns[2]:
@@ -48,3 +47,4 @@ const profile = new Profile({
 });
 
 render("#root", profile);
+console.log(profile);

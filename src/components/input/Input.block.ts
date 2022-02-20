@@ -3,13 +3,10 @@ import template from "./input.hbs";
 
 export class Input extends Block {
   constructor(props) {
-    super("template", props);
+    super("div", props);
   }
   render() {
     return this.compile(template, this.props);
   }
-  componentDidMount() {
-    console.log(this, "<-aaaaaaaaaaaaaaaa");
-    console.log(this.props.parentsProps, "=parentsProps");
-  }
+  componentDidMount() {}
 }

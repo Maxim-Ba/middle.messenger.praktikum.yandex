@@ -3,7 +3,7 @@ import template from "./chat-card.hbs";
 
 export class ChatCard extends Block {
   constructor(props) {
-    super("template", props);
+    super("div", props);
   }
 
   render() {

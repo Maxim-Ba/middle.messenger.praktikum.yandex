@@ -13,7 +13,7 @@
 
         <form class="profile__form" id="profile">
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="email">Почта</label>
+            <label class="profile__label mb-1rem" for="email">Почта {{disabledInputs}}</label>
             {{#if disabledInputs}}
               <input disabled class="profile__input mb-1rem" type="email" name="email" value={{emailValue}} />
             {{else}}
@@ -38,7 +38,7 @@
           </div>
           <div class="profile__field">
             <label class="profile__label mb-1rem" for="phone">Телефон</label>
-            <input disabled class="profile__input mb-1rem" type="text" name="phone" value={{phoneNameValue}} />
+            <input disabled class="profile__input mb-1rem" type="text" name="phone" value="{{phoneNameValue}}"/>
           </div>
         </form>
         {{{passwordForm}}}

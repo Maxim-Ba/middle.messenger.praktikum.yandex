@@ -1,12 +1,16 @@
-{{#each parentsProps.fields}}
-  <label class="form-label" for={{inputName}}>
-    {{inputPlaceholder}}
-  </label>
-  <input
-    name={{inputName}}
-    class="input"
-    type={{inputType}}
-    placeholder={{inputPlaceholder}}
-    id={{inputName}}
-  />
+{{#each fields}}
+  <div class="wrapper-input-and-label">
+    <label class="form-label" for={{inputName}}>
+      {{inputPlaceholder}}
+
+    </label>
+    <input
+      name={{inputName}}
+      class="input"
+      type={{inputType}}
+      placeholder={{inputPlaceholder}}
+      id={{inputName}}
+    />
+  </div>
+
 {{/each}}

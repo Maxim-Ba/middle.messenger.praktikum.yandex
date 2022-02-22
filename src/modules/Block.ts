@@ -1,5 +1,7 @@
 import { EventBus } from "../utils/EventBus";
 import { v4 as makeUUID } from "uuid";
+import * as Handlebars from "handlebars";
+
 export type BlockType = typeof Block;
 
 export class Block {
@@ -9,33 +11,24 @@ export class Block {
     FLOW_RENDER: "flow:render",
     FLOW_CDU: "flow:component-did-update",
   };
-
-  private _element: HTMLTemplateElement;
-  private _meta: null | { tagName: string; props: any } = null;
+  private _element: HTMLElement;
+  private _meta: null | { props: any } = null;
   eventBus: () => EventBus;
   props: any;
-  private _id: any;
-  children: {} | BlockType;
-  isDeliverPropsChild: boolean;
+  public _id: any;
+  children: BlockType;
   tmpBlock: HTMLElement;
 
-  constructor(
-    tagName: string = "div",
-    propsAndChildren: object = {},
-    isDeliverPropsChild: boolean = false,
-  ) {
+  constructor(propsAndChildren: object = {}) {
     const eventBus = new EventBus();
     this._id = makeUUID();
     const { children, props } = this._getChildren(propsAndChildren);
     this._meta = {
-      tagName,
       props,
     };
-    this.isDeliverPropsChild = isDeliverPropsChild;
-    this.children = children;
-
+    this.children = children as BlockType;
     this.props = this._makePropsProxy({ ...props, _id: this._id });
-
+    this.initChildren();
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -59,7 +52,7 @@ export class Block {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      this._element.firstElementChild?.removeEventListener(
+      this._element?.firstElementChild?.removeEventListener(
         eventName,
         events[eventName],
       );
@@ -69,10 +62,7 @@ export class Block {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      this._element.firstElementChild?.addEventListener(
-        eventName,
-        events[eventName],
-      );
+      this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
@@ -83,20 +73,12 @@ export class Block {
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
   }
 
-  private _createResources() {
-    const { tagName } = this._meta as { tagName: string; props: object };
-    this._element = this._createDocumentElement(tagName);
-  }
-
   init() {
-    this.isDeliverPropsChild && this._deliverPropsToChildren(); //прокидываем пропсы в child
-    this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   private _componentDidMount() {
     this.componentDidMount();
-
     Object.values(this.children).forEach((child) => {
       child.dispatchComponentDidMount();
     });
@@ -108,9 +90,11 @@ export class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps, newProps) {
+  private _componentDidUpdate(oldProps: any, newProps: any) {
+    console.log(oldProps, newProps, "_componentDidUpdate");
+
     const response = this.componentDidUpdate(oldProps, newProps);
-    console.log(response);
+    console.log(response, "response");
 
     if (response) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
@@ -119,62 +103,40 @@ export class Block {
 
   componentDidUpdate(oldProps: any, newProps: any): boolean {
     const result: boolean[] = [];
-    Object.keys(newProps).forEach((newPropKey) => {
-      // console.log(oldProps[newPropKey], "oldProps[newPropKey]");
-      // console.log(newProps[newPropKey], "newProps[newPropKey]");
-
-      result.push(oldProps[newPropKey] === newProps[newPropKey]);
-    });
-    return result.some((item) => item === false);
+    return oldProps !== newProps;
   }
 
   setProps = (nextProps) => {
     if (!nextProps) {
       return;
     }
-
     Object.assign(this.props, nextProps);
-    console.log(this.props, "_______");
-    // this._componentDidUpdate(this.props, nextProps);
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   };
 
-  private _deliverPropsToChildren() {
-    //прокидываем пропсы в child
-    Object.entries(this.children).forEach(([key, child]) => {
-      child.props.parentsProps = { ...this.props };
-    });
-  }
   get element() {
     return this._element;
   }
 
   private _render() {
-    this.tmpBlock = this.render();
-    console.log(this.tmpBlock, "1111111");
-    console.log(this, "22222222");
-    console.log(this._element, " this._element");
-
+    const templateString = this.render();
+    const fragment = this.compile(templateString, {
+      ...this.props,
+    });
+    const newElement = fragment.firstElementChild as HTMLElement;
+    if (this._element) {
+      this._removeEvents();
+      this._element.replaceWith(newElement);
+    }
+    this._element = newElement;
     this._removeEvents();
-    this._element.innerHTML = "";
-    console.log(this._element, " this._element");
-    this._element.replaceWith(this.tmpBlock);
 
-    // this._element.appendChild(this.tmpBlock);
     this._addEvents();
-
-    // console.log(this, "this._element");
-    // console.log(this._element.content, "this._element.content");
 
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  render() {
-    const fragment = document.createElement("div");
-    const p = document.createElement("p");
-    p.textContent = "Заглушка";
-    fragment.append(p);
-    return fragment;
+  protected render(): string {
+    return "<div>Stab</div>";
   }
 
   getContent() {
@@ -185,15 +147,19 @@ export class Block {
     const self = this;
     const proxyProps = new Proxy(props, {
       deleteProperty(target, prop) {
-        throw new Error("нет доступа");
+        throw new Error("Нет доступа");
       },
-      set(target, prop, val) {
-        target[prop] = val;
-        self.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+      set(target, prop, value) {
+        target[prop] = value;
+        const oldProps = { ...target };
+        console.log(oldProps);
+
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         return true;
       },
-      get(target, prop) {
-        return target[prop];
+      get(target: Record<string, any>, prop: string) {
+        const value = target[prop];
+        return typeof value === "function" ? value.bind(target) : value;
       },
     });
 
@@ -206,24 +172,22 @@ export class Block {
     return element;
   }
 
-  compile(template: HandlebarsTemplateDelegate<any>, props) {
-    const propsAndStubs = { ...props };
+  compile(templateString: string, context: any) {
+    const fragment = this._createDocumentElement(
+      "template",
+    ) as HTMLTemplateElement;
 
-    Object.entries(this.children).forEach(([key, child]) => {
-      propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
-    });
-
-    const div = this._createDocumentElement("div");
-    div.innerHTML = template(propsAndStubs);
+    const template = Handlebars.compile(templateString);
+    const htmlString = template({ ...context, children: this.children });
+    fragment.innerHTML = htmlString;
 
     Object.values(this.children).forEach((child) => {
-      const stub = div.querySelector(`[data-id="${child._id}"]`);
-      console.log(child.getContent());
+      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
 
       stub?.replaceWith(child.getContent());
     });
 
-    return div.firstElementChild;
+    return fragment.content;
   }
 
   show() {
@@ -233,4 +197,5 @@ export class Block {
   hide() {
     this._element.style.display = "none";
   }
+  protected initChildren() {}
 }

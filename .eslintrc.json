@@ -1,0 +1,48 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-var": 2,
+    "semi": "error",
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "no-multi-spaces": "error",
+    "space-in-parens": "error",
+    "no-multiple-empty-lines": "error",
+    "prefer-const": "error",
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
+    ],
+    "no-undef": "warn",
+    "eol-last": "error",
+    "arrow-body-style": "error",
+    "no-alert": "error",
+    "prefer-destructuring": "warn",
+    "no-empty-function": "warn",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "{}": false
+        }
+      }
+    ]
+  }
+}

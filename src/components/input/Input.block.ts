@@ -1,12 +1,26 @@
 import { Block } from "../../modules/Block";
-import template from "./input.hbs";
 
 export class Input extends Block {
-  constructor(props) {
-    super("div", props);
-  }
+  static getComponentName = "Input";
+
   render() {
-    return this.compile(template, this.props);
+    return `
+      <div class="wrapper-input-and-label">
+        <label class="form-label" for={{inputName}}>
+          {{inputPlaceholder}}
+
+        </label>
+        <input
+          name={{inputName}}
+          class="input"
+          type={{inputType}}
+          placeholder={{inputPlaceholder}}
+          id={{inputName}}
+        />
+        </div>
+    `;
   }
-  componentDidMount() {}
+  componentDidMount() {
+    // console.log("componentDidMount", "login");
+  }
 }

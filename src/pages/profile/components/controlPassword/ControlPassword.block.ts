@@ -10,9 +10,11 @@ export class СonfirmPasswordAndData extends Block {
         click: (event: Event) => {
           if (event.target === document.querySelector(".button_grey")) {
             this.props.isChangeProfileData();
+            this.props.makePasswordFormHidden();
           }
           if (event.target === document.querySelector(".button_blue")) {
-            this.props.isChangeProfileData();
+            // this.props.isChangeProfileData();
+            // this.props.makePasswordFormHidden();
           }
         },
       },
@@ -31,7 +33,7 @@ export class СonfirmPasswordAndData extends Block {
           <button
             class="profile__btn button button_b-r-8px button_blue button_auth"
             type="submit"
-            for="${
+            form="${
               this.props.isPasswordFormVisible ? "profile-password" : "profile"
             }"
           >

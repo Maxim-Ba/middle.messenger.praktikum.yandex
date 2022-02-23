@@ -4,6 +4,8 @@ enum warningMessages {
   second_name = "Фамилия: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, допустим только дефис ",
   email = "не соответствует email ",
   password = "Пароль: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра ",
+  newPassword = "Новый пароль: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра, пароли должны совпадать",
+  oldPassword = "Старый пароль: не должен быть пустым",
   phone = "Тел.:от 10 до 15 символов, может начинается с плюса ",
   message = "не должно быть пустым ",
 }
@@ -59,6 +61,12 @@ export class Validator {
         case "password":
           inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
           break;
+        case "oldPassword":
+          inp.pattern = "^.{1,40}$";
+          break;
+        case "newPassword":
+          inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
+          break;
         case "phone":
           inp.pattern = "^\\+?[\\d]{10,15}$";
           break;
@@ -71,7 +79,6 @@ export class Validator {
     });
   }
   unistal() {
-    console.log("Validator unistal");
     this.formEl.removeEventListener("submit", this.onSubmit);
     this.inputs.forEach((inp) => {
       inp.removeEventListener("focus", this.checkValidity);
@@ -86,7 +93,10 @@ export class Validator {
     if (isValid) {
       this.infoEl?.classList.add("visibility-hidden");
     } else {
-      const wrongInputIndex = [...this.inputs].findIndex((inp) => {
+      const wrongInputIndex = [...this.inputs].findIndex((inp, index) => {
+        if (inp.name === "newPassword") {
+          return inp.value !== this.inputs[index + 1].value;
+        }
         return !inp.validity.valid;
       });
       warningMessage = warningMessages[this.inputs[wrongInputIndex].name];

@@ -96,10 +96,7 @@ export class Block {
   }
 
   private _componentDidUpdate(oldProps: any, newProps: any) {
-    console.log(oldProps, newProps, "_componentDidUpdate");
-
     const response = this.componentDidUpdate(oldProps, newProps);
-    console.log(response, "response");
 
     if (response) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
@@ -159,7 +156,6 @@ export class Block {
       set(target, prop, value) {
         target[prop] = value;
         const oldProps = { ...target };
-        console.log(oldProps);
 
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         return true;

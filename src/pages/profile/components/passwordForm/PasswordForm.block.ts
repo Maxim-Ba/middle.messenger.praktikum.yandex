@@ -8,8 +8,11 @@ export class PasswordForm extends Block {
   }
   render() {
     return `
+    ${
+      this.props.isPasswordFormVisible
+        ? `
     <form
-      class="profile__form display-none profile__form-password"
+      class="profile__form profile__form-password"
       id="profile-password"
     >
       <div class="profile__field">
@@ -21,10 +24,13 @@ export class PasswordForm extends Block {
         <input class="profile__input mb-1rem" type="password" name="newPassword" />
       </div>
       <div class="profile__field">
-        <label class="profile__label" for="">Повторите пароль</label>
-        <input class="profile__input" type="password" />
+        <label class="profile__label" for="password">Повторите пароль</label>
+        <input class="profile__input" type="password" name="password" />
       </div>
     </form>
+    `
+        : ` <div></div>`
+    }
     `;
   }
   componentDidMount() {}

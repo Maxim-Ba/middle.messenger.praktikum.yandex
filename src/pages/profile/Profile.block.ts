@@ -17,6 +17,7 @@ export class Profile extends Block {
           }
           if (event.target === document.getElementById("change-password")) {
             this.props.makePasswordFormVisible();
+            this.props.isChangeProfileData();
           }
         },
       },
@@ -77,7 +78,7 @@ export class Profile extends Block {
               } class="profile__input mb-1rem" type="text" name="phone" value="{{phoneNameValue}}"/>
             </div>
           </form>`
-              : ""
+              : " "
           }
           {{{PasswordForm isPasswordFormVisible=isPasswordFormVisible}}}
           <div class="login__form-warning"><p class="visibility-hidden form-warning form-warning-text" id="form-warning"></p></div>
@@ -85,7 +86,12 @@ export class Profile extends Block {
   
         <div class="profile__control-wrapper">
           {{{ControlBtnsForm disabledInputs=disabledInputs}}}
-          {{{СonfirmPasswordAndData disabledInputs=disabledInputs isChangeProfileData=isChangeProfileData}}}
+          {{{СonfirmPasswordAndData
+            disabledInputs=disabledInputs 
+            isChangeProfileData=isChangeProfileData
+            makePasswordFormHidden=makePasswordFormHidden
+            isPasswordFormVisible=isPasswordFormVisible
+          }}}
         </div>
         
     </main>
@@ -100,6 +106,7 @@ export class Profile extends Block {
   componentDidMount(): void {
     const formEl = document.querySelector("form");
     const infoEl = document.getElementById("form-warning");
+
     const btnSubmit = document.querySelector("button[type='submit']");
     if (formEl) {
       this.validator = new Validator(

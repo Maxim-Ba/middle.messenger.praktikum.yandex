@@ -33,7 +33,12 @@ const profile = new Profile({
   },
   makePasswordFormVisible() {
     profile.setProps({
-      isPasswordFormVisible: !profile.props.isPasswordFormVisible,
+      isPasswordFormVisible: true,
+    });
+  },
+  makePasswordFormHidden() {
+    profile.setProps({
+      isPasswordFormVisible: false,
     });
   },
 });

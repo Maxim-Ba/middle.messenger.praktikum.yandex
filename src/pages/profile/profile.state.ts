@@ -12,5 +12,15 @@ export const profileState = {
   firstNameValue: "NAME",
   secondNameValue: "SECOND",
   displayNameValue: "superMax",
-  phoneNameValue: "+7 (123) 456-78-90",
+  phoneNameValue: "+71234567890",
+  modalWindow: {
+    create: false,
+    delete: false,
+    change: false,
+    changeAva: false,
+    addUser: false,
+    deleteUser: false,
+  },
+  isOpenWindow: false,
+  isPasswordFormVisible: false,
 };

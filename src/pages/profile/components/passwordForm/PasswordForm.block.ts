@@ -1,12 +1,31 @@
 import { Block } from "../../../../modules/Block";
-import template from "./passwordForm.hbs";
 
 export class PasswordForm extends Block {
+  static getComponentName = "PasswordForm";
+
   constructor(props) {
-    super("div", props);
+    super({ ...props });
   }
   render() {
-    return this.compile(template, this.props);
+    return `
+    <form
+      class="profile__form display-none profile__form-password"
+      id="profile-password"
+    >
+      <div class="profile__field">
+        <label class="profile__label mb-1rem" for="oldPassword">Старый пароль</label>
+        <input class="profile__input mb-1rem" type="password" name="oldPassword" />
+      </div>
+      <div class="profile__field">
+        <label class="profile__label mb-1rem" for="newPassword">Новый пароль</label>
+        <input class="profile__input mb-1rem" type="password" name="newPassword" />
+      </div>
+      <div class="profile__field">
+        <label class="profile__label" for="">Повторите пароль</label>
+        <input class="profile__input" type="password" />
+      </div>
+    </form>
+    `;
   }
   componentDidMount() {}
 }

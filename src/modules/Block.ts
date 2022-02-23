@@ -10,6 +10,7 @@ export class Block {
     FLOW_CDM: "flow:component-did-mount",
     FLOW_RENDER: "flow:render",
     FLOW_CDU: "flow:component-did-update",
+    FLOW_CWU: "flow:component-will-unmount",
   };
   private _element: HTMLElement;
   private _meta: null | { props: any } = null;
@@ -71,12 +72,16 @@ export class Block {
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
   }
 
   init() {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
-
+  private _componentWillUnmount() {
+    this.componentWillUnmount();
+  }
+  protected componentWillUnmount() {}
   private _componentDidMount() {
     this.componentDidMount();
     Object.values(this.children).forEach((child) => {
@@ -118,6 +123,8 @@ export class Block {
   }
 
   private _render() {
+    this.eventBus().emit(Block.EVENTS.FLOW_CWU);
+
     const templateString = this.render();
     const fragment = this.compile(templateString, {
       ...this.props,

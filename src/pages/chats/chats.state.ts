@@ -11,9 +11,9 @@ import svgSendFile from "../../../static/img/Image.svg";
 import svgArrowRight from "../../../static/img/Arrow-right.svg";
 
 export enum EnumChatActions {
-  CREATE_CHAT = "create-chat",
-  DELETE_CHAT = "delete-chat",
-  CHANGE_CHAT_AVA = "change-chat-ava",
+  CREATE_CHAT = "create",
+  DELETE_CHAT = "delete",
+  CHANGE_CHAT_AVA = "change",
   ADD_USER = "add-user",
   DELETE_USER = "delete-user",
   FOTO_OR_VIDEO = "foto-or-video",
@@ -168,4 +168,15 @@ export const chatsState = {
       newMessageCount: 6,
     },
   ],
+  modalWindow: {
+    create: false,
+    delete: false,
+    change: false,
+    changeAva: false,
+    addUser: false,
+    deleteUser: false,
+  },
+  isOpenWindow: false,
+  isOpenMenu: false,
+  isOpenSearchField: false,
 };

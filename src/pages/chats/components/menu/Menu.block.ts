@@ -1,20 +1,37 @@
 import { Block } from "../../../../modules/Block";
-import template from "./menu.hbs";
 
 export class Menu extends Block {
   static getComponentName = "Menu";
-  constructor({ topMenuButtons, onClick }) {
+  constructor({ topMenuButtons, actionsBtn, isOpenMenu }) {
     super({
       topMenuButtons,
+      actionsBtn,
+      isOpenMenu,
       events: {
-        click: onClick,
+        click: (event: Event) => {
+          switch (event.target) {
+            case document.getElementById("create"):
+              actionsBtn["create"]();
+              break;
+            case document.getElementById("delete"):
+              actionsBtn["delete"]();
+              break;
+            case document.getElementById("change"):
+              actionsBtn["change"]();
+              break;
+            default:
+              break;
+          }
+        },
       },
     });
   }
   render() {
     return `
-    <menu class="chats__menu">
-    <div class="chats__menu-content display-none" id="chats">
+    <menu class="chats__menu ${
+      this.props.isOpenMenu ? "" : "display-none"
+    }" id="chats">
+    <div class="chats__menu-content">
       {{#each topMenuButtons}}
         <div class="chats__menue-item" id={{actionId}}>
           <img src={{iconSvg}} alt="#" class="chats__menue-item-img" />
@@ -26,5 +43,4 @@ export class Menu extends Block {
   
   `;
   }
-  componentDidMount(): void {}
 }

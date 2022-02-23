@@ -1,31 +1,18 @@
-import { ModalWindowBlock } from "../../components/modal-window/ModalWindow.block";
 import { Block } from "../../modules/Block";
-import { Menu } from "./components/menu/Menu.block";
 
 export class Chats extends Block {
   static getComponentName = "Chats";
 
   constructor(props) {
-    super({ ...props });
-  }
-  initChildren() {
-    this.children.modal = new ModalWindowBlock({
+    super({
+      ...props,
       events: {
         click: (event: Event) => {
-          console.log("input click");
+          if (event.target === document.getElementById("search")) {
+            this.props.openSearchField();
+          }
         },
       },
-    });
-    this.children.chatCards = new ModalWindowBlock({
-      events: {
-        click: (event: Event) => {
-          console.log("input click");
-        },
-      },
-    });
-    this.children.menu = new Menu({
-      onClick: this.props.onClick,
-      topMenuButtons: this.props.topMenuButtons as Array<any>,
     });
   }
 
@@ -45,7 +32,9 @@ export class Chats extends Block {
           <img src={{svgDefault.svgSearch}} alt="Поиск" class="chats__img" />
           Поиск
         </button>
-        <div class="chats__search display-none">
+        <div class="chats__search ${
+          this.props.isOpenSearchField ? "" : "display-none"
+        } ">
           <img
             src={{svgDefault.svgSearch}}
             alt="Поиск"
@@ -58,18 +47,21 @@ export class Chats extends Block {
           />
         </div>
       </div>
-      <div class="chats__list-of-chats">
-        {{{chatCards}}}
-      </div>
+        {{{ChatCard chats=chats}}}
     </aside>
     <main class="chats">
       <header class="chats__header">
         <div class="chats__current-chat">
         </div>
-        <img class="chats__menu-btn" src={{svgDefault.svgMenu}} alt="меню" />
+        {{{TopButton openMenu=openMenu svgDefault=svgDefault }}}
       </header>
   
-      {{{Menu topMenuButtons=this.children.menu.props.topMenuButtons onClick=onClick}}}
+      {{{Menu 
+        topMenuButtons=topMenuButtons 
+        onClick=onClick 
+        actionsBtn = actionsBtn
+        isOpenMenu=isOpenMenu
+      }}}
   
       <div class="chats__no-chat-selection">
         <p class="chats__no-chat-selection-p">
@@ -77,13 +69,13 @@ export class Chats extends Block {
         </p>
       </div>
     </main>
-    {{{ModalWindowBlock}}}
+    {{{ModalWindowBlock modalWindow=modalWindow isOpenWindow=isOpenWindow closeWindow=closeWindow}}}
   </div>
   
     `;
   }
 
-  componentDidMount() {
-    console.log({ ...this.props }, "Chats");
+  componentDidUpdate(oldProps: any, newProps: any): boolean {
+    return true;
   }
 }

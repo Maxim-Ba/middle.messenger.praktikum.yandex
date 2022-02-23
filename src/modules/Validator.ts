@@ -1,10 +1,10 @@
 enum warningMessages {
-  login = "от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, (допустимы дефис и нижнее подчёркивание ",
-  first_name = "латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, допустим только дефис ",
-  second_name = "латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, допустим только дефис ",
+  login = "Логин: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, (допустимы дефис и нижнее подчёркивание ",
+  first_name = "Имя: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, допустим только дефис ",
+  second_name = "Фамилия: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, допустим только дефис ",
   email = "не соответствует email ",
-  password = "от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра ",
-  phone = "от 10 до 15 символов, может начинается с плюса ",
+  password = "Пароль: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра ",
+  phone = "Тел.:от 10 до 15 символов, может начинается с плюса ",
   message = "не должно быть пустым ",
 }
 export class Validator {
@@ -15,16 +15,18 @@ export class Validator {
     (message?: any, ...optionalParams: any[]): void;
   };
   infoEl: null | HTMLElement;
+  buttonSubmit: null | HTMLButtonElement;
   constructor(
     formEl: HTMLFormElement,
     actionCB = console.log,
     infoEl: null | HTMLElement = null,
+    buttonSubmit: null | HTMLButtonElement = null,
   ) {
     this.formEl = formEl;
     this.inputs = this.formEl.querySelectorAll("input");
     this.actionCB = actionCB;
     this.infoEl = infoEl;
-
+    this.buttonSubmit = buttonSubmit;
     this.onSubmit = this.onSubmit.bind(this);
     this.checkValidity = this.checkValidity.bind(this);
     this._init();
@@ -58,7 +60,7 @@ export class Validator {
           inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
           break;
         case "phone":
-          inp.pattern = "^+?[d+]{10,15}$";
+          inp.pattern = "^\\+?[\\d]{10,15}$";
           break;
         case "message":
           inp.pattern = "^.+$";
@@ -68,7 +70,8 @@ export class Validator {
       }
     });
   }
-  _unistal() {
+  unistal() {
+    console.log("Validator unistal");
     this.formEl.removeEventListener("submit", this.onSubmit);
     this.inputs.forEach((inp) => {
       inp.removeEventListener("focus", this.checkValidity);
@@ -87,19 +90,17 @@ export class Validator {
         return !inp.validity.valid;
       });
       warningMessage = warningMessages[this.inputs[wrongInputIndex].name];
-      // warningMessage = inp.validity.valid
-      //   ? warningMessage + " \n"
-      //   : warningMessage + warningMessages[inp.name];
-      // });
 
       this.infoEl?.classList.remove("visibility-hidden");
       this.infoEl!.textContent = warningMessage;
     }
-    const button = this.formEl.querySelector(
-      "button[type='submit']",
-    ) as HTMLButtonElement;
+    this.buttonSubmit = this.buttonSubmit
+      ? this.buttonSubmit
+      : (this.formEl.querySelector(
+          "button[type='submit']",
+        ) as HTMLButtonElement);
 
-    button!.disabled = !isValid;
+    this.buttonSubmit!.disabled = !isValid;
   }
 
   onSubmit(event) {

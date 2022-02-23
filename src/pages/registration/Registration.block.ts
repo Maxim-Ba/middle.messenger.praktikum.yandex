@@ -38,16 +38,7 @@ export class Registration extends Block {
   </div>
     `;
   }
-  componentDidUpdate(oldProps: any, newProps: any): boolean {
-    console.log(oldProps, newProps);
-    console.log(this.props, this);
 
-    if (oldProps.value !== newProps.value) {
-      this.children.input.setProps({});
-      return true;
-    }
-    return false;
-  }
   componentDidMount() {
     const formEl = document.getElementById("login-form");
     const infoEl = document.getElementById(

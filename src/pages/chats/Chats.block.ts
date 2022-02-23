@@ -1,19 +1,36 @@
 import { Block } from "../../modules/Block";
+import { Validator } from "../../modules/Validator";
 
 export class Chats extends Block {
   static getComponentName = "Chats";
+  validator: any;
 
   constructor(props) {
     super({
       ...props,
       events: {
-        click: (event: Event) => {
+        click: (event) => {
           if (event.target === document.getElementById("search")) {
             this.props.openSearchField();
+          }
+          if (event.target?.tagName === "CARD") {
+            this.props.selectChat(Number(event.target.id));
+            this.props.openMessages();
+          }
+          if (event.target?.parentNode?.tagName === "CARD") {
+            this.props.selectChat(Number(event.target.parentNode.id));
+            this.props.openMessages();
+          }
+          if (event.target?.parentNode?.parentNode?.tagName === "CARD") {
+            this.props.selectChat(
+              Number(event.target.parentNode?.parentNode?.id),
+            );
+            this.props.openMessages();
           }
         },
       },
     });
+    this.validator = null;
   }
 
   render() {
@@ -52,22 +69,76 @@ export class Chats extends Block {
     <main class="chats">
       <header class="chats__header">
         <div class="chats__current-chat">
+          ${
+            this.props.isMessagesOpen
+              ? `<img
+                class="chats__current-chat-pic"
+                src={{svgDefault.svgDefaultChatPic}}
+                alt="картинка выбраного чата"
+                />
+                <p class="chats__current-chat-name">Андрей</p>`
+              : `<div></div>`
+          }
         </div>
         {{{TopButton openMenu=openMenu svgDefault=svgDefault }}}
       </header>
-  
-      {{{Menu 
-        topMenuButtons=topMenuButtons 
-        onClick=onClick 
-        actionsBtn = actionsBtn
-        isOpenMenu=isOpenMenu
-      }}}
-  
-      <div class="chats__no-chat-selection">
-        <p class="chats__no-chat-selection-p">
-          Выберите чат чтобы отправить сообщение
-        </p>
-      </div>
+      ${
+        !this.props.isMessagesOpen
+          ? `
+        {{{Menu 
+          topMenuButtons=topMenuButtons 
+          onClick=onClick 
+          actionsBtn = actionsBtn
+          isOpenMenu=isOpenMenu
+        }}}
+        `
+          : `
+        {{{MenuMessages 
+          onClick=onClick 
+          actionMessagesBtns = actionMessagesBtns
+          isOpenMenu=isOpenMenu
+          chatsTopMenuButtons=chatsTopMenuButtons
+        }}}
+        `
+      }
+      
+      ${
+        !this.props.isMessagesOpen
+          ? `<div class="chats__no-chat-selection">
+          <p class="chats__no-chat-selection-p">
+            Выберите чат чтобы отправить сообщение
+          </p>
+        </div>`
+          : `<section class="chats__body">
+          <div class="chats__messages">
+            {{{bottomMenu}}}
+            {{{message}}}
+          </div>
+          <form class="chats__footer" id="chats__send-msg-form">
+          <div class="display-none" id="form-warning"></div>
+            <img
+              class="chats__file-menu"
+              src={{svgDefault.svgSendFile}}
+              alt="Прикрепить
+        файл"
+            />
+            <input
+              name="message"
+              class="chats__input"
+              type="text"
+              placeholder="Сообщение"
+            />
+            <button class="chats__send-btn">
+              <img
+                class="chats__send"
+                src={{svgDefault.svgArrowRight}}
+                alt="Прикрепить файл"
+              />
+            </button>
+          </form>
+        </section>`
+      }
+      
     </main>
     {{{ModalWindowBlock modalWindow=modalWindow isOpenWindow=isOpenWindow closeWindow=closeWindow}}}
   </div>
@@ -77,5 +148,25 @@ export class Chats extends Block {
 
   componentDidUpdate(oldProps: any, newProps: any): boolean {
     return true;
+  }
+  componentDidMount(): void {
+    const formEl = document.querySelector("#chats__send-msg-form");
+
+    const infoEl = document.getElementById("form-warning");
+
+    const btnSubmit = document.querySelector(".chats__send-btn");
+    if (formEl) {
+      this.validator = new Validator(
+        formEl as HTMLFormElement,
+        console.log,
+        infoEl as HTMLElement,
+        btnSubmit as HTMLButtonElement,
+      );
+    }
+  }
+  componentWillUnmount(): void {
+    if (this.validator) {
+      this.validator?.unistal();
+    }
   }
 }

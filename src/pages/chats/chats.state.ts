@@ -16,7 +16,7 @@ export enum EnumChatActions {
   CHANGE_CHAT_AVA = "change",
   ADD_USER = "addUser",
   DELETE_USER = "deleteUser",
-  FOTO_OR_VIDEO = "foto-or-video",
+  FOTO_OR_VIDEO = "fotoOrVideo",
   FILE = "file",
   LOCATION = "location",
 }
@@ -206,4 +206,5 @@ export const chatsState = {
   isOpenMenu: false,
   isOpenSearchField: false,
   isMessagesOpen: false,
+  isOpenBottomMenu: false,
 };

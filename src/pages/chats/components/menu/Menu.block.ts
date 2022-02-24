@@ -31,15 +31,15 @@ export class Menu extends Block {
     <menu class="chats__menu ${
       this.props.isOpenMenu ? "" : "display-none"
     }" id="chats">
-    <div class="chats__menu-content">
-      {{#each topMenuButtons}}
-        <div class="chats__menue-item" id={{actionId}}>
-          <img src={{iconSvg}} alt="#" class="chats__menue-item-img" />
-          <p class="chats__menue-item-action">{{actionTitle}}</p>
+        <div class="chats__menu-content">
+          {{#each topMenuButtons}}
+            <div class="chats__menue-item" id={{actionId}}>
+              <img src={{iconSvg}} alt="#" class="chats__menue-item-img" />
+              <p class="chats__menue-item-action">{{actionTitle}}</p>
+            </div>
+          {{/each}}
         </div>
-      {{/each}}
-    </div>
-  </menu>
+    </menu>
   
   `;
   }

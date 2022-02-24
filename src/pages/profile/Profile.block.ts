@@ -1,5 +1,5 @@
 import { Block } from "../../modules/Block";
-import { Validator } from "../../modules/Validator";
+import { Validator } from "../../services/validator/Validator";
 
 export class Profile extends Block {
   static getComponentName = "Profile";

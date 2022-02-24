@@ -1,24 +1,16 @@
-import { Input } from "../../components/input/Input.block";
 import { Block } from "../../modules/Block";
-import { Validator } from "../../modules/Validator";
+import { Validator } from "../../services/validator/Validator";
 import { arrayToChildrenString } from "../../utils/arrayChildrenString";
 import { loginState } from "./login.state";
 
 export class Login extends Block {
   static getComponentName = "Login";
+  validator: Validator;
 
   constructor(props) {
     super(props);
   }
-  initChildren() {
-    this.children.input = new Input({
-      events: {
-        click: (event: Event) => {
-          console.log("input click");
-        },
-      },
-    });
-  }
+
   render() {
     //language html
     return `
@@ -51,21 +43,17 @@ export class Login extends Block {
   </div>`;
   }
   componentDidUpdate(oldProps: any, newProps: any): boolean {
-    console.log(oldProps, newProps);
-    console.log(this.props, this);
-
-    if (oldProps.value !== newProps.value) {
-      this.children.input.setProps({
-        value: newProps.value,
-      });
-      return true;
-    }
-    return false;
+    return true;
   }
   componentDidMount(): void {
     const formEl = document.getElementById("login-form");
     if (formEl) {
-      const validator = new Validator(formEl as HTMLFormElement);
+      this.validator = new Validator(formEl as HTMLFormElement);
+    }
+  }
+  componentWillUnmount(): void {
+    if (this.validator) {
+      this.validator.unistal();
     }
   }
 }

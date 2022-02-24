@@ -1,5 +1,5 @@
 import { Block } from "../../modules/Block";
-import { Validator } from "../../modules/Validator";
+import { Validator } from "../../services/validator/Validator";
 
 export class Chats extends Block {
   static getComponentName = "Chats";
@@ -26,6 +26,9 @@ export class Chats extends Block {
               Number(event.target.parentNode?.parentNode?.id),
             );
             this.props.openMessages();
+          }
+          if (event.target === document.querySelector(".chats__file-menu")) {
+            this.props.openBottomMenu();
           }
         },
       },
@@ -111,7 +114,11 @@ export class Chats extends Block {
         </div>`
           : `<section class="chats__body">
           <div class="chats__messages">
-            {{{bottomMenu}}}
+            {{{BottomMenu
+              isOpenBottomMenu=isOpenBottomMenu
+              bottomMenuButtons=bottomMenuButtons
+              actionsBottomBtn=actionsBottomBtn
+            }}}
             {{{message}}}
           </div>
           <form class="chats__footer" id="chats__send-msg-form">

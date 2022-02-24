@@ -7,12 +7,14 @@ import { Menu } from "./components/menu/Menu.block";
 import { ChatCard } from "./components/chat-card/ChatCard.blok";
 import { TopButton } from "./components/topButton/TopButton.block";
 import { MenuMessages } from "./components/menuMessages/MenuMessages.block";
+import { BottomMenu } from "./components/bottomMenu/BottomMenu.block";
 
 registerComponent(ModalWindowBlock);
 registerComponent(ChatCard);
 registerComponent(Menu);
 registerComponent(TopButton);
 registerComponent(MenuMessages);
+registerComponent(BottomMenu);
 const chats = new Chats({
   ...chatsState,
   actionsBtn: {
@@ -116,6 +118,53 @@ const chats = new Chats({
     chats.setProps({
       isMessagesOpen: true,
     });
+  },
+  openBottomMenu() {
+    chats.setProps({
+      isOpenBottomMenu: !chats.props.isOpenBottomMenu,
+    });
+  },
+  actionsBottomBtn: {
+    fotoOrVideo() {
+      chats.setProps({
+        modalWindow: {
+          create: false,
+          delete: false,
+          change: true,
+          addUser: false,
+          deleteUser: false,
+        },
+        isOpenWindow: true,
+        isOpenMenu: !chats.props.isOpenBottomMenu,
+      });
+    },
+
+    file() {
+      chats.setProps({
+        modalWindow: {
+          create: false,
+          delete: false,
+          change: true,
+          addUser: false,
+          deleteUser: false,
+        },
+        isOpenWindow: true,
+        isOpenMenu: !chats.props.isOpenBottomMenu,
+      });
+    },
+    location() {
+      chats.setProps({
+        modalWindow: {
+          create: false,
+          delete: false,
+          change: true,
+          addUser: false,
+          deleteUser: false,
+        },
+        isOpenWindow: true,
+        isOpenMenu: !chats.props.isOpenBottomMenu,
+      });
+    },
   },
 });
 

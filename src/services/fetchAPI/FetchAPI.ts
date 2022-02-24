@@ -7,7 +7,7 @@ enum METHODS {
 
 function queryStringify(data): string {
   let str = "?";
-  for (let key of Object.keys(data)) {
+  for (const key of Object.keys(data)) {
     let tmp = `${key}=`;
     if (Array.isArray(data[key])) {
       tmp = tmp + data[key].join(",");
@@ -36,11 +36,10 @@ export class HTTPTransport {
 
   get = (url: URL, options: OptionsType = this.options) => {
     let params = "";
-    if (!!options.data) {
+    if (options.data) {
       params = queryStringify(options.data);
     }
     return this.request(
-      //@ts-ignore
       url + params,
       { ...options, method: METHODS.GET },
       options.timeout,
@@ -49,37 +48,22 @@ export class HTTPTransport {
       .catch((err) => console.log(err, "err"));
   };
 
-  put = (url: URL, options: OptionsType = this.options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.PUT },
-      options.timeout,
-    );
-  };
+  put = (url: URL, options: OptionsType = this.options) =>
+    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  post = (url: URL, options: OptionsType = this.options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.POST },
-      options.timeout,
-    );
-  };
+  post = (url: URL, options: OptionsType = this.options) =>
+    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-  delete = (url: URL, options: OptionsType = this.options) => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.DELETE },
-      options.timeout,
-    );
-  };
+  delete = (url: URL, options: OptionsType = this.options) =>
+    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
-  request = (url: URL, options: OptionsType, timeout: number = 5000) => {
+  request = (url: URL, options: OptionsType, timeout = 5000) => {
     const { method, data, headers } = options;
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
       if (headers) {
-        for (let key of Object.keys(headers)) {
+        for (const key of Object.keys(headers)) {
           xhr.setRequestHeader(key, headers[key]);
         }
       }
@@ -95,7 +79,6 @@ export class HTTPTransport {
       if (method === METHODS.GET) {
         xhr.send();
       } else {
-        //@ts-ignore
         xhr.send(data);
       }
     });
@@ -107,14 +90,10 @@ export class HTTPTransport {
       }
       const reqestXHR = this.request(url, options);
       return reqestXHR
-        .then((res) => {
-          return res;
-        })
-        .catch((err) => {
-          return recursiveFetch(url, options, retries - 1);
-        });
+        .then((res) => res)
+        .catch((err) => recursiveFetch(url, options, retries - 1));
     }
-    let { retries } = options;
+    const { retries } = options;
     const result = recursiveFetch(url, options, retries);
     return Promise.resolve(result);
   }

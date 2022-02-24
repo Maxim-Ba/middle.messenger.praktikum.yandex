@@ -2,7 +2,7 @@ export const arrayToChildrenString = (
   childrenName: string,
   array: Array<any>,
 ): string => {
-  let resultString = ``;
+  let resultString = "";
   array.forEach((element: object) => {
     const entres: [string] = [""];
     Object.keys(element).forEach((propName) => {

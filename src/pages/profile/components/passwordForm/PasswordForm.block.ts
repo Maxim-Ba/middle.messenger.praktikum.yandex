@@ -9,8 +9,8 @@ export class PasswordForm extends Block {
   render() {
     return `
     ${
-      this.props.isPasswordFormVisible
-        ? `
+  this.props.isPasswordFormVisible
+    ? `
     <form
       class="profile__form profile__form-password"
       id="profile-password"
@@ -29,9 +29,8 @@ export class PasswordForm extends Block {
       </div>
     </form>
     `
-        : ` <div></div>`
-    }
+    : " <div></div>"
+}
     `;
   }
-  componentDidMount() {}
 }

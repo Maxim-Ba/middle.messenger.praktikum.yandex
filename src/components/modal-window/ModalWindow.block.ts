@@ -22,14 +22,14 @@ export class ModalWindowBlock extends Block {
   render() {
     return `
     <section class="modal-window ${
-      this.props.isOpenWindow ? "" : "display-none"
-    } " 
+  this.props.isOpenWindow ? "" : "display-none"
+} " 
       id="modal-window">
       <div id="modal-window__wrapper" class="modal-window__wrapper"></div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.create ? "" : "display-none"
-        }"
+  this.props.modalWindow.create ? "" : "display-none"
+}"
         id="modal-window-create-chat"
       >
         <p class="modal-window__title">Создать чат</p>
@@ -60,8 +60,8 @@ export class ModalWindowBlock extends Block {
       </div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.delete ? "" : "display-none"
-        }"
+  this.props.modalWindow.delete ? "" : "display-none"
+}"
         id="modal-window-delete-chat"
       >
         <p class="modal-window__title">Удалить чат</p>
@@ -91,8 +91,8 @@ export class ModalWindowBlock extends Block {
         </form>
       </div>
       <div class="modal-window__container ${
-        this.props.modalWindow.changeAva ? "" : "display-none"
-      }" id="modal-window-upload-pic-profile">
+  this.props.modalWindow.changeAva ? "" : "display-none"
+}" id="modal-window-upload-pic-profile">
         <p class="modal-window__title">Загрузите файл</p>
         <form class="modal-window__form" id="modal-window-form-pic-profile">
           <label
@@ -122,8 +122,8 @@ export class ModalWindowBlock extends Block {
       </div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.change ? "" : "display-none"
-        }"
+  this.props.modalWindow.change ? "" : "display-none"
+}"
         id="modal-window-upload-pic-chat"
       >
         <p class="modal-window__title">Изменить аватар чата</p>
@@ -154,8 +154,8 @@ export class ModalWindowBlock extends Block {
         </form>
       </div>
       <div class="modal-window__container ${
-        this.props.modalWindow.addUser ? "" : "display-none"
-      }" id="modal-window-add-user">
+  this.props.modalWindow.addUser ? "" : "display-none"
+}" id="modal-window-add-user">
         <p class="modal-window__title">Добавить пользователя</p>
         <form class="modal-window__form" id="modal-window-form-add-user">
           <label class="modal-window__label" for="chat-name">Логин пользователя</label>
@@ -179,8 +179,8 @@ export class ModalWindowBlock extends Block {
       </div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.deleteUser ? "" : "display-none"
-        }"
+  this.props.modalWindow.deleteUser ? "" : "display-none"
+}"
         id="modal-window-delete-user"
       >
         <p class="modal-window__title">Удалить пользователя</p>

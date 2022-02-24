@@ -10,17 +10,17 @@ export class Menu extends Block {
       events: {
         click: (event: Event) => {
           switch (event.target) {
-            case document.getElementById("create"):
-              actionsBtn["create"]();
-              break;
-            case document.getElementById("delete"):
-              actionsBtn["delete"]();
-              break;
-            case document.getElementById("change"):
-              actionsBtn["change"]();
-              break;
-            default:
-              break;
+          case document.getElementById("create"):
+            actionsBtn["create"]();
+            break;
+          case document.getElementById("delete"):
+            actionsBtn["delete"]();
+            break;
+          case document.getElementById("change"):
+            actionsBtn["change"]();
+            break;
+          default:
+            break;
           }
         },
       },
@@ -29,8 +29,8 @@ export class Menu extends Block {
   render() {
     return `
     <menu class="chats__menu ${
-      this.props.isOpenMenu ? "" : "display-none"
-    }" id="chats">
+  this.props.isOpenMenu ? "" : "display-none"
+}" id="chats">
         <div class="chats__menu-content">
           {{#each topMenuButtons}}
             <div class="chats__menue-item" id={{actionId}}>

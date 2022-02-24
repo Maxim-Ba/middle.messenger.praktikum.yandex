@@ -11,17 +11,17 @@ export class BottomMenu extends Block {
       events: {
         click: (event: Event) => {
           switch (event.target) {
-            case document.getElementById("fotoOrVideo"):
-              actionsBottomBtn["fotoOrVideo"]();
-              break;
-            case document.getElementById("file"):
-              actionsBottomBtn["file"]();
-              break;
-            case document.getElementById("location"):
-              actionsBottomBtn["location"]();
-              break;
-            default:
-              break;
+          case document.getElementById("fotoOrVideo"):
+            actionsBottomBtn["fotoOrVideo"]();
+            break;
+          case document.getElementById("file"):
+            actionsBottomBtn["file"]();
+            break;
+          case document.getElementById("location"):
+            actionsBottomBtn["location"]();
+            break;
+          default:
+            break;
           }
         },
       },
@@ -31,8 +31,8 @@ export class BottomMenu extends Block {
   render() {
     return ` 
     <menu class="file-menu ${
-      this.props.isOpenBottomMenu ? "" : "display-none"
-    }">
+  this.props.isOpenBottomMenu ? "" : "display-none"
+}">
       <div class="chats__menu-content">
       {{#each bottomMenuButtons}}
         <div class="chats__menue-item" id={{actionId}}>

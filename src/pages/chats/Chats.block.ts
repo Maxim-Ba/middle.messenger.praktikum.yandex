@@ -53,8 +53,8 @@ export class Chats extends Block {
           Поиск
         </button>
         <div class="chats__search ${
-          this.props.isOpenSearchField ? "" : "display-none"
-        } ">
+  this.props.isOpenSearchField ? "" : "display-none"
+} ">
           <img
             src={{svgDefault.svgSearch}}
             alt="Поиск"
@@ -73,21 +73,21 @@ export class Chats extends Block {
       <header class="chats__header">
         <div class="chats__current-chat">
           ${
-            this.props.isMessagesOpen
-              ? `<img
+  this.props.isMessagesOpen
+    ? `<img
                 class="chats__current-chat-pic"
                 src={{svgDefault.svgDefaultChatPic}}
                 alt="картинка выбраного чата"
                 />
                 <p class="chats__current-chat-name">Андрей</p>`
-              : `<div></div>`
-          }
+    : "<div></div>"
+}
         </div>
         {{{TopButton openMenu=openMenu svgDefault=svgDefault }}}
       </header>
       ${
-        !this.props.isMessagesOpen
-          ? `
+  !this.props.isMessagesOpen
+    ? `
         {{{Menu 
           topMenuButtons=topMenuButtons 
           onClick=onClick 
@@ -95,7 +95,7 @@ export class Chats extends Block {
           isOpenMenu=isOpenMenu
         }}}
         `
-          : `
+    : `
         {{{MenuMessages 
           onClick=onClick 
           actionMessagesBtns = actionMessagesBtns
@@ -103,16 +103,16 @@ export class Chats extends Block {
           chatsTopMenuButtons=chatsTopMenuButtons
         }}}
         `
-      }
+}
       
       ${
-        !this.props.isMessagesOpen
-          ? `<div class="chats__no-chat-selection">
+  !this.props.isMessagesOpen
+    ? `<div class="chats__no-chat-selection">
           <p class="chats__no-chat-selection-p">
             Выберите чат чтобы отправить сообщение
           </p>
         </div>`
-          : `<section class="chats__body">
+    : `<section class="chats__body">
           <div class="chats__messages">
             {{{BottomMenu
               isOpenBottomMenu=isOpenBottomMenu
@@ -144,7 +144,7 @@ export class Chats extends Block {
             </button>
           </form>
         </section>`
-      }
+}
       
     </main>
     {{{ModalWindowBlock modalWindow=modalWindow isOpenWindow=isOpenWindow closeWindow=closeWindow}}}

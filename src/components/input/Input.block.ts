@@ -20,7 +20,4 @@ export class Input extends Block {
         </div>
     `;
   }
-  componentDidMount() {
-    // console.log("componentDidMount", "login");
-  }
 }

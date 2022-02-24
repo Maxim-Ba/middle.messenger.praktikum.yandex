@@ -39,47 +39,47 @@ export class Profile extends Block {
         <div class="profile__form-container">
   
           ${
-            !this.props.isPasswordFormVisible
-              ? `<form class="profile__form" id="profile">
+  !this.props.isPasswordFormVisible
+    ? `<form class="profile__form" id="profile">
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="email">Почта</label>
                 <input ${
-                  this.props.disabledInputs && "disabled"
-                } class="profile__input mb-1rem" type="email" name="email" value={{emailValue}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="email" name="email" value={{emailValue}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="login">Логин</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="login" value={{loginValue}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="login" value={{loginValue}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="first_name">Имя</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="first_name" value={{firstNameValue}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="first_name" value={{firstNameValue}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="second_name">Фамилия</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="second_name" value={{secondNameValue}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="second_name" value={{secondNameValue}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="display_name">Имя в чате</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="display_name" value={{displayNameValue}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="display_name" value={{displayNameValue}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="phone">Телефон</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="phone" value="{{phoneNameValue}}"/>
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="phone" value="{{phoneNameValue}}"/>
             </div>
           </form>`
-              : " "
-          }
+    : " "
+}
           {{{PasswordForm isPasswordFormVisible=isPasswordFormVisible}}}
           <div class="login__form-warning"><p class="visibility-hidden form-warning form-warning-text" id="form-warning"></p></div>
         </div>

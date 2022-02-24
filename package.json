@@ -14,7 +14,8 @@
     "build": "npm run clean && npm run build:build2",
     "clean": "rimraf dist/*",
     "server": "node server.js",
-    "start": "npm i && npm run build && npm run server"
+    "start": "npm i && npm run build && npm run server",
+    "lint": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -23,8 +24,11 @@
     "@parcel/resolver-glob": "^2.2.1",
     "@parcel/transformer-sass": "^2.2.1",
     "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
     "autoprefixer": "^10.4.2",
     "cssnano": "^5.0.16",
+    "eslint": "^8.9.0",
     "parcel": "^2.2.1",
     "parcel-transformer-hbs": "^1.0.4",
     "postcss-import": "^14.0.2",

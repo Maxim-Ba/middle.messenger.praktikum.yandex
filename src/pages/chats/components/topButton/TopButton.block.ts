@@ -16,5 +16,4 @@ export class TopButton extends Block {
       <img class="chats__menu-btn" src={{svgDefault.svgMenu}} alt="меню" />
     `;
   }
-  componentDidMount(): void {}
 }

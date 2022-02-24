@@ -45,5 +45,4 @@ export class ChatCard extends Block {
     {{/each }}
     </div>    `;
   }
-  componentDidMount(): void {}
 }

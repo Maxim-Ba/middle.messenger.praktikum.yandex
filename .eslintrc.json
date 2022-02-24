@@ -3,10 +3,11 @@
     "browser": true,
     "es2021": true
   },
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "no-unused-vars": "warn",
     "no-var": 2,
@@ -24,7 +25,7 @@
     "no-multiple-empty-lines": "error",
     "prefer-const": "error",
     "no-use-before-define": [
-      "error",
+      "warn",
       {
         "functions": false
       }
@@ -35,6 +36,9 @@
     "no-alert": "error",
     "prefer-destructuring": "warn",
     "no-empty-function": "warn",
+    "@typescript-eslint/no-this-alias": [
+      "off"
+    ],
     "@typescript-eslint/ban-types": [
       "error",
       {

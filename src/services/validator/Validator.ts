@@ -43,38 +43,38 @@ export class Validator {
       inp.addEventListener("blur", this.checkValidity);
       inp.setAttribute("required", "");
       switch (inp.name) {
-        case "login":
-          inp.pattern = "^(?=.*[A-Za-z_-])[A-Za-z_0-9-]{3,20}$";
-          break;
-        case "name":
-          inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
-          break;
-        case "first_name":
-          inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
-          break;
-        case "second_name":
-          inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
-          break;
-        case "email":
-          inp.pattern = "^[A-Za-z_0-9-]+@[A-Za-z]+\\.[A-Za-z]+$";
-          break;
-        case "password":
-          inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
-          break;
-        case "oldPassword":
-          inp.pattern = "^.{1,40}$";
-          break;
-        case "newPassword":
-          inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
-          break;
-        case "phone":
-          inp.pattern = "^\\+?[\\d]{10,15}$";
-          break;
-        case "message":
-          inp.pattern = "^.+$";
-          break;
-        default:
-          break;
+      case "login":
+        inp.pattern = "^(?=.*[A-Za-z_-])[A-Za-z_0-9-]{3,20}$";
+        break;
+      case "name":
+        inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
+        break;
+      case "first_name":
+        inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
+        break;
+      case "second_name":
+        inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
+        break;
+      case "email":
+        inp.pattern = "^[A-Za-z_0-9-]+@[A-Za-z]+\\.[A-Za-z]+$";
+        break;
+      case "password":
+        inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
+        break;
+      case "oldPassword":
+        inp.pattern = "^.{1,40}$";
+        break;
+      case "newPassword":
+        inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
+        break;
+      case "phone":
+        inp.pattern = "^\\+?[\\d]{10,15}$";
+        break;
+      case "message":
+        inp.pattern = "^.+$";
+        break;
+      default:
+        break;
       }
     });
   }
@@ -107,8 +107,8 @@ export class Validator {
     this.buttonSubmit = this.buttonSubmit
       ? this.buttonSubmit
       : (this.formEl.querySelector(
-          "button[type='submit']",
-        ) as HTMLButtonElement);
+        "button[type='submit']",
+      ) as HTMLButtonElement);
 
     this.buttonSubmit!.disabled = !isValid;
   }

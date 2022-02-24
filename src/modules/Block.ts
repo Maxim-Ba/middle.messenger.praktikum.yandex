@@ -2,8 +2,6 @@ import { EventBus } from "../utils/EventBus";
 import { v4 as makeUUID } from "uuid";
 import * as Handlebars from "handlebars";
 
-export type BlockType = typeof Block;
-
 export class Block {
   static EVENTS = {
     INIT: "init",
@@ -17,7 +15,7 @@ export class Block {
   eventBus: () => EventBus;
   props: any;
   public _id: any;
-  children: BlockType;
+  children: Block;
   tmpBlock: HTMLElement;
 
   constructor(propsAndChildren: object = {}) {
@@ -27,9 +25,8 @@ export class Block {
     this._meta = {
       props,
     };
-    this.children = children as BlockType;
+    this.children = children as Block;
     this.props = this._makePropsProxy({ ...props, _id: this._id });
-    this.initChildren();
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -81,7 +78,9 @@ export class Block {
   private _componentWillUnmount() {
     this.componentWillUnmount();
   }
-  protected componentWillUnmount() {}
+  protected componentWillUnmount(): void {
+    return;
+  }
   private _componentDidMount() {
     this.componentDidMount();
     Object.values(this.children).forEach((child) => {
@@ -89,7 +88,9 @@ export class Block {
     });
   }
 
-  componentDidMount() {}
+  componentDidMount(): void {
+    return;
+  }
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -148,7 +149,7 @@ export class Block {
   }
 
   private _makePropsProxy(props) {
-    const self = this;
+    const self: Block = this;
     const proxyProps = new Proxy(props, {
       deleteProperty(target, prop) {
         throw new Error("Нет доступа");
@@ -200,5 +201,4 @@ export class Block {
   hide() {
     this._element.style.display = "none";
   }
-  protected initChildren() {}
 }

@@ -1,9 +1,15 @@
 import { Block } from "../../modules/Block";
+interface Props {
+  isOpenWindow: boolean;
+  closeWindow: () => void;
+  modalWindow: Block;
+}
 
 export class ModalWindowBlock extends Block {
-  static getComponentName = "ModalWindowBlock";
+  // static getComponentName = "ModalWindowBlock";
+  name: string;
 
-  constructor({ isOpenWindow, closeWindow, modalWindow }) {
+  constructor({ isOpenWindow, closeWindow, modalWindow }: Props) {
     super({
       closeWindow,
       isOpenWindow,
@@ -18,6 +24,7 @@ export class ModalWindowBlock extends Block {
         },
       },
     });
+    // this.name = "ModalWindowBlock";
   }
   render() {
     return `
@@ -213,7 +220,7 @@ export class ModalWindowBlock extends Block {
     `;
   }
 
-  componentDidUpdate(oldProps: any, newProps: any): boolean {
+  componentDidUpdate(): boolean {
     return true;
   }
 }

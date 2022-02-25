@@ -2,9 +2,9 @@ import { Block } from "../../modules/Block";
 import { Validator } from "../../services/validator/Validator";
 
 export class Profile extends Block {
-  static getComponentName = "Profile";
-  validator: any;
-  constructor(props) {
+  validator: Validator;
+  name: string;
+  constructor(props: object | undefined) {
     super({
       ...props,
       events: {
@@ -22,7 +22,7 @@ export class Profile extends Block {
         },
       },
     });
-    this.validator = {};
+    this.name = "Profileaaa";
   }
   render() {
     return `

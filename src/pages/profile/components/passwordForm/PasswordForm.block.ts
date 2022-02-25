@@ -2,9 +2,11 @@ import { Block } from "../../../../modules/Block";
 
 export class PasswordForm extends Block {
   static getComponentName = "PasswordForm";
+  name: string;
 
-  constructor(props) {
+  constructor(props: Record<string, any> | undefined) {
     super({ ...props });
+    this.name = "PasswordForm";
   }
   render() {
     return `

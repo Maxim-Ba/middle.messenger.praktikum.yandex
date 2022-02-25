@@ -6,7 +6,7 @@ import { registrationState } from "./registration.state";
 export class Registration extends Block {
   registration: HTMLElement | null;
   validator: Validator;
-  constructor(props) {
+  constructor(props: Record<string, any> | undefined) {
     super(props);
   }
   render() {

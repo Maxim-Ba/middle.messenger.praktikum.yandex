@@ -2,8 +2,9 @@ import { Block } from "../../../../modules/Block";
 
 export class СonfirmPasswordAndData extends Block {
   static getComponentName = "СonfirmPasswordAndData";
+  name: string;
 
-  constructor(props) {
+  constructor(props: Record<string, any> | undefined) {
     super({
       ...props,
       events: {
@@ -19,6 +20,7 @@ export class СonfirmPasswordAndData extends Block {
         },
       },
     });
+    this.name = "СonfirmPasswordAndData";
   }
   render() {
     return `

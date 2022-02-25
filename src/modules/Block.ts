@@ -11,30 +11,28 @@ export class Block {
     FLOW_CWU: "flow:component-will-unmount",
   };
   private _element: HTMLElement;
-  private _meta: null | { props: any } = null;
   eventBus: () => EventBus;
   props: any;
   public _id: any;
   children: Block;
   tmpBlock: HTMLElement;
-
-  constructor(propsAndChildren: object = {}) {
+  constructor(propsAndChildren: Record<string, any> = {}) {
     const eventBus = new EventBus();
     this._id = makeUUID();
     const { children, props } = this._getChildren(propsAndChildren);
-    this._meta = {
-      props,
-    };
     this.children = children as Block;
     this.props = this._makePropsProxy({ ...props, _id: this._id });
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
   }
+  static get componentName() {
+    return this.name;
+  }
 
-  private _getChildren(propsAndChildren) {
-    const children = {};
-    const props = {};
+  private _getChildren(propsAndChildren: object) {
+    const children: Record<string, any> = {};
+    const props: Record<string, any> = {};
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
@@ -64,7 +62,7 @@ export class Block {
     });
   }
 
-  private _registerEvents(eventBus) {
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
@@ -105,11 +103,10 @@ export class Block {
   }
 
   componentDidUpdate(oldProps: any, newProps: any): boolean {
-    const result: boolean[] = [];
     return oldProps !== newProps;
   }
 
-  setProps = (nextProps) => {
+  setProps = (nextProps: typeof this.props) => {
     if (!nextProps) {
       return;
     }
@@ -148,10 +145,10 @@ export class Block {
     return this.element;
   }
 
-  private _makePropsProxy(props) {
+  private _makePropsProxy(props: typeof this.props) {
     const self: Block = this;
     const proxyProps = new Proxy(props, {
-      deleteProperty(target, prop) {
+      deleteProperty() {
         throw new Error("Нет доступа");
       },
       set(target, prop, value) {
@@ -170,7 +167,7 @@ export class Block {
     return proxyProps;
   }
 
-  private _createDocumentElement(tagName) {
+  private _createDocumentElement(tagName: string) {
     const element = document.createElement(tagName);
     element.setAttribute("data-id", this._id);
     return element;

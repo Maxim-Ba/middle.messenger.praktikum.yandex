@@ -1,10 +1,12 @@
 import { Block } from "../../../../modules/Block";
 
 export class ControlBtnsForm extends Block {
-  static getComponentName = "ControlBtnsForm";
+  // static getComponentName = "ControlBtnsFormaaaaa";
+  name: string;
 
-  constructor(props) {
+  constructor(props: Record<string, any> | undefined) {
     super({ ...props });
+    // this.name = "ControlBtnsForm";
   }
   render() {
     return `

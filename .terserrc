@@ -1,0 +1,8 @@
+{
+  mangle: false,
+  compress:{
+    defaults:false
+  },
+  sourceMap:true
+
+}

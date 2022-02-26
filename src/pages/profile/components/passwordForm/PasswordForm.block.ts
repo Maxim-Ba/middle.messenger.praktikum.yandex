@@ -1,18 +1,19 @@
 import { Block } from "../../../../modules/Block";
 
 export class PasswordForm extends Block {
-  static getComponentName = "PasswordForm";
   name: string;
 
   constructor(props: Record<string, any> | undefined) {
     super({ ...props });
-    this.name = "PasswordForm";
+  }
+  static get componentName() {
+    return "PasswordForm";
   }
   render() {
     return `
     ${
-  this.props.isPasswordFormVisible
-    ? `
+      this.props.isPasswordFormVisible
+        ? `
     <form
       class="profile__form profile__form-password"
       id="profile-password"
@@ -31,8 +32,8 @@ export class PasswordForm extends Block {
       </div>
     </form>
     `
-    : " <div></div>"
-}
+        : " <div></div>"
+    }
     `;
   }
 }

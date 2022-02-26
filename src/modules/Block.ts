@@ -16,6 +16,7 @@ export class Block {
   public _id: any;
   children: Block;
   tmpBlock: HTMLElement;
+  name: string;
   constructor(propsAndChildren: Record<string, any> = {}) {
     const eventBus = new EventBus();
     this._id = makeUUID();

@@ -16,7 +16,7 @@
     "server": "node server.js",
     "start": "npm i && npm run build && npm run server",
     "lint": "eslint . --fix",
-    "stylelint":"npx stylelint \"**/*.sass\""
+    "stylelint":"npx stylelint \"**/*.scss\""
   },
   "keywords": [],
   "author": "",

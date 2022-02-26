@@ -1,17 +1,17 @@
 import { Block } from "../modules/Block";
 import * as Handlebars from "handlebars";
 export function registerComponent(Component: typeof Block) {
+  console.log(Component.componentName, Component);
+
   Handlebars.registerHelper(
-    Component.componentName,
+    Component.name,
     function ({ hash, data }: Handlebars.HelperOptions) {
       if (!data.root.children) {
         data.root.children = {};
       }
-      console.log(Component.componentName);
-
-      if (!data.root.refs) {
-        data.root.refs = {};
-      }
+      // if (!data.root.refs) {
+      //   data.root.refs = {};
+      // }
 
       const { children } = data.root;
 

@@ -1,18 +1,17 @@
 import { Block } from "../../../../modules/Block";
 
 export class ControlBtnsForm extends Block {
-  // static getComponentName = "ControlBtnsFormaaaaa";
-  name: string;
-
   constructor(props: Record<string, any> | undefined) {
     super({ ...props });
-    // this.name = "ControlBtnsForm";
+  }
+  static get componentName() {
+    return "ControlBtnsForm";
   }
   render() {
     return `
     <div class="profile__control ${
-  !this.props.disabledInputs && "display-none"
-}">
+      !this.props.disabledInputs && "display-none"
+    }">
       <button class="profile__change-data mb-1rem" id="change-data">
         Изменить данные
       </button>

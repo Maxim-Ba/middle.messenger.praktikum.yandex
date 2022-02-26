@@ -11,6 +11,7 @@ registerComponent(ModalWindowBlock);
 registerComponent(ControlBtnsForm);
 registerComponent(СonfirmPasswordAndData);
 registerComponent(PasswordForm);
+registerComponent(Profile);
 
 const profile = new Profile({
   ...profileState,

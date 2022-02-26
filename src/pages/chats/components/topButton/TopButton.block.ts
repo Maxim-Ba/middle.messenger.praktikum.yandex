@@ -1,9 +1,13 @@
 import { Block } from "../../../../modules/Block";
-
+interface TopButtonPropsI {
+  svgDefault: Record<string, any>;
+  openMenu: Record<string, any>;
+}
 export class TopButton extends Block {
-  static getComponentName = "TopButton";
-
-  constructor({ svgDefault, openMenu }) {
+  static get componentName() {
+    return "TopButton";
+  }
+  constructor({ svgDefault, openMenu }: TopButtonPropsI) {
     super({
       svgDefault,
       events: {

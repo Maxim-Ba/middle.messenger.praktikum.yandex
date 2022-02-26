@@ -1,8 +1,12 @@
 import { Block } from "../../../../modules/Block";
-
+interface ChatsI {
+  chats: Record<string, any>;
+}
 export class ChatCard extends Block {
-  static getComponentName = "ChatCard";
-  constructor({ chats }) {
+  static get componentName() {
+    return "ChatCard";
+  }
+  constructor({ chats }: ChatsI) {
     super({ chats });
   }
   render() {

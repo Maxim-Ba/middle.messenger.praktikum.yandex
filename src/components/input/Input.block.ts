@@ -1,8 +1,9 @@
 import { Block } from "../../modules/Block";
 
 export class Input extends Block {
-  static getComponentName = "Input";
-
+  static get componentName() {
+    return "Input";
+  }
   render() {
     return `
       <div class="wrapper-input-and-label">

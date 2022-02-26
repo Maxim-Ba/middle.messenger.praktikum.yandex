@@ -24,8 +24,8 @@ export class СonfirmPasswordAndData extends Block {
   render() {
     return `
       <div class="profile__control profile__control_row ${
-        this.props.disabledInputs ? "display-none" : ""
-      }">
+  this.props.disabledInputs ? "display-none" : ""
+}">
           <button
             class="profile__btn button button_b-r-8px button_grey button_auth"
           >
@@ -35,8 +35,8 @@ export class СonfirmPasswordAndData extends Block {
             class="profile__btn button button_b-r-8px button_blue button_auth"
             type="submit"
             form="${
-              this.props.isPasswordFormVisible ? "profile-password" : "profile"
-            }"
+  this.props.isPasswordFormVisible ? "profile-password" : "profile"
+}"
           >
             Сохранить
           </button>

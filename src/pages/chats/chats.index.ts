@@ -103,8 +103,8 @@ const chats = new Chats({
       isOpenSearchField: !chats.props.isOpenSearchField,
     });
   },
-  selectChat(chatId) {
-    const newChatsList = chats.props.chats.map((chat) => {
+  selectChat(chatId: unknown) {
+    const newChatsList = chats.props.chats.map((chat: { chatId: unknown }) => {
       if (chat.chatId === chatId) {
         return { ...chat, isSelected: true };
       }

@@ -10,8 +10,8 @@ export class ControlBtnsForm extends Block {
   render() {
     return `
     <div class="profile__control ${
-      !this.props.disabledInputs && "display-none"
-    }">
+  !this.props.disabledInputs && "display-none"
+}">
       <button class="profile__change-data mb-1rem" id="change-data">
         Изменить данные
       </button>

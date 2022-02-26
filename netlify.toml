@@ -1,2 +1,7 @@
 [build]
+<<<<<<< HEAD
   publish = "dist" 
+=======
+  publish = "dist" 
+  
+>>>>>>> sprint_2

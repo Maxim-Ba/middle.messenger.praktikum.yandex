@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {{{modal}}}
 <div class="chats__wrapper">
   <aside class="chats__aside">
@@ -8,6 +9,19 @@
         > Профиль</a>
       </button>
       <button class="button chats__button button_b-r-5px button_grey">
+=======
+<div class="chats__wrapper">
+  <aside class="chats__aside">
+    <div class="chats__top-btns">
+      <button class="button chats__button button_b-r-5px button_blue">
+        <a class="chats__link-to-profile" href="../profile/profile.html">
+          Профиль</a>
+      </button>
+      <button
+        class="button chats__button button_b-r-5px button_grey"
+        id="search"
+      >
+>>>>>>> sprint_2
         <img src={{svgDefault.svgSearch}} alt="Поиск" class="chats__img" />
         Поиск
       </button>
@@ -25,6 +39,7 @@
       </div>
     </div>
     <div class="chats__list-of-chats">
+<<<<<<< HEAD
       {{#each chats}}
         <card class="chats__chat-item">
           <div class="chats__pic-wrapper">
@@ -47,11 +62,15 @@
           </div>
         </card>
       {{/each}}
+=======
+      {{{chatCards}}}
+>>>>>>> sprint_2
     </div>
   </aside>
   <main class="chats">
     <header class="chats__header">
       <div class="chats__current-chat">
+<<<<<<< HEAD
         <img
           class="chats__current-chat-pic"
           src={{svgDefault.svgDefaultChatPic}}
@@ -161,9 +180,23 @@
       </footer>
     </section>
     <div class="chats__no-chat-selection display-none">
+=======
+      </div>
+      <img class="chats__menu-btn" src={{svgDefault.svgMenu}} alt="меню" />
+    </header>
+
+    {{{topMenu}}}
+
+    <div class="chats__no-chat-selection">
+>>>>>>> sprint_2
       <p class="chats__no-chat-selection-p">
         Выберите чат чтобы отправить сообщение
       </p>
     </div>
   </main>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+{{{modal}}}
+>>>>>>> sprint_2

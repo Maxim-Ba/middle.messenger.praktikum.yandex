@@ -1,0 +1,19 @@
+{
+  mangle: {
+    keep_fnames:true,
+    keep_classnames: true
+  },
+  compress:
+    {
+      keep_classnames: true,
+      keep_fnames:true,
+      keep_fargs: true,
+      arrows: false,
+      ecma: 2019,
+      hoist_props:false,
+      side_effects:false,
+    },
+  
+  sourceMap:true
+
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {{{modal}}}
 <div class="profile__wrapper">
   <aside class="profile__go-back">
@@ -7,21 +8,32 @@
         alt="Аватар пользователя"
         class="profile__arrow"
       />
+=======
+<div class="profile__wrapper">
+  <aside class="profile__go-back">
+    <a class="profile__link" href="../chats/chats.html">
+      <img src={{svg.svgArrowLeft}} alt="Аватар пользователя" class="profile__arrow" />
+>>>>>>> sprint_2
     </a>
   </aside>
   <main class="profile">
     <div class="profile__data">
+<<<<<<< HEAD
       <img
         class="img img_round profile__img"
         src={{svg.svgAvatarProfile}}
         alt="Аватар пользователя"
       />
+=======
+      <img class="img img_round profile__img" src={{svg.svgAvatarProfile}} alt="Аватар пользователя" />
+>>>>>>> sprint_2
       <h1 class="profile__owener">Максим</h1>
       <div class="profile__form-container">
         <!--  -->
 
         <form class="profile__form" id="profile">
           <div class="profile__field">
+<<<<<<< HEAD
             <label class="profile__label mb-1rem" for="email">Почта</label>
             <input class="profile__input mb-1rem" type="text" name="email" />
           </div>
@@ -88,10 +100,42 @@
           </div>
         </form>
 
+=======
+            <label class="profile__label mb-1rem" for="email">Почта {{disabledInputs}}</label>
+            {{#if disabledInputs}}
+              <input disabled class="profile__input mb-1rem" type="email" name="email" value={{emailValue}} />
+            {{else}}
+              <input class="profile__input mb-1rem" type="email" name="email" value={{emailValue}} />
+            {{/if}}
+          </div>
+          <div class="profile__field">
+            <label class="profile__label mb-1rem" for="login">Логин</label>
+            <input disabled class="profile__input mb-1rem" type="text" name="login" value={{loginValue}} />
+          </div>
+          <div class="profile__field">
+            <label class="profile__label mb-1rem" for="first_name">Имя</label>
+            <input disabled class="profile__input mb-1rem" type="text" name="first_name" value={{firstNameValue}} />
+          </div>
+          <div class="profile__field">
+            <label class="profile__label mb-1rem" for="second_name">Фамилия</label>
+            <input disabled class="profile__input mb-1rem" type="text" name="second_name" value={{secondNameValue}} />
+          </div>
+          <div class="profile__field">
+            <label class="profile__label mb-1rem" for="display_name">Имя в чате</label>
+            <input disabled class="profile__input mb-1rem" type="text" name="display_name" value={{displayNameValue}} />
+          </div>
+          <div class="profile__field">
+            <label class="profile__label mb-1rem" for="phone">Телефон</label>
+            <input disabled class="profile__input mb-1rem" type="text" name="phone" value="{{phoneNameValue}}"/>
+          </div>
+        </form>
+        {{{passwordForm}}}
+>>>>>>> sprint_2
         <!--  -->
       </div>
 
       <div class="profile__control-wrapper">
+<<<<<<< HEAD
         <div class="profile__control">
           <button class="profile__change-data mb-1rem">
             Изменить данные
@@ -121,3 +165,11 @@
     </div>
   </main>
 </div>
+=======
+        {{{controlsBtnsForm}}}
+        {{{controlPassword}}}
+      </div>
+  </main>
+</div>
+{{{modal}}}
+>>>>>>> sprint_2

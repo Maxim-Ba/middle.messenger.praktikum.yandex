@@ -1,8 +1,8 @@
-import { Block } from "../../../../modules/Block";
+import { Block } from "../../../../modules/Block/Block";
 interface ChatsI {
   chats: Record<string, any>;
 }
-export class ChatCard extends Block {
+export class ChatCard extends Block<ChatsI> {
   static get componentName() {
     return "ChatCard";
   }

@@ -1,10 +1,10 @@
-import { Block } from "../../../../modules/Block";
+import { Block } from "../../../../modules/Block/Block";
 interface MenuePropsI {
   topMenuButtons: Record<string, any>;
   actionsBtn: Record<string, any>;
   isOpenMenu: Record<string, any>;
 }
-export class Menu extends Block {
+export class Menu extends Block<MenuePropsI> {
   static get componentName() {
     return "Menu";
   }

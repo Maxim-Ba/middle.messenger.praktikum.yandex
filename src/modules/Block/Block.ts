@@ -1,8 +1,12 @@
-import { EventBus } from "../utils/EventBus";
+import { EventBus } from "../../utils/EventBus";
 import { v4 as makeUUID } from "uuid";
 import * as Handlebars from "handlebars";
+import { compile } from "./compileBlock";
+interface Props {
+  [prop: string]: any;
+}
 
-export class Block {
+export class Block<T extends Props> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -11,24 +15,35 @@ export class Block {
     FLOW_CWU: "flow:component-will-unmount",
   };
   private _element: HTMLElement;
-  eventBus: () => EventBus;
-  props: any;
-  public _id: any;
-  children: Block;
+  eventBus: EventBus;
+  props: Props;
+  public _id: string;
+  children: Block<Record<string, any>>;
   tmpBlock: HTMLElement;
   name: string;
-  constructor(propsAndChildren: Record<string, any> = {}) {
-    const eventBus = new EventBus();
+  constructor(propsAndChildren = {}) {
+    this.eventBus = new EventBus();
     this._id = makeUUID();
-    const { children, props } = this._getChildren(propsAndChildren);
-    this.children = children as Block;
-    this.props = this._makePropsProxy({ ...props, _id: this._id });
-    this.eventBus = () => eventBus;
-    this._registerEvents(eventBus);
-    eventBus.emit(Block.EVENTS.INIT);
+    this.initChildren = propsAndChildren;
+    this.initProps = propsAndChildren;
+
+    // this.eventBus = () => eventBus;
+    this._registerEvents(this.eventBus);
+    this.eventBus.emit(Block.EVENTS.INIT);
   }
   static get componentName() {
     return this.name;
+  }
+
+  set initChildren(
+    propsAndChildren: Record<string, any> | Block<Record<string, any>>
+  ) {
+    const { children } = this._getChildren(propsAndChildren);
+    this.children = children as Block<Record<string, any>>;
+  }
+  set initProps(propsAndChildren: Record<string, any>) {
+    const { props } = this._getChildren(propsAndChildren);
+    this.props = this._makePropsProxy({ ...props, _id: this._id });
   }
 
   private _getChildren(propsAndChildren: object) {
@@ -51,7 +66,7 @@ export class Block {
     Object.keys(events).forEach((eventName) => {
       this._element?.firstElementChild?.removeEventListener(
         eventName,
-        events[eventName],
+        events[eventName]
       );
     });
   }
@@ -72,7 +87,7 @@ export class Block {
   }
 
   init() {
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+    this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
   private _componentWillUnmount() {
     this.componentWillUnmount();
@@ -92,14 +107,14 @@ export class Block {
   }
 
   dispatchComponentDidMount() {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
   private _componentDidUpdate(oldProps: any, newProps: any) {
     const response = this.componentDidUpdate(oldProps, newProps);
 
     if (response) {
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+      this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
@@ -107,7 +122,7 @@ export class Block {
     return oldProps !== newProps;
   }
 
-  setProps = (nextProps: typeof this.props) => {
+  setProps = (nextProps: Record<string, any> | Block<Record<string, any>>) => {
     if (!nextProps) {
       return;
     }
@@ -119,12 +134,20 @@ export class Block {
   }
 
   private _render() {
-    this.eventBus().emit(Block.EVENTS.FLOW_CWU);
+    this.eventBus.emit(Block.EVENTS.FLOW_CWU);
 
     const templateString = this.render();
-    const fragment = this.compile(templateString, {
-      ...this.props,
-    });
+    // const fragment = this.compile(templateString, {
+    //   ...this.props,
+    // });
+    const fragment = compile(
+      templateString,
+      {
+        ...this.props,
+      },
+      this
+    );
+
     const newElement = fragment.firstElementChild as HTMLElement;
     if (this._element) {
       this._removeEvents();
@@ -135,7 +158,7 @@ export class Block {
 
     this._addEvents();
 
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
   protected render(): string {
@@ -147,16 +170,16 @@ export class Block {
   }
 
   private _makePropsProxy(props: typeof this.props) {
-    const self: Block = this;
+    const self: Block<Record<string, any>> = this;
     const proxyProps = new Proxy(props, {
       deleteProperty() {
         throw new Error("Нет доступа");
       },
-      set(target, prop, value) {
+      set(target, prop: string, value) {
         target[prop] = value;
         const oldProps = { ...target };
 
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
+        self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         return true;
       },
       get(target: Record<string, any>, prop: string) {
@@ -176,7 +199,7 @@ export class Block {
 
   compile(templateString: string, context: any) {
     const fragment = this._createDocumentElement(
-      "template",
+      "template"
     ) as HTMLTemplateElement;
 
     const template = Handlebars.compile(templateString);
@@ -190,13 +213,5 @@ export class Block {
     });
 
     return fragment.content;
-  }
-
-  show() {
-    this._element.style.display = "block";
-  }
-
-  hide() {
-    this._element.style.display = "none";
   }
 }

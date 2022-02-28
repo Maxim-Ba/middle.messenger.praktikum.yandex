@@ -1,10 +1,10 @@
-import { Block } from "../../../../modules/Block";
+import { Block } from "../../../../modules/Block/Block";
 interface BottomMenuPropsI {
   isOpenBottomMenu: Record<string, any>;
   actionsBottomBtn: Record<string, any>;
   bottomMenuButtons: Record<string, any>;
 }
-export class BottomMenu extends Block {
+export class BottomMenu extends Block<BottomMenuPropsI> {
   static get componentName() {
     return "BottomMenu";
   }

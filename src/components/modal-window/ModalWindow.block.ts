@@ -1,11 +1,11 @@
-import { Block } from "../../modules/Block";
+import { Block } from "../../modules/Block/Block";
 interface Props {
   isOpenWindow: boolean;
   closeWindow: () => void;
-  modalWindow: Block;
+  modalWindow: Record<string, any>;
 }
 
-export class ModalWindowBlock extends Block {
+export class ModalWindowBlock extends Block<Record<string, any>> {
   constructor({ isOpenWindow, closeWindow, modalWindow }: Props) {
     super({
       closeWindow,

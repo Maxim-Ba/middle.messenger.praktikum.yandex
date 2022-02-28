@@ -1,9 +1,9 @@
-import { Block } from "../../modules/Block";
+import { Block } from "../../modules/Block/Block";
 import { Validator } from "../../services/validator/Validator";
 import { arrayToChildrenString } from "../../utils/arrayChildrenString";
 import { registrationState } from "./registration.state";
 
-export class Registration extends Block {
+export class Registration extends Block<Record<string, any>> {
   registration: HTMLElement | null;
   validator: Validator;
   constructor(props: Record<string, any> | undefined) {
@@ -43,13 +43,13 @@ export class Registration extends Block {
   componentDidMount() {
     const formEl = document.getElementById("login-form");
     const infoEl = document.getElementById(
-      "login__form-warning",
+      "login__form-warning"
     )?.firstElementChild;
     if (formEl) {
       this.validator = new Validator(
         formEl as HTMLFormElement,
         console.log,
-        infoEl as HTMLElement,
+        infoEl as HTMLElement
       );
     }
   }

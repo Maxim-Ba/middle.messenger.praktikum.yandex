@@ -1,13 +1,13 @@
-import { Block } from "../../modules/Block";
+import { Block } from "../../modules/Block/Block";
 import { Validator } from "../../services/validator/Validator";
 import { arrayToChildrenString } from "../../utils/arrayChildrenString";
 import { loginState } from "./login.state";
 
-export class Login extends Block {
+export class Login extends Block<Record<string, any>> {
   static getComponentName = "Login";
   validator: Validator;
 
-  constructor(props) {
+  constructor(props: Record<string, any> | undefined) {
     super(props);
   }
 
@@ -42,7 +42,7 @@ export class Login extends Block {
     </main>
   </div>`;
   }
-  componentDidUpdate(oldProps: any, newProps: any): boolean {
+  componentDidUpdate(_oldProps: any, _newProps: any): boolean {
     return true;
   }
   componentDidMount(): void {

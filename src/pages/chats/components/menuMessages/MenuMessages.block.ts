@@ -1,10 +1,10 @@
-import { Block } from "../../../../modules/Block";
+import { Block } from "../../../../modules/Block/Block";
 interface MenuMessagesPropsI {
   chatsTopMenuButtons: Record<string, any>;
   actionMessagesBtns: Record<string, any>;
   isOpenMenu: Record<string, any>;
 }
-export class MenuMessages extends Block {
+export class MenuMessages extends Block<MenuMessagesPropsI> {
   static get componentName() {
     return "MenuMessages";
   }

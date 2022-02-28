@@ -14,7 +14,7 @@
     "build": "npm run clean && npm run build:build2",
     "clean": "rimraf dist/*",
     "server": "node server.js",
-    "start": "npm i && npm run build && npm run server",
+    "start": "npm run build && npm run server",
     "lint": "eslint . --fix",
     "stylelint": "npx stylelint \"**/*.scss\" --fix"
   },

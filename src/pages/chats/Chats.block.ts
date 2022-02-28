@@ -1,14 +1,14 @@
-import { Block } from "../../modules/Block";
+import { Block } from "../../modules/Block/Block";
 import { Validator } from "../../services/validator/Validator";
 
-export class Chats extends Block {
+export class Chats extends Block<object> {
   validator: Validator;
 
   constructor(props: Record<string, any> | undefined) {
     super({
       ...props,
       events: {
-        click: (event) => {
+        click: (event: Event) => {
           if (event.target === document.getElementById("search")) {
             this.props.openSearchField();
           }
@@ -22,7 +22,7 @@ export class Chats extends Block {
           }
           if (event.target?.parentNode?.parentNode?.tagName === "CARD") {
             this.props.selectChat(
-              Number(event.target.parentNode?.parentNode?.id),
+              Number(event.target.parentNode?.parentNode?.id)
             );
             this.props.openMessages();
           }
@@ -168,7 +168,7 @@ export class Chats extends Block {
         formEl as HTMLFormElement,
         console.log,
         infoEl as HTMLElement,
-        btnSubmit as HTMLButtonElement,
+        btnSubmit as HTMLButtonElement
       );
     }
   }

@@ -1,8 +1,8 @@
 import { Block } from "../../modules/Block/Block";
-import { Validator } from "../../services/validator/Validator";
+import { FormCheck } from "../../services/formCheck/FormCheck";
 
 export class Chats extends Block<object> {
-  validator: Validator;
+  validator: FormCheck;
 
   constructor(props: Record<string, any> | undefined) {
     super({
@@ -11,20 +11,6 @@ export class Chats extends Block<object> {
         click: (event: Event) => {
           if (event.target === document.getElementById("search")) {
             this.props.openSearchField();
-          }
-          if (event.target?.tagName === "CARD") {
-            this.props.selectChat(Number(event.target.id));
-            this.props.openMessages();
-          }
-          if (event.target?.parentNode?.tagName === "CARD") {
-            this.props.selectChat(Number(event.target.parentNode.id));
-            this.props.openMessages();
-          }
-          if (event.target?.parentNode?.parentNode?.tagName === "CARD") {
-            this.props.selectChat(
-              Number(event.target.parentNode?.parentNode?.id)
-            );
-            this.props.openMessages();
           }
           if (event.target === document.querySelector(".chats__file-menu")) {
             this.props.openBottomMenu();
@@ -44,14 +30,14 @@ export class Chats extends Block<object> {
       <div class="chats__top-btns">
         <button class="button chats__button button_b-r-5px button_blue">
           <a class="chats__link-to-profile" href="../profile/profile.html">
-            Профиль</a>
+          {{ButtonTextChats.PROFILE}}</a>
         </button>
         <button
           class="button chats__button button_b-r-5px button_grey"
           id="search"
         >
           <img src={{svgDefault.svgSearch}} alt="Поиск" class="chats__img" />
-          Поиск
+          {{ButtonTextChats.SEARCH}}
         </button>
         <div class="chats__search ${
           this.props.isOpenSearchField ? "" : "display-none"
@@ -68,7 +54,11 @@ export class Chats extends Block<object> {
           />
         </div>
       </div>
-        {{{ChatCard chats=chats}}}
+        {{{ChatCard
+          chats=chats
+          selectChat=selectChat
+          openMessages=openMessages
+        }}}
     </aside>
     <main class="chats">
       <header class="chats__header">
@@ -110,7 +100,7 @@ export class Chats extends Block<object> {
         !this.props.isMessagesOpen
           ? `<div class="chats__no-chat-selection">
           <p class="chats__no-chat-selection-p">
-            Выберите чат чтобы отправить сообщение
+            {{SomeText.CHOOSE_CHAT}}
           </p>
         </div>`
           : `<section class="chats__body">
@@ -154,7 +144,7 @@ export class Chats extends Block<object> {
     `;
   }
 
-  componentDidUpdate(oldProps: any, newProps: any): boolean {
+  componentDidUpdate(_oldProps: any, _newProps: any): boolean {
     return true;
   }
   componentDidMount(): void {
@@ -164,7 +154,7 @@ export class Chats extends Block<object> {
 
     const btnSubmit = document.querySelector(".chats__send-btn");
     if (formEl) {
-      this.validator = new Validator(
+      this.validator = new FormCheck(
         formEl as HTMLFormElement,
         console.log,
         infoEl as HTMLElement,

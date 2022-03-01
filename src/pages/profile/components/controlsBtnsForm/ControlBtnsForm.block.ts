@@ -13,13 +13,13 @@ export class ControlBtnsForm extends Block<Record<string, any>> {
       !this.props.disabledInputs && "display-none"
     }">
       <button class="profile__change-data mb-1rem" id="change-data">
-        Изменить данные
+      {{ButtonTextProfile.CHANGE_DATA}}
       </button>
       <button class="profile__change-data mb-1rem" id="change-password">
-        Изменить пароль
+        {{ButtonTextProfile.CHANGE_PASWORD}}
       </button>
       <button class="profile__change-data profile__change-data_red">
-      <a class="profile__link-to-login" href="../login/index.html">Выйти
+      <a class="profile__link-to-login" href="../login/index.html">{{ButtonTextProfile.LOGOUT}}
       </a>
       </button>
     </div>`;

@@ -29,7 +29,7 @@ export class СonfirmPasswordAndData extends Block<Record<string, any>> {
           <button
             class="profile__btn button button_b-r-8px button_grey button_auth"
           >
-            Отмена
+          {{ButtonTextProfile.CANCEL}}
           </button>
           <button
             class="profile__btn button button_b-r-8px button_blue button_auth"
@@ -38,7 +38,7 @@ export class СonfirmPasswordAndData extends Block<Record<string, any>> {
               this.props.isPasswordFormVisible ? "profile-password" : "profile"
             }"
           >
-            Сохранить
+            {{ButtonTextProfile.SAVE}}
           </button>
       </div>
     `;

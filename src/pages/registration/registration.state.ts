@@ -1,9 +1,14 @@
+import { TitleTextLogin } from "../login/text";
+import { ButtonTextRegistration, TitleText } from "./text";
+
 export type RegistrationStateType = {
   fields: Array<{
     inputName: string;
     inputType: string;
     inputPlaceholder: string;
   }>;
+  ButtonTextRegistration: Record<string, any>;
+  TitleText: Record<string, any>;
 };
 
 export const registrationState: RegistrationStateType = {
@@ -39,4 +44,6 @@ export const registrationState: RegistrationStateType = {
       inputType: "password",
     },
   ],
+  ButtonTextRegistration: ButtonTextRegistration,
+  TitleText: TitleText,
 };

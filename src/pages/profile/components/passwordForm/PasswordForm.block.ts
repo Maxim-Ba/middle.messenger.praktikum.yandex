@@ -19,15 +19,15 @@ export class PasswordForm extends Block<Record<string, any>> {
       id="profile-password"
     >
       <div class="profile__field">
-        <label class="profile__label mb-1rem" for="oldPassword">Старый пароль</label>
+        <label class="profile__label mb-1rem" for="oldPassword">{{ButtonTextProfile.OLD_PASSWORD}}</label>
         <input class="profile__input mb-1rem" type="password" name="oldPassword" />
       </div>
       <div class="profile__field">
-        <label class="profile__label mb-1rem" for="newPassword">Новый пароль</label>
+        <label class="profile__label mb-1rem" for="newPassword">{{ButtonTextProfile.NEW_PASSWORD}}</label>
         <input class="profile__input mb-1rem" type="password" name="newPassword" />
       </div>
       <div class="profile__field">
-        <label class="profile__label" for="password">Повторите пароль</label>
+        <label class="profile__label" for="password">{{ButtonTextProfile.REAPET_PASSWORD}}</label>
         <input class="profile__input" type="password" name="password" />
       </div>
     </form>

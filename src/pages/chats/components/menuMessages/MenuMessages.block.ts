@@ -20,14 +20,14 @@ export class MenuMessages extends Block<MenuMessagesPropsI> {
       events: {
         click: (event: Event) => {
           switch (event.target) {
-            case document.getElementById("addUser"):
-              actionMessagesBtns["addUser"]();
-              break;
-            case document.getElementById("deleteUser"):
-              actionMessagesBtns["deleteUser"]();
-              break;
-            default:
-              break;
+          case document.getElementById("addUser"):
+            actionMessagesBtns["addUser"]();
+            break;
+          case document.getElementById("deleteUser"):
+            actionMessagesBtns["deleteUser"]();
+            break;
+          default:
+            break;
           }
         },
       },
@@ -36,8 +36,8 @@ export class MenuMessages extends Block<MenuMessagesPropsI> {
   render() {
     return `
     <menu class="chats__menu ${
-      this.props.isOpenMenu ? "" : "display-none"
-    }" id="chats">
+  this.props.isOpenMenu ? "" : "display-none"
+}" id="chats">
     <div class="chats__menu-content">
       {{#each chatsTopMenuButtons}}
         <div class="chats__menue-item" id={{actionId}}>

@@ -8,6 +8,7 @@ import { ChatCard } from "./components/chat-card/ChatCard.blok";
 import { TopButton } from "./components/topButton/TopButton.block";
 import { MenuMessages } from "./components/menuMessages/MenuMessages.block";
 import { BottomMenu } from "./components/bottomMenu/BottomMenu.block";
+import { Card } from "./components/сard/Card.block";
 
 registerComponent(ModalWindowBlock);
 registerComponent(ChatCard);
@@ -15,6 +16,7 @@ registerComponent(Menu);
 registerComponent(TopButton);
 registerComponent(MenuMessages);
 registerComponent(BottomMenu);
+registerComponent(Card);
 const chats = new Chats({
   ...chatsState,
   actionsBtn: {

@@ -9,6 +9,7 @@ import svgAddFile from "../../../static/img/File.svg";
 import svgAddLocation from "../../../static/img/Location.svg";
 import svgSendFile from "../../../static/img/Image.svg";
 import svgArrowRight from "../../../static/img/Arrow-right.svg";
+import { ButtonTextChats, SomeText } from "./text";
 
 export enum EnumChatActions {
   CREATE_CHAT = "create",
@@ -207,4 +208,6 @@ export const chatsState = {
   isOpenSearchField: false,
   isMessagesOpen: false,
   isOpenBottomMenu: false,
+  ButtonTextChats,
+  SomeText,
 };

@@ -19,18 +19,8 @@ export class BottomMenu extends Block<BottomMenuPropsI> {
       bottomMenuButtons,
       events: {
         click: (event: Event) => {
-          switch (event.target) {
-            case document.getElementById("fotoOrVideo"):
-              actionsBottomBtn["fotoOrVideo"]();
-              break;
-            case document.getElementById("file"):
-              actionsBottomBtn["file"]();
-              break;
-            case document.getElementById("location"):
-              actionsBottomBtn["location"]();
-              break;
-            default:
-              break;
+          if (actionsBottomBtn[(event.target as HTMLElement).id]) {
+            actionsBottomBtn[(event.target as HTMLElement).id]();
           }
         },
       },

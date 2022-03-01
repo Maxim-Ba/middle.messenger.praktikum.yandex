@@ -1,5 +1,6 @@
 import svgAvatarProfile from "../../../static/img/Avatar-profile.svg";
 import svgArrowLeft from "../../../static/img/Arrow.svg";
+import { ButtonTextProfile } from "./text";
 
 export const profileState = {
   disabledInputs: true,
@@ -23,4 +24,6 @@ export const profileState = {
   },
   isOpenWindow: false,
   isPasswordFormVisible: false,
+  nameOwener: "Максим",
+  ButtonTextProfile,
 };

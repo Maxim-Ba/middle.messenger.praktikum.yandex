@@ -1,9 +1,13 @@
+import { ButtonTextLogin, TitleTextLogin } from "./text";
+
 type LoginStateType = {
   fields: Array<{
     inputName: string;
     inputType: string;
     inputPlaceholder: string;
   }>;
+  ButtonTextLogin: Record<string, any>;
+  TitleTextLogin: Record<string, any>;
 };
 
 export const loginState: LoginStateType = {
@@ -19,4 +23,6 @@ export const loginState: LoginStateType = {
       inputType: "password",
     },
   ],
+  ButtonTextLogin,
+  TitleTextLogin,
 };

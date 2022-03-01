@@ -1,25 +1,24 @@
 import { Block } from "../../modules/Block/Block";
-import { Validator } from "../../services/validator/Validator";
+import { FormCheck } from "../../services/formCheck/FormCheck";
 import { arrayToChildrenString } from "../../utils/arrayChildrenString";
 import { loginState } from "./login.state";
 
 export class Login extends Block<Record<string, any>> {
   static getComponentName = "Login";
-  validator: Validator;
+  validator: FormCheck;
 
   constructor(props: Record<string, any> | undefined) {
     super(props);
   }
 
   render() {
-    //language html
     return `
       
     <div class="login__wrapper">
     <main class="login">
       <div class="title-wrapper">
         <h1 class="login-registration__title">
-          Вход
+        {{TitleTextLogin.LOGIN}}
         </h1>
       </div>
       <form class="form" id="login-form">
@@ -32,11 +31,11 @@ export class Login extends Block<Record<string, any>> {
         <button class="button button_grey button_auth button_b-r-8px"><a
             href="../registration/registration.html"
             class="login__link-to-reg button"
-          >Впервые?</a></button>
+          >{{ButtonTextLogin.TO_REGISTRATION}}</a></button>
         <button
           type="submit"
           class="button button_blue button_auth button_b-r-8px" id="auth-btn" for="login-form"
-        >Авторизоваться</button>
+        >{{ButtonTextLogin.LOGIN}}</button>
       </div>
       </form>
     </main>
@@ -48,7 +47,7 @@ export class Login extends Block<Record<string, any>> {
   componentDidMount(): void {
     const formEl = document.getElementById("login-form");
     if (formEl) {
-      this.validator = new Validator(formEl as HTMLFormElement);
+      this.validator = new FormCheck(formEl as HTMLFormElement);
     }
   }
   componentWillUnmount(): void {

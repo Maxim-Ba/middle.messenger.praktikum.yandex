@@ -137,9 +137,7 @@ export class Block<T extends Props> {
     this.eventBus.emit(Block.EVENTS.FLOW_CWU);
 
     const templateString = this.render();
-    // const fragment = this.compile(templateString, {
-    //   ...this.props,
-    // });
+
     const fragment = compile(
       templateString,
       {
@@ -191,14 +189,14 @@ export class Block<T extends Props> {
     return proxyProps;
   }
 
-  private _createDocumentElement(tagName: string) {
+  createDocumentElement(tagName: string) {
     const element = document.createElement(tagName);
     element.setAttribute("data-id", this._id);
     return element;
   }
 
   compile(templateString: string, context: any) {
-    const fragment = this._createDocumentElement(
+    const fragment = this.createDocumentElement(
       "template"
     ) as HTMLTemplateElement;
 

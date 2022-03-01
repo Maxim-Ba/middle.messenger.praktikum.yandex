@@ -5,6 +5,6 @@ import { loginState } from "./login.state";
 import { registerComponent } from "../../utils/registerComponent";
 
 registerComponent(Input);
-const login = new Login({ fields: loginState.fields });
+const login = new Login({ ...loginState });
 
 render("#root", login);

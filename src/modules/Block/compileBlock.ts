@@ -6,8 +6,7 @@ export function compile(
   context: any,
   Component: Block<Record<string, any>>
 ) {
-  // @ts-ignore
-  const fragment = Component._createDocumentElement(
+  const fragment = Component.createDocumentElement(
     "template"
   ) as HTMLTemplateElement;
 

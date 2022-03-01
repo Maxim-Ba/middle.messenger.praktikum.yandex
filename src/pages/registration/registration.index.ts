@@ -5,6 +5,6 @@ import { registerComponent } from "../../utils/registerComponent";
 import { Input } from "../../components/input/Input.block";
 
 registerComponent(Input);
-const registration = new Registration({ fields: registrationState.fields });
+const registration = new Registration({ ...registrationState });
 
 render("#root", registration);

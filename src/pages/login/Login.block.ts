@@ -4,7 +4,9 @@ import { arrayToChildrenString } from "../../utils/arrayChildrenString";
 import { loginState } from "./login.state";
 
 export class Login extends Block<Record<string, any>> {
-  static getComponentName = "Login";
+  static get componentName() {
+    return "Login";
+  }
   validator: FormCheck;
 
   constructor(props: Record<string, any> | undefined) {

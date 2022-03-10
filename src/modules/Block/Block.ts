@@ -14,6 +14,10 @@ export class Block<T extends Props> {
     FLOW_CDU: "flow:component-did-update",
     FLOW_CWU: "flow:component-will-unmount",
   };
+  static get componentName() {
+    return "Block";
+  }
+
   private _element: HTMLElement;
   eventBus: EventBus;
   props: Props;
@@ -27,12 +31,8 @@ export class Block<T extends Props> {
     this.initChildren = propsAndChildren;
     this.initProps = propsAndChildren;
 
-    // this.eventBus = () => eventBus;
     this._registerEvents(this.eventBus);
     this.eventBus.emit(Block.EVENTS.INIT);
-  }
-  static get componentName() {
-    return this.name;
   }
 
   set initChildren(

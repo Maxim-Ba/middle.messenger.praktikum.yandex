@@ -1,123 +1,54 @@
-{{{modal}}}
 <div class="profile__wrapper">
   <aside class="profile__go-back">
     <a class="profile__link" href="../chats/chats.html">
-      <img
-        src={{svg.svgArrowLeft}}
-        alt="Аватар пользователя"
-        class="profile__arrow"
-      />
+      <img src={{svg.svgArrowLeft}} alt="Аватар пользователя" class="profile__arrow" />
     </a>
   </aside>
   <main class="profile">
     <div class="profile__data">
-      <img
-        class="img img_round profile__img"
-        src={{svg.svgAvatarProfile}}
-        alt="Аватар пользователя"
-      />
+      <img class="img img_round profile__img" src={{svg.svgAvatarProfile}} alt="Аватар пользователя" />
       <h1 class="profile__owener">Максим</h1>
       <div class="profile__form-container">
         <!--  -->
 
         <form class="profile__form" id="profile">
           <div class="profile__field">
-            <label class="profile__label mb-1rem" for="email">Почта</label>
-            <input class="profile__input mb-1rem" type="text" name="email" />
+            <label class="profile__label mb-1rem" for="email">Почта {{disabledInputs}}</label>
+            {{#if disabledInputs}}
+              <input disabled class="profile__input mb-1rem" type="email" name="email" value={{emailValue}} />
+            {{else}}
+              <input class="profile__input mb-1rem" type="email" name="email" value={{emailValue}} />
+            {{/if}}
           </div>
           <div class="profile__field">
             <label class="profile__label mb-1rem" for="login">Логин</label>
-            <input class="profile__input mb-1rem" type="text" name="login" />
+            <input disabled class="profile__input mb-1rem" type="text" name="login" value={{loginValue}} />
           </div>
           <div class="profile__field">
             <label class="profile__label mb-1rem" for="first_name">Имя</label>
-            <input
-              class="profile__input mb-1rem"
-              type="text"
-              name="first_name"
-            />
+            <input disabled class="profile__input mb-1rem" type="text" name="first_name" value={{firstNameValue}} />
           </div>
           <div class="profile__field">
-            <label
-              class="profile__label mb-1rem"
-              for="second_name"
-            >Фамилия</label>
-            <input
-              class="profile__input mb-1rem"
-              type="text"
-              name="second_name"
-            />
+            <label class="profile__label mb-1rem" for="second_name">Фамилия</label>
+            <input disabled class="profile__input mb-1rem" type="text" name="second_name" value={{secondNameValue}} />
           </div>
           <div class="profile__field">
             <label class="profile__label mb-1rem" for="display_name">Имя в чате</label>
-            <input
-              class="profile__input mb-1rem"
-              type="text"
-              name="display_name"
-            />
+            <input disabled class="profile__input mb-1rem" type="text" name="display_name" value={{displayNameValue}} />
           </div>
           <div class="profile__field">
             <label class="profile__label mb-1rem" for="phone">Телефон</label>
-            <input class="profile__input mb-1rem" type="text" name="phone" />
+            <input disabled class="profile__input mb-1rem" type="text" name="phone" value="{{phoneNameValue}}"/>
           </div>
         </form>
-        <form
-          class="profile__form display-none profile__form-password"
-          id="profile-password"
-        >
-          <div class="profile__field">
-            <label class="profile__label mb-1rem" for="oldPassword">Старый
-              пароль</label>
-            <input
-              class="profile__input mb-1rem"
-              type="password"
-              name="oldPassword"
-            />
-          </div>
-          <div class="profile__field">
-            <label class="profile__label mb-1rem" for="newPassword">Новый пароль</label>
-            <input
-              class="profile__input mb-1rem"
-              type="password"
-              name="newPassword"
-            />
-          </div>
-          <div class="profile__field">
-            <label class="profile__label" for="">Повторите пароль</label>
-            <input class="profile__input" type="password" />
-          </div>
-        </form>
-
+        {{{passwordForm}}}
         <!--  -->
       </div>
 
       <div class="profile__control-wrapper">
-        <div class="profile__control">
-          <button class="profile__change-data mb-1rem">
-            Изменить данные
-          </button>
-          <button class="profile__change-data mb-1rem">
-            Изменить пароль
-          </button>
-          <button class="profile__change-data profile__change-data_red">
-            <a class="profile__link-to-login" href="../login/index.html">Выйти
-            </a>
-
-          </button>
-        </div>
-        <div class="profile__control display-none profile__control_row">
-          <button
-            class="profile__btn button button_b-r-8px button_grey button_auth"
-          >
-            Отмена
-          </button>
-          <button
-            class="profile__btn button button_b-r-8px button_blue button_auth"
-          >
-            Сохранить
-          </button>
-        </div>
+        {{{controlsBtnsForm}}}
+        {{{controlPassword}}}
       </div>
-    </div>
   </main>
 </div>
+{{{modal}}}

@@ -46,8 +46,8 @@ export class Card extends Block<CardPropsI> {
   render() {
     return `
       <card class="chats__chat-item ${
-  this.props.isSelected === "true" ? "chats__chat-item_selected" : " "
-}" id={{chatId}}>
+        this.props.isSelected === "true" ? "chats__chat-item_selected" : " "
+      }" id={{chatId}}>
         <div class="chats__pic-wrapper">
           <img src="{{{imageSrc}}}" class="chats__picture" alt="Картинка чата" />
         </div>

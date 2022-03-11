@@ -212,4 +212,11 @@ export class Block<T extends Props> {
 
     return fragment.content;
   }
+
+  hide() {
+    this._element.style.display = "none";
+  }
+  show() {
+    this._element.style.display = "block";
+  }
 }

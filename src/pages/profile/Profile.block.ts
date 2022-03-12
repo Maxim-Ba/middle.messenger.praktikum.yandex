@@ -31,9 +31,10 @@ export class Profile extends Block<Record<string, any>> {
     return `
     <div class="profile__wrapper">
     <aside class="profile__go-back">
-      <a class="profile__link" href="../chats/chats.html">
-        <img src={{svg.svgArrowLeft}} alt="Аватар пользователя" class="profile__arrow" />
-      </a>
+    {{{ToChatsButton
+      picArrow=svg.svgArrowLeft
+    }}}
+      
     </aside>
     <main class="profile">
       <div class="profile__data">

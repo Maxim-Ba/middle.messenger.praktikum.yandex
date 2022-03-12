@@ -1,3 +1,4 @@
+import { killDOM } from "../../utils/killDOM";
 import { render } from "../../utils/renderDOM";
 import { Block } from "../Block/Block";
 
@@ -9,14 +10,15 @@ function isEqual<T>(lhs: T, rhs: T) {
 
 export default class Route {
   private _pathname: string;
-  private _blockClass: Block<any>;
-  private _block: null | Block<any>;
+
+  private _block: Block<any>;
   private _props: Record<string, any>;
-  constructor(pathname: string, view: Block<any>, props: Record<string, any>) {
+  private _currentBlock: null | Block<any>;
+  constructor(pathname: string, block: Block<any>, props: Record<string, any>) {
     this._pathname = pathname;
-    this._blockClass = view;
-    this._block = null;
+    this._block = block;
     this._props = props;
+    this._currentBlock = null;
   }
 
   navigate(pathname: string) {
@@ -27,9 +29,9 @@ export default class Route {
   }
 
   leave() {
-    if (this._block) {
-      this._block.hide();
-      //this._block = null // вопрос
+    if (this._currentBlock) {
+      killDOM(this._props.rootQuery, this._currentBlock);
+      this._currentBlock = null; // вопрос
     }
   }
 
@@ -38,11 +40,11 @@ export default class Route {
   }
 
   render() {
-    if (!this._block) {
-      this._block = new this._blockClass({ ...this._props });
-      render(this._props.rootQuery, this._block as Block<any>);
+    if (!this._currentBlock) {
+      this._currentBlock = this._block;
+      render(this._props.rootQuery, this._currentBlock);
       return;
     }
-    this._block.show();
+    render(this._props.rootQuery, this._currentBlock);
   }
 }

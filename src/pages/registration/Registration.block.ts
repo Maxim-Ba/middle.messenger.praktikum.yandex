@@ -23,16 +23,13 @@ export class Registration extends Block<Record<string, any>> {
             </div>
           
           <div class="registration__button-wrapper">
-            <button class="button button_grey button_auth button_b-r-8px"><a
-                href="../chats/chats.html"
-                class="button"
-              >{{ButtonTextRegistration.TO_LOGIN}}</a>
-            </button>
-            <button
-              class="button button_blue button_auth button_b-r-8px"
-              type="submit"
-            >{{ButtonTextRegistration.REGISTRATION}}
-            </button>
+          {{{ToLoginButton
+            buttonText=ButtonTextRegistration.TO_LOGIN
+          }}}
+          {{{SendRegistrationButton
+            buttonText=ButtonTextRegistration.REGISTRATION
+          }}}  
+            
           </div>
         </form>
       </main>

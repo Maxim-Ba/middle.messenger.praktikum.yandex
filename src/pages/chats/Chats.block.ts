@@ -7,6 +7,7 @@ export class Chats extends Block<object> {
   constructor(props: Record<string, any> | undefined) {
     super({
       ...props,
+
       events: {
         click: (event: Event) => {
           if (event.target === document.getElementById("search")) {
@@ -28,10 +29,9 @@ export class Chats extends Block<object> {
     <div class="chats__wrapper">
     <aside class="chats__aside">
       <div class="chats__top-btns">
-        <button class="button chats__button button_b-r-5px button_blue">
-          <a class="chats__link-to-profile" href="../profile/profile.html">
-          {{ButtonTextChats.PROFILE}}</a>
-        </button>
+      {{{ToProfileButton
+        buttonText=ButtonTextChats.PROFILE
+      }}}
         <button
           class="button chats__button button_b-r-5px button_grey"
           id="search"

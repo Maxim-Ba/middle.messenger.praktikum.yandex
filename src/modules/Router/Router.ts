@@ -20,10 +20,10 @@ class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, block: any, props: any = {}) {
+  use(pathname: string, block: Block<any>) {
     const route = new Route(pathname, block, {
+      // props,
       rootQuery: this._rootQuery,
-      ...props,
     });
 
     this.routes.push(route);
@@ -47,7 +47,6 @@ class Router {
       this._currentRoute.leave();
     }
     this._currentRoute = route;
-    // route.render(route, pathname); // вопрос
     route.render();
   }
 
@@ -56,17 +55,12 @@ class Router {
     this._onRoute(pathname);
   }
   back() {
-    console.log("------------back");
     this.history.back();
-    console.log(window.location, "window.location.pathname");
     this._onRoute(window.location.pathname);
   }
 
   forward() {
-    console.log("------------forward");
     this.history.forward();
-    console.log(window.location, "window.location.pathname");
-
     this._onRoute(window.location.pathname);
   }
   getRoute(pathname: string) {

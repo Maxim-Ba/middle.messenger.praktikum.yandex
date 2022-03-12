@@ -110,7 +110,7 @@ export class FormCheck {
       : (this.formEl.querySelector(
           "button[type='submit']"
         ) as HTMLButtonElement);
-    this.buttonSubmit!.disabled = !isValid;
+    this.buttonSubmit!.disabled = typeof isValid === "number"; //!isValid;
   }
 
   onSubmit(event: Event) {

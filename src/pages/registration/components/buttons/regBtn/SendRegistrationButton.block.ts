@@ -1,17 +1,19 @@
 import { Block } from "../../../../../modules/Block/Block";
 import { Router } from "../../../../../modules/Router/Router";
 
-export class RegistrationButton extends Block<Record<string, any>> {
+export class SendRegistrationButton extends Block<Record<string, any>> {
   static get componentName() {
-    return "RegistrationButton";
+    return "SendRegistrationButton";
   }
   constructor(props: Record<string, any> | undefined) {
     super({
       ...props,
       events: {
         click: () => {
+          console.log("fetch");
+          console.log("...");
           const router = new Router("#root");
-          router.go("/sign-up");
+          router.go("/messenger");
         },
       },
     });
@@ -19,7 +21,9 @@ export class RegistrationButton extends Block<Record<string, any>> {
   render() {
     return `
     <button
-      class="button button_grey button_auth button_b-r-8px"
+      type="submit"
+      disabled
+      class="button button_blue button_auth button_b-r-8px"
     >
       {{buttonText}}
     </button>

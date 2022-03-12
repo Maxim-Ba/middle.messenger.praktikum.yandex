@@ -1,7 +1,6 @@
 import { Block } from "../../modules/Block/Block";
 import { FormCheck } from "../../services/formCheck/FormCheck";
 import { arrayToChildrenString } from "../../utils/arrayChildrenString";
-import { loginState } from "./login.state";
 
 export class Login extends Block<Record<string, any>> {
   classNamesReg: string;

@@ -1,9 +1,9 @@
 import { Block } from "../../../../../modules/Block/Block";
 import { Router } from "../../../../../modules/Router/Router";
 
-export class RegistrationButton extends Block<Record<string, any>> {
+export class ToLoginButton extends Block<Record<string, any>> {
   static get componentName() {
-    return "RegistrationButton";
+    return "ToLoginButton";
   }
   constructor(props: Record<string, any> | undefined) {
     super({
@@ -11,7 +11,7 @@ export class RegistrationButton extends Block<Record<string, any>> {
       events: {
         click: () => {
           const router = new Router("#root");
-          router.go("/sign-up");
+          router.go("/");
         },
       },
     });

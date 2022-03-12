@@ -18,10 +18,10 @@ export class ControlBtnsForm extends Block<Record<string, any>> {
       <button class="profile__change-data mb-1rem" id="change-password">
         {{ButtonTextProfile.CHANGE_PASWORD}}
       </button>
-      <button class="profile__change-data profile__change-data_red">
-      <a class="profile__link-to-login" href="../login/index.html">{{ButtonTextProfile.LOGOUT}}
-      </a>
-      </button>
+      {{{ToLoginButton
+        buttonText=ButtonTextProfile.LOGOUT
+      }}}
+      
     </div>`;
   }
 }

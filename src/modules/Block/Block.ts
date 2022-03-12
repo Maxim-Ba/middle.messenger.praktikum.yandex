@@ -95,6 +95,9 @@ export class Block<T extends Props> {
   protected componentWillUnmount(): void {
     return;
   }
+  public dispatchComponentWillUnmount(): void {
+    this.componentWillUnmount();
+  }
   private _componentDidMount() {
     this.componentDidMount();
     Object.values(this.children).forEach((child) => {

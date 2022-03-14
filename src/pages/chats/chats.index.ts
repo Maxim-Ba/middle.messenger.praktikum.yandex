@@ -9,6 +9,8 @@ import { MenuMessages } from "./components/menuMessages/MenuMessages.block";
 import { BottomMenu } from "./components/bottomMenu/BottomMenu.block";
 import { Card } from "./components/сard/Card.block";
 import { ToProfileButton } from "./components/buttons/ToProfileButton";
+import { BackToChatListBtn } from "./components/backToChatListBtn/backToChatListBtn.block";
+import { ButtonClose } from "../../components/modal-window/buttons/ButtonClose.block";
 
 registerComponent(ModalWindowBlock);
 registerComponent(ChatCard);
@@ -18,6 +20,9 @@ registerComponent(MenuMessages);
 registerComponent(BottomMenu);
 registerComponent(Card);
 registerComponent(ToProfileButton);
+registerComponent(BackToChatListBtn);
+registerComponent(ButtonClose);
+
 export const chats = new Chats({
   ...chatsState,
   actionsBtn: {
@@ -29,6 +34,9 @@ export const chats = new Chats({
           change: false,
           addUser: false,
           deleteUser: false,
+          location: false,
+          file: false,
+          fotoOrVideo: false,
         },
         isOpenWindow: true,
         isOpenMenu: !chats.props.isOpenMenu,
@@ -43,6 +51,9 @@ export const chats = new Chats({
           change: false,
           addUser: false,
           deleteUser: false,
+          location: false,
+          file: false,
+          fotoOrVideo: false,
         },
         isOpenWindow: true,
         isOpenMenu: !chats.props.isOpenMenu,
@@ -72,6 +83,9 @@ export const chats = new Chats({
           changeAva: false,
           addUser: true,
           deleteUser: false,
+          location: false,
+          file: false,
+          fotoOrVideo: false,
         },
         isOpenWindow: true,
         isOpenMenu: !chats.props.isOpenMenu,
@@ -85,6 +99,9 @@ export const chats = new Chats({
           change: false,
           addUser: false,
           deleteUser: true,
+          location: false,
+          file: false,
+          fotoOrVideo: false,
         },
         isOpenWindow: true,
         isOpenMenu: !chats.props.isOpenMenu,
@@ -103,6 +120,7 @@ export const chats = new Chats({
   },
   openSearchField() {
     chats.setProps({
+      isResultSearchChat: !chats.props.isResultSearchChat,
       isOpenSearchField: !chats.props.isOpenSearchField,
     });
   },
@@ -122,6 +140,11 @@ export const chats = new Chats({
       isMessagesOpen: true,
     });
   },
+  closeMessages() {
+    chats.setProps({
+      isMessagesOpen: false,
+    });
+  },
   openBottomMenu() {
     chats.setProps({
       isOpenBottomMenu: !chats.props.isOpenBottomMenu,
@@ -133,12 +156,15 @@ export const chats = new Chats({
         modalWindow: {
           create: false,
           delete: false,
-          change: true,
+          change: false,
           addUser: false,
           deleteUser: false,
+          location: false,
+          file: false,
+          fotoOrVideo: true,
         },
         isOpenWindow: true,
-        isOpenMenu: !chats.props.isOpenBottomMenu,
+        isOpenBottomMenu: !chats.props.isOpenBottomMenu,
       });
     },
 
@@ -147,12 +173,15 @@ export const chats = new Chats({
         modalWindow: {
           create: false,
           delete: false,
-          change: true,
+          change: false,
           addUser: false,
           deleteUser: false,
+          location: false,
+          file: true,
+          fotoOrVideo: false,
         },
         isOpenWindow: true,
-        isOpenMenu: !chats.props.isOpenBottomMenu,
+        isOpenBottomMenu: !chats.props.isOpenBottomMenu,
       });
     },
     location() {
@@ -160,13 +189,37 @@ export const chats = new Chats({
         modalWindow: {
           create: false,
           delete: false,
-          change: true,
+          change: false,
           addUser: false,
           deleteUser: false,
+          location: true,
+          file: false,
+          fotoOrVideo: false,
         },
         isOpenWindow: true,
-        isOpenMenu: !chats.props.isOpenBottomMenu,
+        isOpenBottomMenu: !chats.props.isOpenBottomMenu,
       });
     },
+  },
+  closeCurrentChat() {
+    const newChatsList = chats.props.chats.map((chat: any) => {
+      return { ...chat, isSelected: false };
+    });
+    chats.setProps({
+      chats: [...newChatsList],
+      isOpenMenu: false,
+      isOpenBottomMenu: false,
+    });
+  },
+  searchChat(value: string) {
+    const newChatsList = chats.props.chats.map((chat: any) => {
+      if (chat.name.match(new RegExp(`${value}`, "gi"))) {
+        return chat;
+      }
+    });
+    chats.setProps({
+      isResultSearchChat: true,
+      resultSearchChat: [...newChatsList],
+    });
   },
 });

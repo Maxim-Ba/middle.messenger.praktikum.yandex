@@ -7,7 +7,6 @@ export class Chats extends Block<object> {
   constructor(props: Record<string, any> | undefined) {
     super({
       ...props,
-
       events: {
         click: (event: Event) => {
           if (event.target === document.getElementById("search")) {
@@ -15,6 +14,11 @@ export class Chats extends Block<object> {
           }
           if (event.target === document.querySelector(".chats__file-menu")) {
             this.props.openBottomMenu();
+          }
+        },
+        input: (event: Event) => {
+          if (event.target === document.querySelector("#search-input")) {
+            this.props.searchChat((event.target as HTMLInputElement).value);
           }
         },
       },
@@ -51,6 +55,7 @@ export class Chats extends Block<object> {
             class="chats__search-input button_grey"
             type="text"
             placeholder="Поиск"
+            id="search-input"
           />
         </div>
       </div>
@@ -65,10 +70,16 @@ export class Chats extends Block<object> {
         <div class="chats__current-chat">
           ${
             this.props.isMessagesOpen
-              ? `<img
-                class="chats__current-chat-pic"
-                src={{svgDefault.svgDefaultChatPic}}
-                alt="картинка выбраного чата"
+              ? `
+                {{{BackToChatListBtn
+                  svgDefault=svgDefault
+                  closeCurrentChat=closeCurrentChat
+                  closeMessages=closeMessages
+                }}}
+                <img
+                  class="chats__current-chat-pic"
+                  src={{svgDefault.svgDefaultChatPic}}
+                  alt="картинка выбраного чата"
                 />
                 <p class="chats__current-chat-name">Андрей</p>`
               : "<div></div>"

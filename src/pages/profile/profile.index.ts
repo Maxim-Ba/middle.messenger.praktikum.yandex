@@ -7,6 +7,7 @@ import { СonfirmPasswordAndData } from "./components/controlPassword/ControlPas
 import { PasswordForm } from "./components/passwordForm/PasswordForm.block";
 import { ToLoginButton } from "./components/toLoginButton/ToLoginButton.block";
 import { ToChatsButton } from "./components/toChatsButton/ToChatsButton.block";
+import { ButtonClose } from "../../components/modal-window/buttons/ButtonClose.block";
 
 registerComponent(ModalWindowBlock);
 registerComponent(ControlBtnsForm);
@@ -14,6 +15,7 @@ registerComponent(СonfirmPasswordAndData);
 registerComponent(PasswordForm);
 registerComponent(ToLoginButton);
 registerComponent(ToChatsButton);
+registerComponent(ButtonClose);
 
 export const profile = new Profile({
   ...profileState,

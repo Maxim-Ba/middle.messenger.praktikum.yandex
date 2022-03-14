@@ -10,6 +10,7 @@ import svgAddLocation from "../../../static/img/Location.svg";
 import svgSendFile from "../../../static/img/Image.svg";
 import svgArrowRight from "../../../static/img/Arrow-right.svg";
 import { ButtonTextChats, SomeText } from "./text";
+import svgArrowLeft from "../../../static/img/Arrow.svg";
 
 export enum EnumChatActions {
   CREATE_CHAT = "create",
@@ -29,6 +30,7 @@ export const chatsState = {
     svgMenu,
     svgSendFile,
     svgArrowRight,
+    svgArrowLeft,
   },
   topMenuButtons: [
     {
@@ -202,12 +204,18 @@ export const chatsState = {
     changeAva: false,
     addUser: false,
     deleteUser: false,
+
+    location: false,
+    file: false,
+    fotoOrVideo: false,
   },
   isOpenWindow: false,
   isOpenMenu: false,
   isOpenSearchField: false,
   isMessagesOpen: false,
   isOpenBottomMenu: false,
+  resultSearchChat: [],
+  isResultSearchChat: false,
   ButtonTextChats,
   SomeText,
 };

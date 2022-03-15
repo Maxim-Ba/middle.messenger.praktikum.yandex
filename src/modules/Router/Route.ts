@@ -10,15 +10,17 @@ function isEqual<T>(lhs: T, rhs: T) {
 
 export default class Route {
   private _pathname: string;
-
+  private _blockClass: typeof Block;
   private _block: Block<any>;
   private _props: Record<string, any>;
-  private _currentBlock: null | Block<any>;
-  constructor(pathname: string, block: Block<any>, props: Record<string, any>) {
+  constructor(
+    pathname: string,
+    view: typeof Block,
+    props: Record<string, any>
+  ) {
     this._pathname = pathname;
-    this._block = block;
+    this._blockClass = view;
     this._props = props;
-    this._currentBlock = null;
   }
 
   navigate(pathname: string) {
@@ -29,9 +31,8 @@ export default class Route {
   }
 
   leave() {
-    if (this._currentBlock) {
-      killDOM(this._props.rootQuery, this._currentBlock);
-      this._currentBlock = null; // вопрос
+    if (this._block) {
+      killDOM(this._props.rootQuery, this._block);
     }
   }
 
@@ -40,11 +41,17 @@ export default class Route {
   }
 
   render() {
-    if (!this._currentBlock) {
-      this._currentBlock = this._block;
-      render(this._props.rootQuery, this._currentBlock);
-      return;
+    if (!this._block) {
+      this._block = new this._blockClass();
     }
-    render(this._props.rootQuery, this._currentBlock);
+
+    const root = document.querySelector(this._props.rootQuery);
+
+    if (!root) {
+      throw new Error("Error! No root!");
+    }
+
+    root.innerHTML = "";
+    render(this._props.rootQuery, this._block);
   }
 }

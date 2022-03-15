@@ -2,7 +2,7 @@ import { Block } from "../modules/Block/Block";
 import * as Handlebars from "handlebars";
 export function registerComponent(Component: typeof Block) {
   Handlebars.registerHelper(
-    Component.componentName,
+    Component.componentName || Component.name,
     function ({ hash, data }: Handlebars.HelperOptions) {
       if (!data.root.children) {
         data.root.children = {};

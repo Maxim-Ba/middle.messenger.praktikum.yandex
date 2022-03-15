@@ -10,14 +10,15 @@ export class SendRegistrationButton extends Block<Record<string, any>> {
       ...props,
       events: {
         click: () => {
-          console.log("fetch");
-          console.log("...");
-          const router = new Router("#root");
-          router.go("/messenger");
+          // console.log("fetch");
+          // console.log("...");
+          // const router = new Router();
+          // router.go("/messenger");
         },
       },
     });
   }
+
   render() {
     return `
     <button

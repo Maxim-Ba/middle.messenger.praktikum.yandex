@@ -118,6 +118,7 @@ export class FormCheck {
     if (this.infoEl) {
       this.checkValidity(event);
     }
-    this.actionCB(...new FormData(this.formEl).entries());
+    const formData = new FormData(this.formEl);
+    this.actionCB(Object.fromEntries(formData.entries()));
   }
 }

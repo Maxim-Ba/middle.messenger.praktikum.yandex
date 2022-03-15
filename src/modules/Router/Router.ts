@@ -8,21 +8,20 @@ class Router {
   private _currentRoute: Route | null;
   private _rootQuery: string;
 
-  constructor(rootQuery: string) {
+  constructor() {
     if (Router.__instance) {
       return Router.__instance;
     }
     this.routes = [];
     this.history = window.history;
     this._currentRoute = null;
-    this._rootQuery = rootQuery;
+    this._rootQuery = "#root";
 
     Router.__instance = this;
   }
 
-  use(pathname: string, block: Block<any>) {
+  use(pathname: string, block: typeof Block) {
     const route = new Route(pathname, block, {
-      // props,
       rootQuery: this._rootQuery,
     });
 
@@ -42,7 +41,6 @@ class Router {
     if (!route) {
       return;
     }
-
     if (this._currentRoute) {
       this._currentRoute.leave();
     }
@@ -54,6 +52,7 @@ class Router {
     this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
+
   back() {
     this.history.back();
     this._onRoute(window.location.pathname);
@@ -63,6 +62,7 @@ class Router {
     this.history.forward();
     this._onRoute(window.location.pathname);
   }
+
   getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
   }

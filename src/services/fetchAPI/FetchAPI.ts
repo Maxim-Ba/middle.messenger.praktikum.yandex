@@ -9,81 +9,117 @@ function queryStringify(data: object | ArrayLike<unknown> | undefined): string {
   let str = "?";
   str =
     str +
-    Object.entries(data as object).reduce((acc, [key, value]) => `${acc}&${key}=${value}`, "");
+    Object.entries(data as object).reduce(
+      (acc, [key, value]) => `${acc}&${key}=${value}`,
+      ""
+    );
   return str;
   // return str.slice(0, -1);
 }
 
-type OptionsType = {
+export type OptionsType = {
   timeout?: number;
-  data?: { [key: string]: unknown };
+  data?: Record<string, any>;
   headers?: { [key: string]: string };
-  method: METHODS;
+  method?: METHODS;
   retries?: number;
   isQueryParams?: boolean;
 };
+const options = {
+  method: METHODS.GET,
+  timeout: 1000,
+  data: { test: "test" },
+  headers: { "Content-Type": "application/json" },
+  isQueryParams: false,
+  retries: 2,
+};
 export class HTTPTransport {
-  options = {
-    method: METHODS.GET,
-    timeout: 5000,
-    data: { test: "test" },
-    headers: { "Content-Type": "text/plain" },
-    isQueryParams: false,
+  static BASE_URL = "https://ya-praktikum.tech/api/v2";
+  endpoint: string;
+  options: {
+    method: METHODS;
+    timeout: number;
+    data: { test: string };
+    headers: { "Content-Type": string };
+    isQueryParams: boolean;
   };
 
-  get = (url: string, options: OptionsType = this.options) => {
+  constructor(endpoint: string) {
+    this.endpoint = HTTPTransport.BASE_URL + endpoint;
+    this.options = options;
+  }
+  get = (url: string, options: OptionsType = { ...this.options }) => {
     let params = "";
     if (options.isQueryParams) {
       params = queryStringify(options.data);
     }
     return this.request(
-      url + params,
-      { ...options, method: METHODS.GET },
+      this.endpoint + url + params,
+      {
+        ...options,
+        method: METHODS.GET,
+        headers: { "Content-Type": "application/json" },
+      },
       options.timeout
     );
   };
 
-  put = (url: string, options: OptionsType = this.options) => {
+  put = (url: string, options: OptionsType = { ...this.options }) => {
     let params = "";
     if (options.isQueryParams) {
       params = queryStringify(options.data);
     }
     return this.request(
-      url + params,
-      { ...options, method: METHODS.PUT },
+      this.endpoint + url + params,
+      {
+        ...options,
+        method: METHODS.PUT,
+        headers: { "Content-Type": "application/json" },
+      },
       options.timeout
     );
   };
 
-  post = (url: string, options: OptionsType = this.options) => {
+  post = (url: string, options: OptionsType = { ...this.options }) => {
     let params = "";
     if (options.isQueryParams) {
       params = queryStringify(options.data);
     }
     return this.request(
-      url + params,
-      { ...options, method: METHODS.POST },
+      this.endpoint + url + params,
+      {
+        ...options,
+        method: METHODS.POST,
+        headers: { "Content-Type": "application/json" },
+      },
       options.timeout
     );
   };
 
-  delete = (url: string, options: OptionsType = this.options) => {
+  delete = (url: string, options: OptionsType = { ...this.options }) => {
     let params = "";
     if (options.isQueryParams) {
       params = queryStringify(options.data);
     }
     return this.request(
-      url + params,
-      { ...options, method: METHODS.DELETE },
+      this.endpoint + url + params,
+      {
+        ...options,
+        method: METHODS.DELETE,
+        headers: { "Content-Type": "application/json" },
+      },
       options.timeout
     );
   };
 
   request = (url: string, options: OptionsType, _timeout = 5000) => {
     const { method, data, headers } = options;
+
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+      xhr.withCredentials = true;
+      xhr.responseType = "json";
+      xhr.open(method as string, url);
       if (headers) {
         for (const key of Object.keys(headers)) {
           xhr.setRequestHeader(key, headers[key]);
@@ -91,9 +127,9 @@ export class HTTPTransport {
       }
 
       xhr.onload = () => {
-        if (xhr.status !== 200) {
-          reject("responce status " + xhr.status);
-        }
+        // if (xhr.status !== 200) {
+        //   reject("responce status " + xhr.status + );
+        // }
         resolve(xhr);
       };
 

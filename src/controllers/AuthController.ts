@@ -57,11 +57,13 @@ class AuthController {
     try {
       store.set("reason", null);
       const user = await this.api.getUser();
-      if (user.reponse.reason) {
+      console.log(user, "user");
+
+      if (user.response.reason) {
         return;
       }
+
       store.set("currentUser", user.response);
-      const router = new Router();
       const chats = await chatsAPI.getChats({
         offset: 0,
         limit: 100,
@@ -71,8 +73,8 @@ class AuthController {
 
       store.set("chats", chats.response);
       console.log(chats, "1");
-
-      router.go("/messages");
+      const router = new Router();
+      router.go("/messenger");
       console.log(chats, "2");
 
       return user.response;

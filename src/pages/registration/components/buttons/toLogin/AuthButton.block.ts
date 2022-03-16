@@ -1,5 +1,5 @@
+import RegistrationComponentController from "../../../../../controllers/RegistrationComponentController";
 import { Block } from "../../../../../modules/Block/Block";
-import { Router } from "../../../../../modules/Router/Router";
 
 export class ToLoginButtonFromReg extends Block<Record<string, any>> {
   static get componentName() {
@@ -10,8 +10,7 @@ export class ToLoginButtonFromReg extends Block<Record<string, any>> {
       ...props,
       events: {
         click: () => {
-          const router = new Router();
-          router.go("/");
+          RegistrationComponentController.goToLogin();
         },
       },
     });

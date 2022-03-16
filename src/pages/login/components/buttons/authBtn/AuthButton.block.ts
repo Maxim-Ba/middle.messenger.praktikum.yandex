@@ -7,11 +7,6 @@ export class AuthButton extends Block<Record<string, any>> {
   constructor(props: {} | undefined) {
     super({
       ...props,
-      events: {
-        click: (e: MouseEvent) => {
-          // e.preventDefault();
-        },
-      },
     });
   }
   render() {

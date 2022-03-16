@@ -4,10 +4,10 @@ import "../pages/registration/registration.scss";
 import "../pages/chats/chats.scss";
 import "../pages/profile/profile.scss";
 import "../styles/main.scss";
-import { Login } from "./login/Login.block";
-import { Registration } from "./registration/Registration.block";
+import LoginWithStore from "./login/login.index";
+import RegistrationWithStore from "./registration/registration.index";
 import { Chats } from "./chats/Chats.block";
-import { Profile } from "./profile/Profile.block";
+import ProfileWithStore from "./profile/profile.index";
 import { RegistrationButton } from "./login/components/buttons/regBtn/RegistrationButton.block";
 import { AuthButton } from "./login/components/buttons/authBtn/AuthButton.block";
 import { Input } from "../components/input/Input.block";
@@ -29,6 +29,7 @@ import { PasswordForm } from "./profile/components/passwordForm/PasswordForm.blo
 import { ToLoginButton } from "./profile/components/toLoginButton/ToLoginButton.block";
 import { ToChatsButton } from "./profile/components/toChatsButton/ToChatsButton.block";
 import { СonfirmPasswordAndData } from "./profile/components/controlPassword/ControlPassword.block";
+import AuthController from "../controllers/AuthController";
 
 registerComponent(RegistrationButton);
 registerComponent(AuthButton);
@@ -51,10 +52,18 @@ registerComponent(ToLoginButton);
 registerComponent(ToChatsButton);
 registerComponent(ButtonClose);
 
-const router = new Router();
-router
-  .use("/", Login)
-  .use("/sign-up", Registration)
-  .use("/messenger", Chats)
-  .use("/settings", Profile)
-  .start();
+document.addEventListener("DOMContentLoaded", async () => {
+  const router = new Router();
+  router
+    .use("/", LoginWithStore)
+    .use("/sign-up", RegistrationWithStore)
+    .use("/messenger", Chats)
+    .use("/settings", ProfileWithStore)
+    .start();
+
+  try {
+    await AuthController.fetchUser();
+  } catch (error) {
+    console.log(error);
+  }
+});

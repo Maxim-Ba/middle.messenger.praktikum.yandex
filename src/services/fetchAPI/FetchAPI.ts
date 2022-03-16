@@ -143,6 +143,7 @@ export class HTTPTransport {
       }
     });
   };
+
   fetchWithRetry(url: URL, options: OptionsType) {
     function recursiveFetch(
       url: URL,

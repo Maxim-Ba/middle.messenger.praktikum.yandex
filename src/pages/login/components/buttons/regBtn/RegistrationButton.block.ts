@@ -1,5 +1,5 @@
+import loginComponentController from "../../../../../controllers/LoginComponentController";
 import { Block } from "../../../../../modules/Block/Block";
-import { Router } from "../../../../../modules/Router/Router";
 
 export class RegistrationButton extends Block<Record<string, any>> {
   static get componentName() {
@@ -10,8 +10,7 @@ export class RegistrationButton extends Block<Record<string, any>> {
       ...props,
       events: {
         click: () => {
-          const router = new Router("#root");
-          router.go("/sign-up");
+          loginComponentController.goToRegistration();
         },
       },
     });

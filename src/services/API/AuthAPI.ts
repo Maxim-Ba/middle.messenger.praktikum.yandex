@@ -34,7 +34,9 @@ export class AuthAPI extends BaseAPI {
     return this.http.post("/signin", { data });
   }
 
-  logout(): Promise<any> {
+  logout(): Promise<unknown> {
+    console.log("logout");
+
     return this.http.post("/logout");
   }
 

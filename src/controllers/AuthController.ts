@@ -1,10 +1,6 @@
-import {
-  AuthAPI,
-  LoginData,
-  SignupData,
-  UserData,
-} from "../services/API/AuthAPI";
-
+import { Router } from "../modules/Router/Router";
+import { AuthAPI, LoginData, SignupData } from "../services/API/AuthAPI";
+import store from "../modules/Store/Store";
 class AuthController {
   private api: AuthAPI;
 
@@ -15,14 +11,15 @@ class AuthController {
   async signup(data: SignupData) {
     try {
       const registerationResponse = await this.api.signup(data);
-      if (registerationResponse.status !== 200) {
-        console.log(registerationResponse.response.reason);
-
-        throw new Error("status not 200");
+      if (registerationResponse.response.reason) {
+        store.set(
+          "reason",
+          `Произошла ошибка ${registerationResponse.response.reason}`
+        );
+        return;
       }
-      console.log(registerationResponse);
 
-      const userResponse = await this.fetchUser();
+      await this.fetchUser();
     } catch (e) {
       console.log(e);
     }
@@ -30,7 +27,15 @@ class AuthController {
 
   async login(data: LoginData) {
     try {
-      await this.api.login(data);
+      const loginResponse = await this.api.login(data);
+      console.log(loginResponse.response);
+
+      if (loginResponse.response.reason) {
+        console.log(loginResponse.response.reason);
+
+        store.set("reason", loginResponse.response.reason);
+        return;
+      }
       await this.fetchUser();
     } catch (e) {
       console.log(e);
@@ -40,16 +45,24 @@ class AuthController {
   async logout() {
     try {
       await this.api.logout();
+      const router = new Router();
+      router.go("/");
     } catch (e) {
       console.log(e);
     }
   }
 
-  async fetchUser(): Promise<UserData | void> {
+  async fetchUser() {
     try {
+      store.set("reason", null);
       const user = await this.api.getUser();
-
-      return user;
+      if (user.reponse.reason) {
+        return;
+      }
+      store.set("currentUser", user.response);
+      const router = new Router();
+      router.go("/messages");
+      return user.response;
     } catch (e) {}
   }
 }

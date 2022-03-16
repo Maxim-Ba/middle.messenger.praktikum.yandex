@@ -1,4 +1,6 @@
+import AuthController from "../../controllers/AuthController";
 import { Block } from "../../modules/Block/Block";
+import { LoginData } from "../../services/API/AuthAPI";
 import { FormCheck } from "../../services/formCheck/FormCheck";
 import { arrayToChildrenString } from "../../utils/arrayChildrenString";
 import { loginState } from "./login.state";
@@ -13,6 +15,11 @@ export class Login extends Block<Record<string, any>> {
 
   constructor(props: Record<string, any> | undefined) {
     super({ ...loginState });
+    this.onSignIn = this.onSignIn.bind(this);
+  }
+
+  onSignIn(data: LoginData) {
+    AuthController.login(data);
   }
 
   render() {
@@ -28,7 +35,9 @@ export class Login extends Block<Record<string, any>> {
       <form class="form" id="login-form">
         ${arrayToChildrenString("Input", this.props.fields)}
         <div class="form-warning form-warning_pt-3rem" id="login__form-warning">
-          <p class="form-warning-text visibility-hidden">Неверный логин или пароль</p>
+          <p class="form-warning-text ${
+            this.props.reason ? `` : `visibility-hidden`
+          }">{{reason}}</p>
         </div>
       
       <div class="login__button-wrapper">
@@ -49,7 +58,7 @@ export class Login extends Block<Record<string, any>> {
   componentDidMount(): void {
     const formEl = document.getElementById("login-form");
     if (formEl) {
-      this.validator = new FormCheck(formEl as HTMLFormElement);
+      this.validator = new FormCheck(formEl as HTMLFormElement, this.onSignIn);
     }
   }
   componentWillUnmount(): void {

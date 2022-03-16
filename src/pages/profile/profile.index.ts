@@ -1,3 +1,4 @@
+import { withStore } from "./../../modules/Store/Store";
 import { profileState } from "./profile.state";
 import { Profile } from "./Profile.block";
 import { ModalWindowBlock } from "../../components/modal-window/ModalWindow.block";
@@ -8,6 +9,7 @@ import { PasswordForm } from "./components/passwordForm/PasswordForm.block";
 import { ToLoginButton } from "./components/toLoginButton/ToLoginButton.block";
 import { ToChatsButton } from "./components/toChatsButton/ToChatsButton.block";
 import { ButtonClose } from "../../components/modal-window/buttons/ButtonClose.block";
+import { IStore } from "../../modules/Store/StoreTypes";
 
 registerComponent(ModalWindowBlock);
 registerComponent(ControlBtnsForm);
@@ -17,33 +19,40 @@ registerComponent(ToLoginButton);
 registerComponent(ToChatsButton);
 registerComponent(ButtonClose);
 
-export const profile = new Profile({
+// export const profile = new Profile({
+//   ...profileState,
+//   openWindow() {
+//     profile.setProps({
+//       isOpenWindow: !profile.props.isOpenWindow,
+//       modalWindow: { changeAva: true },
+//     });
+//   },
+//   closeWindow() {
+//     profile.setProps({
+//       isOpenWindow: !profile.props.isOpenWindow,
+//       modalWindow: { changeAva: false },
+//     });
+//   },
+//   isChangeProfileData() {
+//     profile.setProps({
+//       disabledInputs: !profile.props.disabledInputs,
+//     });
+//   },
+//   makePasswordFormVisible() {
+//     profile.setProps({
+//       isPasswordFormVisible: true,
+//     });
+//   },
+//   makePasswordFormHidden() {
+//     profile.setProps({
+//       isPasswordFormVisible: false,
+//     });
+//   },
+// });
+
+const withUser = withStore((state: IStore) => ({
   ...profileState,
-  openWindow() {
-    profile.setProps({
-      isOpenWindow: !profile.props.isOpenWindow,
-      modalWindow: { changeAva: true },
-    });
-  },
-  closeWindow() {
-    profile.setProps({
-      isOpenWindow: !profile.props.isOpenWindow,
-      modalWindow: { changeAva: false },
-    });
-  },
-  isChangeProfileData() {
-    profile.setProps({
-      disabledInputs: !profile.props.disabledInputs,
-    });
-  },
-  makePasswordFormVisible() {
-    profile.setProps({
-      isPasswordFormVisible: true,
-    });
-  },
-  makePasswordFormHidden() {
-    profile.setProps({
-      isPasswordFormVisible: false,
-    });
-  },
-});
+  ...state.currentUser,
+}));
+
+export default withUser(Profile);

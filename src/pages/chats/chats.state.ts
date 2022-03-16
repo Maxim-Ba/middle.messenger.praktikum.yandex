@@ -80,13 +80,15 @@ export const chatsState = {
   ],
   chats: [
     {
-      name: "Andreyr",
-      time: "11:22",
-      lastMessage: "aaorem ipsum dolor sit amet consectetur adipisicing elit.",
-      imageSrc: svgDefaultChatPic,
-      newMessageCount: 3,
+      title: "Andreyr",
+      last_message: {
+        time: "11:22",
+        content: "this is message content",
+      },
+      avatar: svgDefaultChatPic,
+      unread_count: 3,
       isSelected: false,
-      chatId: 1,
+      id: 1,
     },
     {
       name: "Two",

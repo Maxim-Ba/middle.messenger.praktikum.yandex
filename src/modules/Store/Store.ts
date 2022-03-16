@@ -9,7 +9,9 @@ enum StoreEvents {
 }
 
 class Store extends EventBus {
-  private state: IStore = {};
+  private state: IStore = {
+    chats: [],
+  };
 
   public getState() {
     return this.state;

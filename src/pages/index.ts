@@ -6,7 +6,7 @@ import "../pages/profile/profile.scss";
 import "../styles/main.scss";
 import LoginWithStore from "./login/login.index";
 import RegistrationWithStore from "./registration/registration.index";
-import { Chats } from "./chats/Chats.block";
+import ChatsWithStore from "./chats/chats.index";
 import ProfileWithStore from "./profile/profile.index";
 import { RegistrationButton } from "./login/components/buttons/regBtn/RegistrationButton.block";
 import { AuthButton } from "./login/components/buttons/authBtn/AuthButton.block";
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   router
     .use("/", LoginWithStore)
     .use("/sign-up", RegistrationWithStore)
-    .use("/messenger", Chats)
+    .use("/messenger", ChatsWithStore)
     .use("/settings", ProfileWithStore)
     .start();
 

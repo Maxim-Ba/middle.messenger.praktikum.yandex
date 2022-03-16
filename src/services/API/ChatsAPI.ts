@@ -1,41 +1,40 @@
 import BaseAPI from "./BaseAPI";
 
 export interface GetChatData {
-  offset:number
-  limit:number
-  title:string
+  offset: number;
+  limit: number;
+  title: string;
 }
 
 export interface CreateChatData {
-  title:string
+  title: string;
 }
 export interface GetUsersChatData {
-  id:number
-  params:{
-    offset:number
-    limit:number
-    name:string
-    email:string
-  }
-  
+  id: number;
+  params: {
+    offset: number;
+    limit: number;
+    name: string;
+    email: string;
+  };
 }
 export interface UploadChatAvatarData {
-  chatId :number
-  avatar :FormData
+  chatId: number;
+  avatar: FormData;
 }
 
 export interface AddUsersData {
-  chatId :number
-  users : number[]
+  chatId: number;
+  users: number[];
 }
 
-export class ChatsAPI extends BaseAPI {
+class ChatsAPI extends BaseAPI {
   constructor() {
     super("/chats");
   }
 
-  getChats(data:GetChatData): Promise<any> {
-    return this.http.get("/",{data, isQueryParams:true});
+  getChats(data: GetChatData): Promise<any> {
+    return this.http.get("/", { data, isQueryParams: true });
   }
 
   createChat(data: CreateChatData): Promise<any> {
@@ -43,19 +42,24 @@ export class ChatsAPI extends BaseAPI {
       console.log(e, "catch");
     });
   }
-  deleteChats(chatId:Record<string,number>): Promise<any> {
-    return this.http.delete("/",{data:chatId});
+  deleteChats(chatId: Record<string, number>): Promise<any> {
+    return this.http.delete("/", { data: chatId });
   }
-  getUsersChat({params,id}:GetUsersChatData): Promise<any> {
-    return this.http.get(`/${id}`,{data:params, isQueryParams:true});
+  getUsersChat({ params, id }: GetUsersChatData): Promise<any> {
+    return this.http.get(`/${id}`, { data: params, isQueryParams: true });
   }
-  getNewMessagesCount(chatId:number): Promise<any> {
+  getNewMessagesCount(chatId: number): Promise<any> {
     return this.http.get(`/new/${chatId}`);
   }
   uploadAvatar(data: UploadChatAvatarData): Promise<any> {
-    return this.http.put("/avatar", { data,headers:{'Content-Type': 'multipart/form-data'} }).catch((e) => {
-      console.log(e, "catch");
-    });
+    return this.http
+      .put("/avatar", {
+        data,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .catch((e) => {
+        console.log(e, "catch");
+      });
   }
   addUsers(data: AddUsersData): Promise<any> {
     return this.http.put("/users", { data }).catch((e) => {
@@ -63,7 +67,7 @@ export class ChatsAPI extends BaseAPI {
     });
   }
   deleteUsers(data: AddUsersData): Promise<any> {
-    return this.http.delete("/users",{data});
+    return this.http.delete("/users", { data });
   }
   getToken(id: number): Promise<any> {
     return this.http.post(`/token/${id}`).catch((e) => {
@@ -76,3 +80,4 @@ export class ChatsAPI extends BaseAPI {
   update: undefined;
   read: undefined;
 }
+export default new ChatsAPI();

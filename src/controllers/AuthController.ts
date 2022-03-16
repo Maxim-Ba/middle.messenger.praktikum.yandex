@@ -1,6 +1,7 @@
 import { Router } from "../modules/Router/Router";
 import { AuthAPI, LoginData, SignupData } from "../services/API/AuthAPI";
 import store from "../modules/Store/Store";
+import chatsAPI from "../services/API/ChatsAPI";
 class AuthController {
   private api: AuthAPI;
 
@@ -61,9 +62,23 @@ class AuthController {
       }
       store.set("currentUser", user.response);
       const router = new Router();
+      const chats = await chatsAPI.getChats({
+        offset: 0,
+        limit: 100,
+        title: "",
+      });
+      console.log(chats, "chats");
+
+      store.set("chats", chats.response);
+      console.log(chats, "1");
+
       router.go("/messages");
+      console.log(chats, "2");
+
       return user.response;
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 

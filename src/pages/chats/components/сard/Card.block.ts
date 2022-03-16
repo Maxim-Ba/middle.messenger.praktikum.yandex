@@ -1,3 +1,4 @@
+import chatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
 import { IChatsStore } from "../../../../modules/Store/StoreTypes";
 interface CardPropsI extends IChatsStore {
@@ -9,32 +10,18 @@ export class Card extends Block<CardPropsI> {
   static get componentName() {
     return "Card";
   }
-  constructor({
-    isSelected,
-    id,
-
-    selectChat,
-    openMessages,
-  }: CardPropsI) {
+  constructor(props: CardPropsI) {
     super({
-      isSelected,
-      id,
-      selectChat,
-      openMessages,
+      ...props,
       events: {
         click: () => {
-          selectChat(Number(id));
-          openMessages();
+          chatsController.selectChat(Number(this.props.id));
+          chatsController.openMessages();
         },
       },
     });
   }
-  getLastMessage = (): string => {
-    return this.props.last_message.content.slice(0, 14) + "...";
-  };
-  geTime = (): string => {
-    return this.props.last_message.time.getTime();
-  };
+
   render() {
     return `
       <card class="chats__chat-item ${
@@ -45,10 +32,10 @@ export class Card extends Block<CardPropsI> {
         </div>
         <div class="chats__item-main-info">
           <p class="chats__name">{{title}}</p>
-          <p class="chats__last-message">${this.getLastMessage()}</p>
+          <p class="chats__last-message">{{last_message.content}}</p>
         </div>
         <div class="chats__item-info">
-          <p class="chats__time">${this.geTime()}</p>
+          <p class="chats__time">{{last_message.time}}</p>
           <div class="chats__new-message">
             <p class="chats__new-message-p">{{unread_count}}</p>
           </div>

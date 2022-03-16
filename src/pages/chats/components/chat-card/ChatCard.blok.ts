@@ -17,10 +17,7 @@ export class ChatCard extends Block<ChatsI> {
   render() {
     return `
     <div class="chats__list-of-chats">
-    ${arrayToChildrenString("Card", this.props.chats, [
-      { selectChat: this.props.selectChat },
-      { openMessages: this.props.openMessages },
-    ])}
+    ${arrayToChildrenString("Card", this.props.chats)}
     
     </div>    
     `;

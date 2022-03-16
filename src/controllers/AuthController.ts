@@ -1,12 +1,15 @@
 import { Router } from "../modules/Router/Router";
 import { AuthAPI, LoginData, SignupData } from "../services/API/AuthAPI";
 import store from "../modules/Store/Store";
-import chatsAPI from "../services/API/ChatsAPI";
+import { ChatsAPI } from "../services/API/ChatsAPI";
+import chatsController from "./ChatsController";
 class AuthController {
   private api: AuthAPI;
+  chatsApi: ChatsAPI;
 
   constructor() {
     this.api = new AuthAPI();
+    this.chatsApi = new ChatsAPI();
   }
 
   async signup(data: SignupData) {
@@ -57,25 +60,19 @@ class AuthController {
     try {
       store.set("reason", null);
       const user = await this.api.getUser();
-      console.log(user, "user");
-
       if (user.response.reason) {
         return;
       }
 
       store.set("currentUser", user.response);
-      const chats = await chatsAPI.getChats({
+      await chatsController.getChats({
         offset: 0,
         limit: 100,
         title: "",
       });
-      console.log(chats, "chats");
 
-      store.set("chats", chats.response);
-      console.log(chats, "1");
       const router = new Router();
       router.go("/messenger");
-      console.log(chats, "2");
 
       return user.response;
     } catch (e) {

@@ -28,7 +28,7 @@ export interface AddUsersData {
   users: number[];
 }
 
-class ChatsAPI extends BaseAPI {
+export class ChatsAPI extends BaseAPI {
   constructor() {
     super("/chats");
   }
@@ -80,4 +80,3 @@ class ChatsAPI extends BaseAPI {
   update: undefined;
   read: undefined;
 }
-export default new ChatsAPI();

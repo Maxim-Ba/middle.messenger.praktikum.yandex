@@ -1,3 +1,4 @@
+import chatsController from "../../controllers/ChatsController";
 import { Block } from "../../modules/Block/Block";
 import { FormCheck } from "../../services/formCheck/FormCheck";
 
@@ -10,15 +11,17 @@ export class Chats extends Block<object> {
       events: {
         click: (event: Event) => {
           if (event.target === document.getElementById("search")) {
-            this.props.openSearchField();
+            chatsController.openSearchField();
           }
           if (event.target === document.querySelector(".chats__file-menu")) {
-            this.props.openBottomMenu();
+            chatsController.openBottomMenu();
           }
         },
         input: (event: Event) => {
           if (event.target === document.querySelector("#search-input")) {
-            this.props.searchChat((event.target as HTMLInputElement).value);
+            chatsController.searchChat(
+              (event.target as HTMLInputElement).value
+            );
           }
         },
       },

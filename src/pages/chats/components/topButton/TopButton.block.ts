@@ -1,3 +1,4 @@
+import chatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
 interface TopButtonPropsI {
   svgDefault: Record<string, any>;
@@ -11,7 +12,7 @@ export class TopButton extends Block<TopButtonPropsI> {
     super({
       svgDefault,
       events: {
-        click: openMenu,
+        click: chatsController.openMenu,
       },
     });
   }

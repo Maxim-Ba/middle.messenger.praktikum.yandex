@@ -227,8 +227,9 @@ import { IStore } from "../../modules/Store/StoreTypes";
 // });
 
 const withChats = withStore((state: IStore) => ({
-  ...chatsState,
+  ...state.chatsState,
   chats: state.chats,
+  modalWindow: state.modalWindow,
 }));
 
 export default withChats(Chats);

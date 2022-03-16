@@ -1,3 +1,4 @@
+import chatsController from "../../controllers/ChatsController";
 import { Block } from "../../modules/Block/Block";
 interface Props {
   isOpenWindow: boolean;
@@ -24,6 +25,15 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
           switch (event.target) {
             case document.getElementById("modal-window-form-create-chat"):
               console.log("modal-window-create-chat");
+              const form = document.getElementById(
+                "modal-window-form-create-chat"
+              );
+              const formData = new FormData(form as HTMLFormElement);
+              console.log(Object.fromEntries(formData.entries()));
+
+              chatsController.createChat(
+                Object.fromEntries(formData.entries())
+              );
               break;
             case document.getElementById("modal-window-form-delete-chat"):
               console.log("modal-window-create-chat");
@@ -74,13 +84,13 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
       >
         <p class="modal-window__title">Создать чат</p>
         <form class="modal-window__form" id="modal-window-form-create-chat">
-          <label class="modal-window__label" for="chat-name">Название чата</label>
+          <label class="modal-window__label" for="title">Название чата</label>
           <input
             class="modal-window__text-input"
             type="text"
-            name="chat-name"
+            name="title"
             placeholder="Название"
-            id="chat-name"
+            id="title"
           />
           <div class="modal-window__btns">
             {{{ButtonClose}}}

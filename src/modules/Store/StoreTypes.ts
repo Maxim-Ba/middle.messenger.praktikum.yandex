@@ -1,7 +1,10 @@
+import { SomeText, ButtonTextChats } from "./../../pages/chats/text";
 export interface IStore {
   currentUser?: IUserStore;
   reason?: string | null;
   chats: IChatsStore[];
+  chatsState: IChatViewState;
+  modalWindow: IModalWindow;
 }
 
 export interface IUserStore {
@@ -32,4 +35,54 @@ export interface IChatsStore {
     time: string;
     content: string;
   };
+}
+
+export interface IChatViewState {
+  svgDefault: {
+    svgDefaultChatPic: string;
+    svgSearch: string;
+    svgMenu: string;
+    svgSendFile: string;
+    svgArrowRight: string;
+    svgArrowLeft: string;
+  };
+  topMenuButtons: IMenuButton[];
+  chatsTopMenuButtons: IMenuButton[];
+  bottomMenuButtons: IMenuButton[];
+  isOpenWindow: boolean;
+  isOpenMenu: boolean;
+  isOpenSearchField: boolean;
+  isMessagesOpen: boolean;
+  isOpenBottomMenu: boolean;
+  resultSearchChat: [];
+  isResultSearchChat: boolean;
+  ButtonTextChats: typeof ButtonTextChats;
+  SomeText: typeof SomeText;
+}
+
+export enum EnumChatActions {
+  CREATE_CHAT = "create",
+  DELETE_CHAT = "delete",
+  CHANGE_CHAT_AVA = "change",
+  ADD_USER = "addUser",
+  DELETE_USER = "deleteUser",
+  FOTO_OR_VIDEO = "fotoOrVideo",
+  FILE = "file",
+  LOCATION = "location",
+}
+interface IMenuButton {
+  actionTitle: string;
+  iconSvg: string;
+  actionId: EnumChatActions;
+}
+interface IModalWindow {
+  create: boolean;
+  delete: boolean;
+  change: boolean;
+  changeAva: boolean;
+  addUser: boolean;
+  deleteUser: boolean;
+  location: boolean;
+  file: boolean;
+  fotoOrVideo: boolean;
 }

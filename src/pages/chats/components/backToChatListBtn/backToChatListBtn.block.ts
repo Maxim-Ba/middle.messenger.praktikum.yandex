@@ -1,27 +1,19 @@
+import chatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
 interface BackToChatListBtnI {
   svgDefault: Record<string, any>;
-  closeCurrentChat: Record<string, any>;
-  closeMessages: Record<string, any>;
 }
 export class BackToChatListBtn extends Block<BackToChatListBtnI> {
   static get componentName() {
     return "BackToChatListBtn";
   }
-  constructor({
-    svgDefault,
-    closeMessages,
-    closeCurrentChat,
-  }: BackToChatListBtnI) {
+  constructor({ svgDefault }: BackToChatListBtnI) {
     super({
       svgDefault,
-      closeMessages,
-      closeCurrentChat,
       events: {
         click: () => {
-          this.props.closeCurrentChat();
-          this.props.closeMessages();
-          console.log("<<==");
+          chatsController.closeCurrentChat();
+          chatsController.closeMessages();
         },
       },
     });

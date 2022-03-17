@@ -5,6 +5,7 @@ export interface IStore {
   chats: IChatsStore[];
   chatsState: IChatViewState;
   modalWindow: IModalWindow;
+  chatUsers?: IChatUsers[];
 }
 
 export interface IUserStore {
@@ -23,6 +24,8 @@ export interface IChatsStore {
   title: string;
   avatar: string;
   unread_count: number;
+  isSelected: boolean;
+
   last_message: {
     user: {
       first_name: string;
@@ -85,4 +88,15 @@ interface IModalWindow {
   location: boolean;
   file: boolean;
   fotoOrVideo: boolean;
+}
+export interface IChatUsers {
+  id: number;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  email: string;
+  phone: string;
+  avatar: string;
+  role: string;
 }

@@ -1,12 +1,10 @@
 import { Block } from "../../modules/Block/Block";
 import { chatsState } from "./chats.state";
 
-export function chatsActions(block: Block<any>) {
-  return {
+export const chatsActions = {
     ...chatsState,
     actionsBtn: {
-      create() {
-        block.setProps({
+      create:()=> ({
           modalWindow: {
             create: true,
             delete: false,
@@ -15,9 +13,8 @@ export function chatsActions(block: Block<any>) {
             deleteUser: false,
           },
           isOpenWindow: true,
-          isOpenMenu: !block.props.isOpenMenu,
-        });
-      },
+          isOpenMenu: !this.isOpenMenu,
+      }),
 
       delete() {
         block.setProps({

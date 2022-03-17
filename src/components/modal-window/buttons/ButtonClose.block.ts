@@ -1,13 +1,13 @@
+import chatsController from "../../../controllers/ChatsController";
 import { Block } from "../../../modules/Block/Block";
 
-
 export class ButtonClose extends Block<Record<string, any>> {
-  constructor(props:Record<string, any>) {
+  constructor(props: Record<string, any>) {
     super({
       ...props,
       events: {
         click: () => {
-            this.props.closeWindow();
+          chatsController.closeWindow();
         },
       },
     });
@@ -24,6 +24,4 @@ export class ButtonClose extends Block<Record<string, any>> {
             </button>
     `;
   }
-
-
 }

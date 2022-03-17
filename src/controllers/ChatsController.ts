@@ -23,7 +23,6 @@ class ChatsController {
         console.log(getResponse.response.reason);
         store.set("reason", getResponse.response.reason);
       }
-      console.log(getResponse);
       store.set("chats", this._fillChats(getResponse.response));
     } catch (e) {
       console.log(e);
@@ -56,39 +55,62 @@ class ChatsController {
       if (createResponse.response.reason) {
         console.log(createResponse.response.reason);
         store.set("reason", createResponse.response.reason);
+        return;
       }
       this.closeWindow();
-      const chats = this.getChats({ limit: 100, offset: 0, title: "" });
-      store.set("chats", chats.response);
-
-      console.log(createResponse);
+      await this.getChats({ limit: 100, offset: 0, title: "" });
     } catch (e) {
       console.log(e);
     }
   }
-  async deleteChats(chatId: number) {
+  async deleteChats() {
     try {
       store.set("reason", null);
-      const deleteResponse = await this.api.deleteChats({ chatId });
+      const selectChat = store
+        .getState()
+        .chats.filter((chat) => chat.isSelected);
+      const deleteResponse = await this.api.deleteChats({
+        chatId: selectChat[0].id,
+      });
       if (deleteResponse.status !== 200) {
         console.log(deleteResponse.response.reason);
-
-        throw new Error("status not 200" + deleteResponse.response.reason);
+        store.set("reason", deleteResponse.response.reason);
+        return;
       }
-      console.log(deleteResponse);
+      this.closeWindow();
+      this.closeMessages();
+      this.closeCurrentChat();
+      await this.getChats({ limit: 100, offset: 0, title: "" });
     } catch (e) {
       console.log(e);
     }
   }
-  async getUsersChat({ id, params }: GetUsersChatData) {
+  async getUsersChat() {
     try {
-      const usersResponse = await this.api.getUsersChat({ id, params });
-      if (usersResponse.status !== 200) {
-        console.log(usersResponse.response.reason);
-
-        throw new Error("status not 200" + usersResponse.response.reason);
+      store.set("reason", null);
+      const selectedChat = store
+        .getState()
+        .chats.find((chat) => chat.isSelected);
+      if (selectedChat) {
+        const params: GetUsersChatData = {
+          id: selectedChat.id,
+          params: {
+            email: "",
+            limit: 100,
+            offset: 0,
+            name: "",
+          },
+        };
+        const usersResponse = await this.api.getUsersChat(params);
+        if (usersResponse.response.reason) {
+          console.log(usersResponse.response.reason);
+          store.set("reason", usersResponse.response.reason);
+          return;
+        }
+        console.log(usersResponse.response);
+        store.set("chatUsers", usersResponse.response);
+        this.closeWindow();
       }
-      console.log(usersResponse);
     } catch (e) {
       console.log(e);
     }
@@ -111,37 +133,73 @@ class ChatsController {
       const avatarResponse = await this.api.uploadAvatar(data);
       if (avatarResponse.status !== 200) {
         console.log(avatarResponse.response.reason);
-        throw new Error("status not 200" + avatarResponse.response.reason);
+        store.set("reason", avatarResponse.response.reason);
+      }
+      console.log(avatarResponse.response, "expected IChatsStore");
+      const newChatsList = store.getState().chats.map((chat) => {
+        if (chat.id === avatarResponse.response.id) {
+          return avatarResponse.response;
+        } else {
+          return chat;
+        }
+      });
+      store.set("chats", newChatsList);
+      this.closeWindow();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  async addUsers(userName: string) {
+    try {
+      store.set("reason", null);
+      const selectedUser = store.getState().chatUsers?.find((user) => {
+        return user.display_name === userName;
+      });
+      const selectedChat = store
+        .getState()
+        .chats.find((chat) => chat.isSelected);
+      if (selectedChat && selectedUser) {
+        const addUsersResponse = await this.api.addUsers({
+          chatId: selectedChat.id,
+          users: [selectedUser?.id],
+        });
+        console.log(addUsersResponse.response);
+        if (addUsersResponse.response.reason) {
+          console.log(addUsersResponse.response.reason);
+          store.set("reason", addUsersResponse.response.reason);
+          return;
+        }
+        this.closeWindow();
+      } else {
+        store.set("reason", "Пользователя с таким именем нет");
+        return;
       }
     } catch (e) {
       console.log(e);
     }
   }
-  async addUsers(chatId: number, user: number) {
+  async deleteUsers(userName: string) {
     try {
       store.set("reason", null);
-      const addUsersResponse = await this.api.addUsers({
-        chatId,
-        users: [user],
+      const selectedUser = store.getState().chatUsers?.find((user) => {
+        return user.display_name === userName;
       });
-      if (addUsersResponse.status !== 200) {
-        console.log(addUsersResponse.response.reason);
-        throw new Error("status not 200" + addUsersResponse.response.reason);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
-  async deleteUsers(chatId: number, user: number) {
-    try {
-      store.set("reason", null);
-      const deleteUsersResponse = await this.api.deleteUsers({
-        chatId,
-        users: [user],
-      });
-      if (deleteUsersResponse.status !== 200) {
-        console.log(deleteUsersResponse.response.reason);
-        throw new Error("status not 200" + deleteUsersResponse.response.reason);
+      const selectedChat = store
+        .getState()
+        .chats.find((chat) => chat.isSelected);
+      if (selectedChat && selectedUser) {
+        const deleteUsersResponse = await this.api.deleteUsers({
+          chatId: selectedChat.id,
+          users: [selectedUser.id],
+        });
+        if (deleteUsersResponse.response.reason) {
+          console.log(deleteUsersResponse.response.reason);
+          store.set("reason", deleteUsersResponse.response.reason);
+          return;
+        }
+        this.closeWindow();
+      } else {
+        store.set("reason", "Пользователя с таким именем нет");
       }
     } catch (e) {
       console.log(e);
@@ -204,24 +262,6 @@ class ChatsController {
       });
     },
 
-    delete() {
-      store.set(
-        "chatsState.isOpenMenu" as any,
-        !store.getState().chatsState.isOpenMenu
-      );
-      store.set("chatsState.isOpenWindow" as any, true);
-      store.set("modalWindow", {
-        create: false,
-        delete: true,
-        change: false,
-        addUser: false,
-        deleteUser: false,
-        location: false,
-        file: false,
-        fotoOrVideo: false,
-        changeAva: false,
-      });
-    },
     change() {
       store.set(
         "chatsState.isOpenMenu" as any,
@@ -279,6 +319,24 @@ class ChatsController {
         fotoOrVideo: false,
       });
     },
+    delete() {
+      store.set(
+        "chatsState.isOpenMenu" as any,
+        !store.getState().chatsState.isOpenMenu
+      );
+      store.set("chatsState.isOpenWindow" as any, true);
+      store.set("modalWindow", {
+        create: false,
+        delete: true,
+        change: false,
+        addUser: false,
+        deleteUser: false,
+        location: false,
+        file: false,
+        fotoOrVideo: false,
+        changeAva: false,
+      });
+    },
   });
   closeWindow() {
     store.set("chatsState.isOpenWindow" as any, false);
@@ -289,7 +347,7 @@ class ChatsController {
       !store.getState().chatsState.isOpenMenu
     );
   }
-  selectChat(chatId: number) {
+  async selectChat(chatId: number) {
     const newChatsList = store.getState().chats.map((chat: IChatsStore) => {
       if (chat.id === chatId) {
         return { ...chat, isSelected: true };
@@ -297,6 +355,7 @@ class ChatsController {
       return { ...chat, isSelected: false };
     });
     store.set("chats", [...newChatsList]);
+    await this.getUsersChat();
   }
   openMessages() {
     store.set("chatsState.isMessagesOpen" as any, true);

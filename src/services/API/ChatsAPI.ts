@@ -46,7 +46,7 @@ export class ChatsAPI extends BaseAPI {
     return this.http.delete("/", { data: chatId });
   }
   getUsersChat({ params, id }: GetUsersChatData): Promise<any> {
-    return this.http.get(`/${id}`, { data: params, isQueryParams: true });
+    return this.http.get(`/${id}/users`, { data: params, isQueryParams: true });
   }
   getNewMessagesCount(chatId: number): Promise<any> {
     return this.http.get(`/new/${chatId}`);

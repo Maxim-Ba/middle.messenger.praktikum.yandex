@@ -1,5 +1,6 @@
 import chatsController from "../../controllers/ChatsController";
 import { Block } from "../../modules/Block/Block";
+import { IChatsStore } from "../../modules/Store/StoreTypes";
 import { FormCheck } from "../../services/formCheck/FormCheck";
 
 export class Chats extends Block<object> {
@@ -26,9 +27,21 @@ export class Chats extends Block<object> {
         },
       },
     });
+    this.getSelectedChat = this.getSelectedChat.bind(this);
   }
   static get componentName() {
     return "Chats";
+  }
+  getSelectedChat() {
+    const selectChat = this.props.chats.filter(
+      (chat: IChatsStore) => chat.isSelected
+    );
+    if (!selectChat.length) {
+      console.log(selectChat);
+      //rerender TODO
+      return { avatar: "", title: "" };
+    }
+    return selectChat[0];
   }
 
   render() {
@@ -76,15 +89,15 @@ export class Chats extends Block<object> {
               ? `
                 {{{BackToChatListBtn
                   svgDefault=svgDefault
-                  closeCurrentChat=closeCurrentChat
-                  closeMessages=closeMessages
                 }}}
                 <img
                   class="chats__current-chat-pic"
-                  src={{svgDefault.svgDefaultChatPic}}
+                  src=${this.getSelectedChat().avatar}
                   alt="картинка выбраного чата"
                 />
-                <p class="chats__current-chat-name">Андрей</p>`
+                <p class="chats__current-chat-name">${
+                  this.getSelectedChat().title
+                }</p>`
               : "<div></div>"
           }
         </div>
@@ -152,7 +165,12 @@ export class Chats extends Block<object> {
       }
       
     </main>
-    {{{ModalWindowBlock modalWindow=modalWindow isOpenWindow=isOpenWindow closeWindow=closeWindow}}}
+    {{{ModalWindowBlock 
+      modalWindow=modalWindow 
+      isOpenWindow=isOpenWindow 
+      closeWindow=closeWindow
+      reason=reason
+    }}}
   </div>
   
     `;

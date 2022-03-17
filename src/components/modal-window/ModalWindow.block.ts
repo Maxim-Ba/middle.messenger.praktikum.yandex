@@ -1,23 +1,26 @@
+import { CreateChatData } from "./../../services/API/ChatsAPI";
 import chatsController from "../../controllers/ChatsController";
 import { Block } from "../../modules/Block/Block";
 interface Props {
   isOpenWindow: boolean;
   closeWindow: () => void;
   modalWindow: Record<string, any>;
+  reason: Record<string, any>;
 }
 
 export class ModalWindowBlock extends Block<Record<string, any>> {
-  constructor({ isOpenWindow, closeWindow, modalWindow }: Props) {
+  constructor({ isOpenWindow, closeWindow, modalWindow, reason }: Props) {
     super({
       closeWindow,
       isOpenWindow,
       modalWindow,
+      reason,
       events: {
         click: (event: Event) => {
           if (
             event.target === document.getElementById("modal-window__wrapper")
           ) {
-            this.props.closeWindow();
+            chatsController.closeWindow();
           }
         },
         submit: (event: Event) => {
@@ -29,14 +32,14 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
                 "modal-window-form-create-chat"
               );
               const formData = new FormData(form as HTMLFormElement);
-              console.log(Object.fromEntries(formData.entries()));
-
               chatsController.createChat(
                 Object.fromEntries(formData.entries())
               );
               break;
             case document.getElementById("modal-window-form-delete-chat"):
               console.log("modal-window-create-chat");
+              chatsController.deleteChats();
+
               break;
             case document.getElementById("modal-window-form-pic-profile"):
               console.log("modal-window-create-chat");
@@ -45,19 +48,37 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               console.log("modal-window-create-chat");
               break;
             case document.getElementById("modal-window-form-add-user"):
-              console.log("modal-window-create-chat");
+              console.log("modal-window-add-user");
+              const formAddUser = document.getElementById(
+                "modal-window-form-add-user"
+              );
+              const formDataAddUser = new FormData(
+                formAddUser as HTMLFormElement
+              );
+              chatsController.addUsers(
+                formDataAddUser.get("add-user") as string
+              );
               break;
             case document.getElementById("modal-window-form-delete-user"):
-              console.log("modal-window-create-chat");
+              const formDeleteUser = document.getElementById(
+                "modal-window-form-delete-user"
+              );
+              const formDataDeleteUser = new FormData(
+                formDeleteUser as HTMLFormElement
+              );
+              console.log("modal-window-delete-user");
+              chatsController.deleteUsers(
+                formDataDeleteUser.get("delete-user") as string
+              );
               break;
             case document.getElementById("modal-window-form-send-location"):
-              console.log("modal-window-create-chat");
+              console.log("modal-window-send-location");
               break;
             case document.getElementById("modal-window-form-file"):
-              console.log("modal-window-create-chat");
+              console.log("modal-window-form-file");
               break;
             case document.getElementById("modal-window-form-foto-or-video"):
-              console.log("modal-window-create-chat");
+              console.log("modal-window-foto-or-video");
               break;
             default:
               break;
@@ -101,9 +122,9 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               Создать чат
             </button>
           </div>
-          <p class="modal-window__warning display-none" >
-            Чат с таким именем уже есть
-          </p>
+          <p class="modal-window__warning  ${
+            this.props.reason ? `` : `display-none`
+          }">{{reason}}</p>
         </form>
       </div>
       <div
@@ -114,14 +135,6 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
       >
         <p class="modal-window__title">Удалить чат</p>
         <form class="modal-window__form" id="modal-window-form-delete-chat">
-          <label class="modal-window__label" for="delete-chat">Название чата</label>
-          <input
-            class="modal-window__text-input"
-            type="text"
-            name="delete-chat"
-            id="delete-chat"
-            placeholder="Название"
-          />
           <div class="modal-window__btns">
             {{{ButtonClose}}}
             <button
@@ -130,9 +143,9 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               Удалить чат
             </button>
           </div>
-          <p class="modal-window__warning display-none">
-            Чата с таким именем нет
-          </p>
+          <p class="modal-window__warning ${
+            this.props.reason ? `` : `display-none`
+          }">{{reason}}</p>
         </form>
       </div>
       <div class="modal-window__container ${
@@ -160,9 +173,9 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               Поменять
             </button>
           </div>
-          <p class="modal-window__warning display-none">
-            Нужно выбрать файл
-          </p>
+          <p class="modal-window__warning ${
+            this.props.reason ? `` : `display-none`
+          }">{{reason}}</p>
         </form>
       </div>
       <div
@@ -193,9 +206,9 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               Поменять
             </button>
           </div>
-          <p class="modal-window__warning display-none">
-            Нужно выбрать файл
-          </p>
+          <p class="modal-window__warning ${
+            this.props.reason ? `` : `display-none`
+          }">{{reason}}</p>
         </form>
       </div>
       <div class="modal-window__container ${
@@ -219,9 +232,9 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               Добавить
             </button>
           </div>
-          <p class="modal-window__warning display-none">
-            Пользователя с таким логином нет
-          </p>
+          <p class="modal-window__warning ${
+            this.props.reason ? `` : `display-none`
+          }">{{reason}}</p>
         </form>
       </div>
       <div
@@ -249,9 +262,9 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               Удалить
             </button>
           </div>
-          <p class="modal-window__warning display-none">
-            Пользователя с таким логином нет
-          </p>
+          <p class="modal-window__warning ${
+            this.props.reason ? `` : `display-none`
+          }">{{reason}}</p>
         </form>
       </div>
 
@@ -282,9 +295,9 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               Локация
             </button>
           </div>
-          <p class="modal-window__warning display-none">
-            Нужно выбрать файл
-          </p>
+          <p class="modal-window__warning ${
+            this.props.reason ? `` : `display-none`
+          }">{{reason}}</p>
         </form>
       </div>
       <div
@@ -315,9 +328,9 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               Файл
             </button>
           </div>
-          <p class="modal-window__warning display-none">
-            Нужно выбрать файл
-          </p>
+          <p class="modal-window__warning ${
+            this.props.reason ? `` : `display-none`
+          }">{{reason}}</p>
         </form>
       </div>
       <div
@@ -348,16 +361,12 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               Выбрать файл
             </button>
           </div>
-          <p class="modal-window__warning display-none">
-            Нужно выбрать файл
-          </p>
+          <p class="modal-window__warning ${
+            this.props.reason ? `` : `display-none`
+          }">{{reason}}</p>
         </form>
       </div>
     </section>
     `;
-  }
-
-  componentDidUpdate(): boolean {
-    return true;
   }
 }

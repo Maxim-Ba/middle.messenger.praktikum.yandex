@@ -39,11 +39,7 @@ class Store extends EventBus {
           iconSvg: svgCreateChat,
           actionId: EnumChatActions.CREATE_CHAT,
         },
-        {
-          actionTitle: "Удалить чат",
-          iconSvg: svgDeleteChat,
-          actionId: EnumChatActions.DELETE_CHAT,
-        },
+
         {
           actionTitle: "Изменить аватар чата",
           iconSvg: svgChangeChat,
@@ -60,6 +56,11 @@ class Store extends EventBus {
           actionTitle: "Удалить пользователя",
           iconSvg: svgDeleteChat,
           actionId: EnumChatActions.DELETE_USER,
+        },
+        {
+          actionTitle: "Удалить чат",
+          iconSvg: svgDeleteChat,
+          actionId: EnumChatActions.DELETE_CHAT,
         },
       ],
       bottomMenuButtons: [

@@ -1,3 +1,4 @@
+import chatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
 interface MenuMessagesPropsI {
   chatsTopMenuButtons: Record<string, any>;
@@ -8,6 +9,8 @@ export class MenuMessages extends Block<MenuMessagesPropsI> {
   static get componentName() {
     return "MenuMessages";
   }
+  actionMessagesBtns = chatsController.actionMessagesBtns();
+
   constructor({
     chatsTopMenuButtons,
     actionMessagesBtns,
@@ -19,16 +22,19 @@ export class MenuMessages extends Block<MenuMessagesPropsI> {
       isOpenMenu,
       events: {
         click: (event: Event) => {
-          switch (event.target) {
-          case document.getElementById("addUser"):
-            actionMessagesBtns["addUser"]();
-            break;
-          case document.getElementById("deleteUser"):
-            actionMessagesBtns["deleteUser"]();
-            break;
-          default:
-            break;
+          if (this.actionMessagesBtns[(event.target as HTMLElement).id]) {
+            this.actionMessagesBtns[(event.target as HTMLElement).id]();
           }
+          // switch (event.target) {
+          // case document.getElementById("addUser"):
+          //   actionMessagesBtns["addUser"]();
+          //   break;
+          // case document.getElementById("deleteUser"):
+          //   actionMessagesBtns["deleteUser"]();
+          //   break;
+          // default:
+          //   break;
+          // }
         },
       },
     });
@@ -36,8 +42,8 @@ export class MenuMessages extends Block<MenuMessagesPropsI> {
   render() {
     return `
     <menu class="chats__menu ${
-  this.props.isOpenMenu ? "" : "display-none"
-}" id="chats">
+      this.props.isOpenMenu ? "" : "display-none"
+    }" id="chats">
     <div class="chats__menu-content">
       {{#each chatsTopMenuButtons}}
         <div class="chats__menue-item" id={{actionId}}>

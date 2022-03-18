@@ -1,5 +1,5 @@
 import store from "../modules/Store/Store";
-import { IChatsStore } from "../modules/Store/StoreTypes";
+import { IChatsStore, IMessagesState } from "../modules/Store/StoreTypes";
 import {
   ChatsAPI,
   CreateChatData,
@@ -40,11 +40,18 @@ class ChatsController {
         last_message = {
           content: "",
           time: "",
+          user: {
+            avatar: "",
+            email: "",
+            first_name: "",
+            login: "",
+            phone: "",
+            second_name: "",
+          },
         };
       }
       return { ...chat, avatar, isSelected, last_message };
     });
-    console.log(fillChats);
 
     return fillChats;
   }
@@ -376,20 +383,31 @@ class ChatsController {
     await this.getUsersChat();
     const isToken = await this.getToken(chatId);
     if (isToken) {
-
       const { currentUser, token } = store.getState();
       if (currentUser && token) {
-        store.getState().webSocket?.closeWS()
+        store.getState().webSocket?.closeWS();
         const webSockeAPI = new WebSockeAPI(
           new WebSocket(
             `wss://ya-praktikum.tech/ws/chats/${currentUser.id}/${chatId}/${token}`
-          )
+          ),
+          this.getMessages
         );
         store.set("webSocket", webSockeAPI);
-
-        // add callBacks
       }
     }
+  }
+  getMessages(messages: IMessagesState[]) {
+    store.set("messages", [store.getState().messages, ...messages]);
+  }
+  sendMessage(message: FormData) {
+    const webSockeAPI = store.getState().webSocket;
+    const value = message.get("message");
+    console.log(value);
+    webSockeAPI?.sendMessage(value as string);
+  }
+  closeWS() {
+    const webSockeAPI = store.getState().webSocket;
+    webSockeAPI?.closeWS();
   }
   openMessages() {
     store.set("chatsState.isMessagesOpen" as any, true);

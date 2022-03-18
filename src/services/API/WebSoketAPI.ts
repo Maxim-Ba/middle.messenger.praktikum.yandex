@@ -1,7 +1,8 @@
 export class WebSockeAPI {
   socket: WebSocket;
   constructor(
-    socket: WebSocket
+    socket: WebSocket,
+    getMessages: Function
     //add callBacks
   ) {
     this.sendMessage = this.sendMessage.bind(this);
@@ -29,7 +30,22 @@ export class WebSockeAPI {
     });
 
     this.socket.addEventListener("message", (event) => {
-      console.log("Получены данные", event.data);
+      const data = JSON.parse(event.data);
+      console.log("--Получены данные", data);
+      console.log("--typeof", typeof data);
+      switch (event.type) {
+        case "message":
+          if (Array.isArray(data)) {
+            getMessages(data);
+          } else {
+            getMessages([data]);
+          }
+          break;
+        case "file":
+          break;
+        default:
+          break;
+      }
     });
 
     this.socket.addEventListener("error", (event: ErrorEvent) => {

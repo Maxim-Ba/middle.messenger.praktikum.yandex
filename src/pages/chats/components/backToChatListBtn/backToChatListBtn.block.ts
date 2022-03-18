@@ -14,6 +14,7 @@ export class BackToChatListBtn extends Block<BackToChatListBtnI> {
         click: () => {
           chatsController.closeCurrentChat();
           chatsController.closeMessages();
+          chatsController.closeWS();
         },
       },
     });

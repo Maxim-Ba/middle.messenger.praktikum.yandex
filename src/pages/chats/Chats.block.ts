@@ -191,7 +191,7 @@ export class Chats extends Block<object> {
     if (formEl) {
       this.validator = new FormCheck(
         formEl as HTMLFormElement,
-        console.log,
+        chatsController.sendMessage,
         infoEl as HTMLElement,
         btnSubmit as HTMLButtonElement
       );

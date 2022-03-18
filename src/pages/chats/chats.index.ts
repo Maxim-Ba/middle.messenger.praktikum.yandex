@@ -8,6 +8,7 @@ const withChats = withStore((state: IStore) => ({
   chats: state.chats,
   modalWindow: state.modalWindow,
   reason: state.reason,
+  messages: { ...state.messages },
 }));
 
 export default withChats(Chats);

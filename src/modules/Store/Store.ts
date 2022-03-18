@@ -103,6 +103,7 @@ class Store extends EventBus {
       fotoOrVideo: false,
     },
     profileState,
+    messages: [],
   };
 
   public getState() {

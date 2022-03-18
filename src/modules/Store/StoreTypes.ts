@@ -11,6 +11,7 @@ export interface IStore {
   profileState: IProfileState;
   token?: string;
   webSocket?: WebSockeAPI;
+  messages?: IMessagesState[];
 }
 
 export interface IUserStore {
@@ -114,4 +115,20 @@ export interface IProfileState {
   isOpenWindow: boolean;
   isPasswordFormVisible: boolean;
   ButtonTextProfile: typeof ButtonTextProfile;
+}
+export interface IMessagesState {
+  chat_id: number;
+  time: string;
+  type: string;
+  user_id: string;
+  content: string;
+  file?: {
+    id: number;
+    user_id: number;
+    path: string;
+    filename: string;
+    content_type: string;
+    content_size: number;
+    upload_date: string;
+  };
 }

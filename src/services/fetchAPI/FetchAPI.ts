@@ -58,7 +58,7 @@ export class HTTPTransport {
       {
         ...options,
         method: METHODS.GET,
-        headers: { "Content-Type": "application/json" },
+        headers: options.headers || { "Content-Type": "application/json" },
       },
       options.timeout
     );
@@ -74,7 +74,7 @@ export class HTTPTransport {
       {
         ...options,
         method: METHODS.PUT,
-        headers: { "Content-Type": "application/json" },
+        headers: options.headers || { "Content-Type": "application/json" },
       },
       options.timeout
     );
@@ -90,7 +90,7 @@ export class HTTPTransport {
       {
         ...options,
         method: METHODS.POST,
-        headers: { "Content-Type": "application/json" },
+        headers: options.headers || { "Content-Type": "application/json" },
       },
       options.timeout
     );
@@ -106,7 +106,7 @@ export class HTTPTransport {
       {
         ...options,
         method: METHODS.DELETE,
-        headers: { "Content-Type": "application/json" },
+        headers: options.headers || { "Content-Type": "application/json" },
       },
       options.timeout
     );
@@ -127,9 +127,6 @@ export class HTTPTransport {
       }
 
       xhr.onload = () => {
-        // if (xhr.status !== 200) {
-        //   reject("responce status " + xhr.status + );
-        // }
         resolve(xhr);
       };
 

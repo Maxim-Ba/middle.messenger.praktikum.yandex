@@ -5,9 +5,9 @@ import {
   CreateChatData,
   GetChatData,
   GetUsersChatData,
-  UploadChatAvatarData,
 } from "../services/API/ChatsAPI";
 import svgDefaultChatPic from "../../static/img/Chat-picture.svg";
+import { WebSockeAPI } from "../services/API/WebSoketAPI";
 
 class ChatsController {
   private api: ChatsAPI;
@@ -127,24 +127,32 @@ class ChatsController {
       console.log(e);
     }
   }
-  async uploadAvatar(data: UploadChatAvatarData) {
+  async uploadAvatar(avatar: FormData) {
     try {
       store.set("reason", null);
-      const avatarResponse = await this.api.uploadAvatar(data);
-      if (avatarResponse.status !== 200) {
-        console.log(avatarResponse.response.reason);
-        store.set("reason", avatarResponse.response.reason);
-      }
-      console.log(avatarResponse.response, "expected IChatsStore");
-      const newChatsList = store.getState().chats.map((chat) => {
-        if (chat.id === avatarResponse.response.id) {
-          return avatarResponse.response;
-        } else {
-          return chat;
+      const selectedChat = store
+        .getState()
+        .chats.find((chat) => chat.isSelected);
+      if (selectedChat) {
+        const avatarResponse = await this.api.uploadAvatar({
+          chatId: selectedChat.id,
+          avatar,
+        });
+        if (avatarResponse.response.reason) {
+          console.log(avatarResponse.response.reason);
+          store.set("reason", avatarResponse.response.reason);
+          return;
         }
-      });
-      store.set("chats", newChatsList);
-      this.closeWindow();
+        const newChatsList = store.getState().chats.map((chat) => {
+          if (chat.id === avatarResponse.response.id) {
+            return avatarResponse.response;
+          } else {
+            return chat;
+          }
+        });
+        store.set("chats", newChatsList);
+        this.closeWindow();
+      }
     } catch (e) {
       console.log(e);
     }
@@ -208,10 +216,13 @@ class ChatsController {
   async getToken(id: number) {
     try {
       const tokenResponse = await this.api.getToken(id);
-      if (tokenResponse.status !== 200) {
+      if (tokenResponse.response.reason) {
         console.log(tokenResponse.response.reason);
-        throw new Error("status not 200" + tokenResponse.response.reason);
+        alert("Ошибка при получении токена для обмена сообщениями");
+        return;
       }
+      store.set("token", tokenResponse.response.token);
+      return true;
     } catch (e) {
       console.log(e);
     }
@@ -348,6 +359,13 @@ class ChatsController {
     );
   }
   async selectChat(chatId: number) {
+    store.getState().chats.forEach((chat: IChatsStore) => {
+      if (chat.id === chatId && chat.isSelected) {
+        console.log(chat.id, chat.isSelected);
+        return;
+      }
+    });
+
     const newChatsList = store.getState().chats.map((chat: IChatsStore) => {
       if (chat.id === chatId) {
         return { ...chat, isSelected: true };
@@ -356,6 +374,22 @@ class ChatsController {
     });
     store.set("chats", [...newChatsList]);
     await this.getUsersChat();
+    const isToken = await this.getToken(chatId);
+    if (isToken) {
+
+      const { currentUser, token } = store.getState();
+      if (currentUser && token) {
+        store.getState().webSocket?.closeWS()
+        const webSockeAPI = new WebSockeAPI(
+          new WebSocket(
+            `wss://ya-praktikum.tech/ws/chats/${currentUser.id}/${chatId}/${token}`
+          )
+        );
+        store.set("webSocket", webSockeAPI);
+
+        // add callBacks
+      }
+    }
   }
   openMessages() {
     store.set("chatsState.isMessagesOpen" as any, true);

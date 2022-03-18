@@ -4,6 +4,8 @@ import "../pages/registration/registration.scss";
 import "../pages/chats/chats.scss";
 import "../pages/profile/profile.scss";
 import "../styles/main.scss";
+import "../styles/modalWindow.scss";
+
 import LoginWithStore from "./login/login.index";
 import RegistrationWithStore from "./registration/registration.index";
 import ChatsWithStore from "./chats/chats.index";
@@ -30,7 +32,9 @@ import { ToLoginButton } from "./profile/components/toLoginButton/ToLoginButton.
 import { ToChatsButton } from "./profile/components/toChatsButton/ToChatsButton.block";
 import { СonfirmPasswordAndData } from "./profile/components/controlPassword/ControlPassword.block";
 import AuthController from "../controllers/AuthController";
+import { MessagesBlock } from "./chats/components/messages/Messages.block";
 
+registerComponent(MessagesBlock);
 registerComponent(RegistrationButton);
 registerComponent(AuthButton);
 registerComponent(Input);

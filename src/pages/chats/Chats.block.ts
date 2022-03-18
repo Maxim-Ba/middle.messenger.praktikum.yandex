@@ -1,3 +1,4 @@
+import authController from "../../controllers/AuthController";
 import chatsController from "../../controllers/ChatsController";
 import { Block } from "../../modules/Block/Block";
 import { IChatsStore } from "../../modules/Store/StoreTypes";
@@ -132,13 +133,17 @@ export class Chats extends Block<object> {
         </div>`
           : `<section class="chats__body">
           <div class="chats__messages">
+            
             {{{BottomMenu
               isOpenBottomMenu=isOpenBottomMenu
               bottomMenuButtons=bottomMenuButtons
               actionsBottomBtn=actionsBottomBtn
             }}}
-            {{{message}}}
-          </div>
+
+            {{{MessagesBlock messages=messages}}}
+
+
+            </div>
           <form class="chats__footer" id="chats__send-msg-form">
           <div class="display-none" id="form-warning"></div>
             <img
@@ -176,10 +181,8 @@ export class Chats extends Block<object> {
     `;
   }
 
-  componentDidUpdate(_oldProps: any, _newProps: any): boolean {
-    return true;
-  }
   componentDidMount(): void {
+    authController.redirect();
     const formEl = document.querySelector("#chats__send-msg-form");
 
     const infoEl = document.getElementById("form-warning");

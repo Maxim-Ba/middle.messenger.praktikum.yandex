@@ -2,6 +2,7 @@ import { EventBus } from "../../utils/EventBus";
 import { v4 as makeUUID } from "uuid";
 import * as Handlebars from "handlebars";
 import { compile } from "./compileBlock";
+import { isEqual } from "../../utils/isEqual";
 interface Props {
   [prop: string]: any;
 }
@@ -122,7 +123,7 @@ export class Block<T extends Props> {
   }
 
   componentDidUpdate(oldProps: any, newProps: any): boolean {
-    return oldProps !== newProps;
+    return isEqual(oldProps, newProps);
   }
 
   setProps = (nextProps: Record<string, any> | Block<Record<string, any>>) => {

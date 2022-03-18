@@ -4,7 +4,12 @@ export class PasswordForm extends Block<Record<string, any>> {
   name: string;
 
   constructor(props: Record<string, any> | undefined) {
-    super({ ...props });
+    super({ ...props,
+    events:{
+      submit:{
+        
+      }
+    } });
   }
   static get componentName() {
     return "PasswordForm";

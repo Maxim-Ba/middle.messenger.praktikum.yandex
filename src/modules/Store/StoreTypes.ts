@@ -1,3 +1,5 @@
+import { WebSockeAPI } from "./../../services/API/WebSoketAPI";
+import { ButtonTextProfile } from "../../pages/profile/text";
 import { SomeText, ButtonTextChats } from "./../../pages/chats/text";
 export interface IStore {
   currentUser?: IUserStore;
@@ -6,6 +8,9 @@ export interface IStore {
   chatsState: IChatViewState;
   modalWindow: IModalWindow;
   chatUsers?: IChatUsers[];
+  profileState: IProfileState;
+  token?: string;
+  webSocket?: WebSockeAPI;
 }
 
 export interface IUserStore {
@@ -99,4 +104,14 @@ export interface IChatUsers {
   phone: string;
   avatar: string;
   role: string;
+}
+export interface IProfileState {
+  disabledInputs: true;
+  svg: {
+    svgAvatarProfile: string;
+    svgArrowLeft: string;
+  };
+  isOpenWindow: boolean;
+  isPasswordFormVisible: boolean;
+  ButtonTextProfile: typeof ButtonTextProfile;
 }

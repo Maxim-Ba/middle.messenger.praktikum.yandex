@@ -1,3 +1,4 @@
+import profileController from "../../../../controllers/ProfileController";
 import { Block } from "../../../../modules/Block/Block";
 
 export class СonfirmPasswordAndData extends Block<Record<string, any>> {
@@ -7,13 +8,13 @@ export class СonfirmPasswordAndData extends Block<Record<string, any>> {
       events: {
         click: (event: Event) => {
           if (event.target === document.querySelector(".button_grey")) {
-            this.props.isChangeProfileData();
-            this.props.makePasswordFormHidden();
+            profileController.isChangeProfileData();
+            profileController.makePasswordFormHidden();
           }
-          if (event.target === document.querySelector(".button_blue")) {
-            // this.props.isChangeProfileData();
-            // this.props.makePasswordFormHidden();
-          }
+          // if (event.target === document.querySelector(".button_blue")) {
+          //   profileController.isChangeProfileData();
+          //   profileController.makePasswordFormHidden();
+          // }
         },
       },
     });

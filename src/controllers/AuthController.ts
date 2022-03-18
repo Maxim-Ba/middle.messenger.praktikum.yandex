@@ -61,6 +61,7 @@ class AuthController {
       store.set("reason", null);
       const user = await this.api.getUser();
       if (user.response.reason) {
+        console.log(user.response.reason, 'user.response.reason');
         return;
       }
 
@@ -77,6 +78,12 @@ class AuthController {
       return user.response;
     } catch (e) {
       console.log(e);
+    }
+  }
+  redirect(){
+    if (!store.getState().currentUser) {
+      const router = new Router();
+      router.go("/");
     }
   }
 }

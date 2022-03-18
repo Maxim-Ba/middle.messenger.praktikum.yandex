@@ -1,3 +1,5 @@
+import AuthController from "../../controllers/AuthController";
+import profileController from "../../controllers/ProfileController";
 import { Block } from "../../modules/Block/Block";
 import { FormCheck } from "../../services/formCheck/FormCheck";
 
@@ -10,14 +12,14 @@ export class Profile extends Block<Record<string, any>> {
       events: {
         click: (event: Event) => {
           if (event.target === document.querySelector(".profile__img")) {
-            this.props.openWindow();
+            profileController.openWindow();
           }
           if (event.target === document.getElementById("change-data")) {
-            this.props.isChangeProfileData();
+            profileController.isChangeProfileData();
           }
           if (event.target === document.getElementById("change-password")) {
-            this.props.makePasswordFormVisible();
-            this.props.isChangeProfileData();
+            profileController.makePasswordFormVisible();
+            profileController.isChangeProfileData();
           }
         },
       },
@@ -106,13 +108,20 @@ export class Profile extends Block<Record<string, any>> {
         </div>
         
     </main>
-    {{{ModalWindowBlock modalWindow=modalWindow isOpenWindow=isOpenWindow closeWindow=closeWindow}}}
+    {{{ModalWindowBlock 
+      modalWindow=modalWindow 
+      isOpenWindow=isOpenWindow 
+      closeWindow=closeWindow
+      reason=reason
+    }}}
     
   </div>
     `;
   }
 
   componentDidMount(): void {
+    AuthController.redirect();
+
     const formEl = document.querySelector("form");
     const infoEl = document.getElementById("form-warning");
 
@@ -120,7 +129,9 @@ export class Profile extends Block<Record<string, any>> {
     if (formEl) {
       this.validator = new FormCheck(
         formEl as HTMLFormElement,
-        console.log,
+        this.props.isPasswordFormVisible
+          ? profileController.changeUserPassword.bind(profileController)
+          : profileController.changeUserData.bind(profileController),
         infoEl as HTMLElement,
         btnSubmit as HTMLButtonElement
       );

@@ -1,5 +1,4 @@
 import { withStore } from "./../../modules/Store/Store";
-import { profileState } from "./profile.state";
 import { Profile } from "./Profile.block";
 import { ModalWindowBlock } from "../../components/modal-window/ModalWindow.block";
 import { registerComponent } from "../../utils/registerComponent";
@@ -51,8 +50,10 @@ registerComponent(ButtonClose);
 // });
 
 const withUser = withStore((state: IStore) => ({
-  ...profileState,
+  ...state.profileState,
   ...state.currentUser,
+  modalWindow: state.modalWindow,
+  reason: state.reason,
 }));
 
 export default withUser(Profile);

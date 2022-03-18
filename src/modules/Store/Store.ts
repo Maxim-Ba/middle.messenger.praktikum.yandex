@@ -16,6 +16,7 @@ import svgAddLocation from "../../../static/img/Location.svg";
 import svgSendFile from "../../../static/img/Image.svg";
 import svgArrowRight from "../../../static/img/Arrow-right.svg";
 import svgArrowLeft from "../../../static/img/Arrow.svg";
+import { profileState } from "./profileState";
 
 enum StoreEvents {
   UPDATED = "UPDATED",
@@ -97,11 +98,11 @@ class Store extends EventBus {
       changeAva: false,
       addUser: false,
       deleteUser: false,
-
       location: false,
       file: false,
       fotoOrVideo: false,
     },
+    profileState,
   };
 
   public getState() {
@@ -126,8 +127,8 @@ export const withStore =
         store.on(StoreEvents.UPDATED, () => {
           const newState = mapStateToProps(store.getState());
           if (!isEqual(state, newState)) {
+            this.setProps({ ...newState });
           }
-          this.setProps({ ...newState });
         });
       }
     };

@@ -1,26 +1,18 @@
-import { CreateChatData } from "./../../services/API/ChatsAPI";
 import chatsController from "../../controllers/ChatsController";
+import ProfileController from "../../controllers/ProfileController";
 import { Block } from "../../modules/Block/Block";
-interface Props {
-  isOpenWindow: boolean;
-  closeWindow: () => void;
-  modalWindow: Record<string, any>;
-  reason: Record<string, any>;
-}
 
 export class ModalWindowBlock extends Block<Record<string, any>> {
-  constructor({ isOpenWindow, closeWindow, modalWindow, reason }: Props) {
+  constructor(props: any) {
     super({
-      closeWindow,
-      isOpenWindow,
-      modalWindow,
-      reason,
+      ...props,
       events: {
         click: (event: Event) => {
           if (
             event.target === document.getElementById("modal-window__wrapper")
           ) {
             chatsController.closeWindow();
+            ProfileController.closeWindow();
           }
         },
         submit: (event: Event) => {
@@ -37,16 +29,34 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               );
               break;
             case document.getElementById("modal-window-form-delete-chat"):
-              console.log("modal-window-create-chat");
+              console.log("modal-window-delete-chat");
               chatsController.deleteChats();
 
               break;
+
             case document.getElementById("modal-window-form-pic-profile"):
-              console.log("modal-window-create-chat");
+              console.log("modal-window-form-pic-profile");
+              const formAvatar = document.getElementById(
+                "modal-window-form-pic-profile"
+              );
+              const formAvatarData = new FormData(
+                formAvatar as HTMLFormElement
+              );
+              ProfileController.changeUserAvatar(formAvatarData);
               break;
+
             case document.getElementById("modal-window-form-pic-chat"):
-              console.log("modal-window-create-chat");
+              console.log("modal-window-pic-chat");
+              const formChatPic = document.getElementById(
+                "modal-window-form-pic-chat"
+              );
+              const formChatPicData = new FormData(
+                formChatPic as HTMLFormElement
+              );
+
+              chatsController.uploadAvatar(formChatPicData);
               break;
+
             case document.getElementById("modal-window-form-add-user"):
               console.log("modal-window-add-user");
               const formAddUser = document.getElementById(
@@ -144,7 +154,7 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `display-none`
+            this.props.reason ? `` : `vissible-hidden`
           }">{{reason}}</p>
         </form>
       </div>
@@ -155,26 +165,27 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
         <form class="modal-window__form" id="modal-window-form-pic-profile">
           <label
             class="modal-window__label_f-loaded"
-            for="pic-profile"
+            for="avatar "
             style="display: none;"
           >pic.jpg</label>
-          <label class="modal-window__label_file-input" for="pic-profile">Выбрать файл на
+          <label class="modal-window__label_file-input" for="avatar">Выбрать файл на
             компьютере</label>
           <input
             class="modal-window__file-input"
             type="file"
-            name="pic-profile"
-            id="pic-profile"
+            name="avatar"
+            id="avatar"
           />
           <div class="modal-window__btns">
             <button
               class="modal-window__button modal-window__button_long modal-window__button_b-r-8px modal-window__button_blue"
+              type="submit"
             >
               Поменять
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `display-none`
+            this.props.reason ? `` : `vissible-hidden`
           }">{{reason}}</p>
         </form>
       </div>
@@ -202,6 +213,7 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
           <div class="modal-window__btns">
             <button
               class="modal-window__button modal-window__button_long modal-window__button_b-r-8px modal-window__button_blue"
+              type="submit"
             >
               Поменять
             </button>
@@ -228,6 +240,7 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
           
             <button
               class="modal-window__button modal-window__button_long modal-window__button_b-r-8px modal-window__button_blue"
+              type="submit"
             >
               Добавить
             </button>
@@ -258,6 +271,7 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
             {{{ButtonClose}}}
             <button
               class="modal-window__button modal-window__button_small modal-window__button_b-r-8px modal-window__button_blue"
+              type="submit"
             >
               Удалить
             </button>
@@ -291,6 +305,7 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
           <div class="modal-window__btns">
             <button
               class="modal-window__button modal-window__button_long modal-window__button_b-r-8px modal-window__button_blue"
+              type="submit"
             >
               Локация
             </button>
@@ -324,6 +339,7 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
           <div class="modal-window__btns">
             <button
               class="modal-window__button modal-window__button_long modal-window__button_b-r-8px modal-window__button_blue"
+              type="submit
             >
               Файл
             </button>
@@ -357,6 +373,7 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
           <div class="modal-window__btns">
             <button
               class="modal-window__button modal-window__button_long modal-window__button_b-r-8px modal-window__button_blue"
+              type="submit
             >
               Выбрать файл
             </button>

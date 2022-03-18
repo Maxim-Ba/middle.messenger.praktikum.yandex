@@ -1,5 +1,5 @@
+import authController from "../../../../controllers/AuthController";
 import { Block } from "../../../../modules/Block/Block";
-import { Router } from "../../../../modules/Router/Router";
 
 export class ToLoginButton extends Block<Record<string, any>> {
   static get componentName() {
@@ -10,9 +10,7 @@ export class ToLoginButton extends Block<Record<string, any>> {
       ...props,
       events: {
         click: () => {
-          const router = new Router("#root");
-          router.go("/");
-          console.log("loguot...");
+          authController.logout();
         },
       },
     });

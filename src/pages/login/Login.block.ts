@@ -52,9 +52,7 @@ export class Login extends Block<Record<string, any>> {
     </main>
   </div>`;
   }
-  componentDidUpdate(_oldProps: any, _newProps: any): boolean {
-    return true;
-  }
+
   componentDidMount(): void {
     const formEl = document.getElementById("login-form");
     if (formEl) {

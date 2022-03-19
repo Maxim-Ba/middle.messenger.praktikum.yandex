@@ -22,7 +22,6 @@ export class UsersAPI extends BaseAPI {
     return this.http
       .put("/profile/avatar", {
         data,
-        headers: { "Content-Type": "multipart/form-data" },
       })
       .catch((e) => {
         console.log(e, "catch");

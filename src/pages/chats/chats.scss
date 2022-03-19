@@ -146,6 +146,7 @@
   &__picture {
     width: 47px;
     height: 47px;
+    border-radius: 50%;
   }
 
   &__item-main-info {
@@ -215,6 +216,7 @@
     &-pic {
       width: 34px;
       height: 34px;
+      border-radius: 50%;
     }
 
     &-name {
@@ -370,7 +372,7 @@
   width: 100%;
   flex-direction: column;
   &__item {
-    background-color: #3369f3;
+    background-color: #efefef;
     margin-bottom: 5px;
     width: 50%;
     border-radius: 8px;
@@ -385,5 +387,10 @@
   }
   &__time {
     text-align: end;
+  }
+  &__display-name {
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
   }
 }

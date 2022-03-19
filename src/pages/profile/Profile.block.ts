@@ -39,7 +39,9 @@ export class Profile extends Block<Record<string, any>> {
     </aside>
     <main class="profile">
       <div class="profile__data">
-        <img class="img img_round profile__img" src={{svg.svgAvatarProfile}} alt="Аватар пользователя" />
+        <img class="img img_round profile__img" src=${
+          this.props.avatar
+        } alt="Аватар пользователя" />
         <h1 class="profile__owener">{{first_name}} {{second_name}}</h1>
         <div class="profile__form-container">
   

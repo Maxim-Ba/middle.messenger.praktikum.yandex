@@ -122,6 +122,7 @@ export interface IMessagesState {
   type: string;
   user_id: string;
   content: string;
+  displayName?: string;
   file?: {
     id: number;
     user_id: number;
@@ -132,3 +133,4 @@ export interface IMessagesState {
     upload_date: string;
   };
 }
+export const PREFIX = "https://ya-praktikum.tech/api/v2/resources";

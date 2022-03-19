@@ -1,12 +1,15 @@
 import store from "../modules/Store/Store";
-import { IChatsStore, IMessagesState } from "../modules/Store/StoreTypes";
+import {
+  IChatsStore,
+  IMessagesState,
+  PREFIX,
+} from "../modules/Store/StoreTypes";
 import {
   ChatsAPI,
   CreateChatData,
   GetChatData,
   GetUsersChatData,
 } from "../services/API/ChatsAPI";
-import svgDefaultChatPic from "../../static/img/Chat-picture.svg";
 import { WebSockeAPI } from "../services/API/WebSoketAPI";
 import { UsersAPI } from "../services/API/UsersAPI";
 
@@ -37,7 +40,9 @@ class ChatsController {
       let last_message = chat.last_message;
       const isSelected = false;
       if (!chat.avatar) {
-        avatar = svgDefaultChatPic;
+        avatar = store.getState().chatsState.svgDefault.svgDefaultChatPic;
+      } else {
+        avatar = PREFIX + chat.avatar;
       }
       if (!chat.last_message) {
         last_message = {
@@ -117,9 +122,9 @@ class ChatsController {
           store.set("reason", usersResponse.response.reason);
           return;
         }
-        console.log(usersResponse.response);
         store.set("chatUsers", usersResponse.response);
         this.closeWindow();
+        return true;
       }
     } catch (e) {
       console.log(e);
@@ -138,7 +143,7 @@ class ChatsController {
     }
   }
   async uploadAvatar(avatar: FormData) {
-    console.log(avatar, "uploadAvatar");
+    console.log(avatar.get("avatar-chat"));
 
     try {
       store.set("reason", null);
@@ -147,18 +152,17 @@ class ChatsController {
         .chats.find((chat) => chat.isSelected);
       if (selectedChat) {
         avatar.append("chatId", selectedChat.id.toString());
-        console.log([...avatar.entries()], "uploadAvatar");
-
+        avatar.append("avatar", avatar.get("avatar-chat") as Blob);
+        avatar.delete("avatar-chat");
         const avatarResponse = await this.api.uploadAvatar(avatar);
         if (avatarResponse.response.reason) {
           console.log(avatarResponse.response.reason);
           store.set("reason", avatarResponse.response.reason);
           return;
         }
-        console.log(avatarResponse.response);
         const newChatsList = store.getState().chats.map((chat) => {
           if (chat.id === avatarResponse.response.id) {
-            return avatarResponse.response;
+            return this.chatAdapter(avatarResponse.response);
           } else {
             return chat;
           }
@@ -169,6 +173,14 @@ class ChatsController {
     } catch (e) {
       console.log(e);
     }
+  }
+  chatAdapter(chat: IChatsStore): IChatsStore {
+    if (chat.avatar) {
+      chat.avatar = PREFIX + chat.avatar;
+      return chat;
+    }
+    chat.avatar = store.getState().chatsState.svgDefault.svgDefaultChatPic;
+    return chat;
   }
   async addUsers(userName: string) {
     try {
@@ -189,7 +201,7 @@ class ChatsController {
           users: [selectedUser.response[0].id],
         });
         console.log(addUsersResponse.response);
-        if (addUsersResponse.response.reason) {
+        if (addUsersResponse?.response?.reason) {
           console.log(addUsersResponse.response.reason);
           store.set("reason", addUsersResponse.response.reason);
           return;
@@ -204,7 +216,7 @@ class ChatsController {
     try {
       store.set("reason", null);
       const selectedUser = store.getState().chatUsers?.find((user) => {
-        return user.display_name === userName;
+        return user.login === userName;
       });
       const selectedChat = store
         .getState()
@@ -214,7 +226,7 @@ class ChatsController {
           chatId: selectedChat.id,
           users: [selectedUser.id],
         });
-        if (deleteUsersResponse.response.reason) {
+        if (deleteUsersResponse?.response?.reason) {
           console.log(deleteUsersResponse.response.reason);
           store.set("reason", deleteUsersResponse.response.reason);
           return;
@@ -365,6 +377,8 @@ class ChatsController {
     },
   });
   closeWindow() {
+    store.set("reason", null);
+
     store.set("chatsState.isOpenWindow" as any, false);
   }
   openMenu() {
@@ -377,7 +391,6 @@ class ChatsController {
     const { chats } = store.getState();
     for (let index = 0; index < chats.length; index++) {
       if (chats[index].id === chatId && chats[index].isSelected) {
-        console.log(chats[index].id, chats[index].isSelected);
         return;
       }
     }
@@ -390,7 +403,9 @@ class ChatsController {
       return { ...chat, isSelected: false };
     });
     store.set("chats", [...newChatsList]);
-    await this.getUsersChat();
+    const usersChat = await this.getUsersChat();
+    console.log(usersChat);
+
     const isToken = await this.getToken(chatId);
     if (isToken) {
       const { currentUser, token } = store.getState();
@@ -407,11 +422,37 @@ class ChatsController {
     }
   }
   getMessages(messages: IMessagesState[]) {
+    const { chatUsers } = store.getState();
+
+    const withDisplayNameMessages = messages.map((message) => {
+      for (let index = 0; index < chatUsers!.length; index++) {
+        if (message.user_id === (chatUsers![index].id as unknown as string)) {
+          message.displayName = chatUsers![index].display_name;
+          return message;
+        }
+      }
+      return message;
+    });
+
     store.set("messages", [
       ...store.getState().messages,
-      ...messages.reverse(),
+      ...withDisplayNameMessages.reverse(),
     ]);
-    console.log(store.getState().messages);
+  }
+
+  addDisplayNameToMessage(messages: IMessagesState[]): IMessagesState[] {
+    console.log("aaaa");
+    const { chatUsers } = store.getState();
+    return messages.map((message) => {
+      for (let index = 0; index < chatUsers!.length; index++) {
+        if (message.user_id === chatUsers![index].id.toString()) {
+          message.displayName = chatUsers![index].display_name;
+          break;
+        }
+      }
+      console.log(message);
+      return message;
+    });
   }
   sendMessage(data: { message: string }) {
     const webSockeAPI = store.getState().webSocket;

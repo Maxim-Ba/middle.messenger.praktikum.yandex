@@ -3,6 +3,7 @@ import { AuthAPI, LoginData, SignupData } from "../services/API/AuthAPI";
 import store from "../modules/Store/Store";
 import { ChatsAPI } from "../services/API/ChatsAPI";
 import chatsController from "./ChatsController";
+import profileController from "./ProfileController";
 class AuthController {
   private api: AuthAPI;
   chatsApi: ChatsAPI;
@@ -66,7 +67,10 @@ class AuthController {
         return;
       }
 
-      store.set("currentUser", user.response);
+      store.set(
+        "currentUser",
+        profileController.adapterForUserData(user.response)
+      );
       await chatsController.getChats({
         offset: 0,
         limit: 100,

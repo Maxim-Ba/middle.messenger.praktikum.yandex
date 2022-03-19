@@ -202,13 +202,13 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
             for="pic-chat"
             style="display: none;"
           >pic.jpg</label>
-          <label class="modal-window__label_file-input" for="avatar">Выбрать файл на
+          <label class="modal-window__label_file-input" for="avatar-chat">Выбрать файл на
             компьютере</label>
           <input
             class="modal-window__file-input"
             type="file"
-            name="avatar"
-            id="avatar"
+            name="avatar-chat"
+            id="avatar-chat"
           />
           <div class="modal-window__btns">
             <button

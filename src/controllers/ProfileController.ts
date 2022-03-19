@@ -1,4 +1,5 @@
 import store from "../modules/Store/Store";
+import { IUserStore, PREFIX } from "../modules/Store/StoreTypes";
 import {
   ChangedUserData,
   PasswordData,
@@ -21,7 +22,10 @@ class ProfileController {
         store.set("reason", userDataResponse.response.reason);
         return;
       }
-      store.set("currentUser", userDataResponse.response);
+      store.set(
+        "currentUser",
+        this.adapterForUserData(userDataResponse.response)
+      );
       this.isChangeProfileData();
       this.makePasswordFormHidden();
     } catch (e) {
@@ -31,15 +35,17 @@ class ProfileController {
   async changeUserAvatar(data: FormData) {
     try {
       store.set("reason", null);
-      console.log(Object.fromEntries(data.entries()), "data");
-
       const userAvataraResponse = await this.api.changeUserAvatar(data);
       if (userAvataraResponse.response.reason) {
         console.log(userAvataraResponse.response.reason);
         store.set("reason", userAvataraResponse.response.reason);
         return;
       }
-      store.set("currentUser", userAvataraResponse.response);
+      store.set(
+        "currentUser",
+        this.adapterForUserData(userAvataraResponse.response)
+      );
+      this.closeWindow();
     } catch (e) {
       console.log(e);
     }
@@ -76,6 +82,8 @@ class ProfileController {
     });
   }
   closeWindow() {
+    store.set("reason", null);
+
     store.set("profileState.isOpenWindow" as any, false);
     store.set("modalWindow", {
       create: false,
@@ -100,6 +108,14 @@ class ProfileController {
   }
   makePasswordFormHidden() {
     store.set("profileState.isPasswordFormVisible" as any, false);
+  }
+  adapterForUserData(userData: IUserStore): IUserStore {
+    if (userData.avatar) {
+      userData.avatar = PREFIX + userData.avatar;
+      return userData;
+    }
+    userData.avatar = store.getState().profileState.svg.svgAvatarProfile;
+    return userData;
   }
 }
 export default new ProfileController();

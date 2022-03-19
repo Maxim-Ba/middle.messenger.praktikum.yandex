@@ -20,6 +20,9 @@ export class SingleMessage extends Block<any> {
           ? "messages__item_my-message"
           : ""
       }" >
+      <p class="messages__display-name">
+      {{displayName}}
+    </p>
         <p class="messages__content">
           {{content}}
         </p>

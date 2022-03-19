@@ -55,7 +55,6 @@ export class ChatsAPI extends BaseAPI {
     return this.http
       .put("/avatar", {
         data,
-        headers: { "Content-Type": "multipart/form-data" },
       })
       .catch((e) => {
         console.log(e, "catch");

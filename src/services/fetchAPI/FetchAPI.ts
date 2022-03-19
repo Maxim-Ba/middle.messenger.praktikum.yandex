@@ -120,9 +120,12 @@ export class HTTPTransport {
       xhr.withCredentials = true;
       xhr.responseType = "json";
       xhr.open(method as string, url);
-      if (headers) {
-        for (const key of Object.keys(headers)) {
-          xhr.setRequestHeader(key, headers[key]);
+      if (data instanceof FormData) {
+      } else {
+        if (headers) {
+          for (const key of Object.keys(headers)) {
+            xhr.setRequestHeader(key, headers[key]);
+          }
         }
       }
 
@@ -135,6 +138,10 @@ export class HTTPTransport {
       xhr.ontimeout = reject;
       if (method === METHODS.GET) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        console.log([...data.entries()]);
+
+        xhr.send(data);
       } else {
         xhr.send(this.dataWrapper(data));
       }

@@ -40,12 +40,6 @@ class Store extends EventBus {
           iconSvg: svgCreateChat,
           actionId: EnumChatActions.CREATE_CHAT,
         },
-
-        {
-          actionTitle: "Изменить аватар чата",
-          iconSvg: svgChangeChat,
-          actionId: EnumChatActions.CHANGE_CHAT_AVA,
-        },
       ],
       chatsTopMenuButtons: [
         {
@@ -62,6 +56,11 @@ class Store extends EventBus {
           actionTitle: "Удалить чат",
           iconSvg: svgDeleteChat,
           actionId: EnumChatActions.DELETE_CHAT,
+        },
+        {
+          actionTitle: "Изменить аватар чата",
+          iconSvg: svgChangeChat,
+          actionId: EnumChatActions.CHANGE_CHAT_AVA,
         },
       ],
       bottomMenuButtons: [
@@ -128,6 +127,7 @@ export const withStore =
         store.on(StoreEvents.UPDATED, () => {
           const newState = mapStateToProps(store.getState());
           if (!isEqual(state, newState)) {
+            state = newState;
             this.setProps({ ...newState });
           }
         });

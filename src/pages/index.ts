@@ -33,6 +33,7 @@ import { ToChatsButton } from "./profile/components/toChatsButton/ToChatsButton.
 import { СonfirmPasswordAndData } from "./profile/components/controlPassword/ControlPassword.block";
 import AuthController from "../controllers/AuthController";
 import { MessagesBlock } from "./chats/components/messages/Messages.block";
+import { SingleMessage } from "./chats/components/singleMessage/SingleMessage.block";
 
 registerComponent(MessagesBlock);
 registerComponent(RegistrationButton);
@@ -55,6 +56,7 @@ registerComponent(PasswordForm);
 registerComponent(ToLoginButton);
 registerComponent(ToChatsButton);
 registerComponent(ButtonClose);
+registerComponent(SingleMessage);
 
 document.addEventListener("DOMContentLoaded", async () => {
   const router = new Router();
@@ -67,6 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     await AuthController.fetchUser();
+    // AuthController.redirect();
   } catch (error) {
     console.log(error);
   }

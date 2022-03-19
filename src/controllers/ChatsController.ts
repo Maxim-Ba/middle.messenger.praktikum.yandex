@@ -8,12 +8,15 @@ import {
 } from "../services/API/ChatsAPI";
 import svgDefaultChatPic from "../../static/img/Chat-picture.svg";
 import { WebSockeAPI } from "../services/API/WebSoketAPI";
+import { UsersAPI } from "../services/API/UsersAPI";
 
 class ChatsController {
   private api: ChatsAPI;
+  private usersApi: UsersAPI;
 
   constructor() {
     this.api = new ChatsAPI();
+    this.usersApi = new UsersAPI();
   }
 
   async getChats(data: GetChatData) {
@@ -135,21 +138,24 @@ class ChatsController {
     }
   }
   async uploadAvatar(avatar: FormData) {
+    console.log(avatar, "uploadAvatar");
+
     try {
       store.set("reason", null);
       const selectedChat = store
         .getState()
         .chats.find((chat) => chat.isSelected);
       if (selectedChat) {
-        const avatarResponse = await this.api.uploadAvatar({
-          chatId: selectedChat.id,
-          avatar,
-        });
+        avatar.append("chatId", selectedChat.id.toString());
+        console.log([...avatar.entries()], "uploadAvatar");
+
+        const avatarResponse = await this.api.uploadAvatar(avatar);
         if (avatarResponse.response.reason) {
           console.log(avatarResponse.response.reason);
           store.set("reason", avatarResponse.response.reason);
           return;
         }
+        console.log(avatarResponse.response);
         const newChatsList = store.getState().chats.map((chat) => {
           if (chat.id === avatarResponse.response.id) {
             return avatarResponse.response;
@@ -167,16 +173,20 @@ class ChatsController {
   async addUsers(userName: string) {
     try {
       store.set("reason", null);
-      const selectedUser = store.getState().chatUsers?.find((user) => {
-        return user.display_name === userName;
+      const selectedUser: any = await this.usersApi.searchUserByLogin({
+        login: userName,
       });
+      if (selectedUser.response.reason) {
+        store.set("reason", selectedUser.response.reason);
+        return;
+      }
       const selectedChat = store
         .getState()
         .chats.find((chat) => chat.isSelected);
-      if (selectedChat && selectedUser) {
+      if (selectedChat && selectedUser.response[0].id) {
         const addUsersResponse = await this.api.addUsers({
           chatId: selectedChat.id,
-          users: [selectedUser?.id],
+          users: [selectedUser.response[0].id],
         });
         console.log(addUsersResponse.response);
         if (addUsersResponse.response.reason) {
@@ -185,9 +195,6 @@ class ChatsController {
           return;
         }
         this.closeWindow();
-      } else {
-        store.set("reason", "Пользователя с таким именем нет");
-        return;
       }
     } catch (e) {
       console.log(e);
@@ -262,6 +269,8 @@ class ChatsController {
   }
   actionsBtn = () => ({
     create() {
+      console.log(store.getState());
+
       store.set(
         "chatsState.isOpenMenu" as any,
         !store.getState().chatsState.isOpenMenu
@@ -271,25 +280,6 @@ class ChatsController {
         create: true,
         delete: false,
         change: false,
-        addUser: false,
-        deleteUser: false,
-        location: false,
-        file: false,
-        fotoOrVideo: false,
-        changeAva: false,
-      });
-    },
-
-    change() {
-      store.set(
-        "chatsState.isOpenMenu" as any,
-        !store.getState().chatsState.isOpenMenu
-      );
-      store.set("chatsState.isOpenWindow" as any, true);
-      store.set("modalWindow", {
-        create: false,
-        delete: false,
-        change: true,
         addUser: false,
         deleteUser: false,
         location: false,
@@ -355,6 +345,24 @@ class ChatsController {
         changeAva: false,
       });
     },
+    change() {
+      store.set(
+        "chatsState.isOpenMenu" as any,
+        !store.getState().chatsState.isOpenMenu
+      );
+      store.set("chatsState.isOpenWindow" as any, true);
+      store.set("modalWindow", {
+        create: false,
+        delete: false,
+        change: true,
+        addUser: false,
+        deleteUser: false,
+        location: false,
+        file: false,
+        fotoOrVideo: false,
+        changeAva: false,
+      });
+    },
   });
   closeWindow() {
     store.set("chatsState.isOpenWindow" as any, false);
@@ -366,12 +374,14 @@ class ChatsController {
     );
   }
   async selectChat(chatId: number) {
-    store.getState().chats.forEach((chat: IChatsStore) => {
-      if (chat.id === chatId && chat.isSelected) {
-        console.log(chat.id, chat.isSelected);
+    const { chats } = store.getState();
+    for (let index = 0; index < chats.length; index++) {
+      if (chats[index].id === chatId && chats[index].isSelected) {
+        console.log(chats[index].id, chats[index].isSelected);
         return;
       }
-    });
+    }
+    store.set("messages", []);
 
     const newChatsList = store.getState().chats.map((chat: IChatsStore) => {
       if (chat.id === chatId) {
@@ -397,13 +407,17 @@ class ChatsController {
     }
   }
   getMessages(messages: IMessagesState[]) {
-    store.set("messages", [store.getState().messages, ...messages]);
+    store.set("messages", [
+      ...store.getState().messages,
+      ...messages.reverse(),
+    ]);
+    console.log(store.getState().messages);
   }
-  sendMessage(message: FormData) {
+  sendMessage(data: { message: string }) {
     const webSockeAPI = store.getState().webSocket;
-    const value = message.get("message");
-    console.log(value);
-    webSockeAPI?.sendMessage(value as string);
+    console.log(data);
+
+    webSockeAPI?.sendMessage(data.message as string);
   }
   closeWS() {
     const webSockeAPI = store.getState().webSocket;
@@ -414,6 +428,7 @@ class ChatsController {
   }
   closeMessages() {
     store.set("chatsState.isMessagesOpen" as any, false);
+    store.set("messages", []);
   }
   actionsBottomBtn = () => ({
     fotoOrVideo() {

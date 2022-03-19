@@ -38,13 +38,18 @@ export class UsersAPI extends BaseAPI {
       console.log(e, "catch");
     });
   }
-  searchUser(userName: string): Promise<any> {
-    return this.http
-      .post("/search", { data: { login: userName } })
-      .catch((e) => {
-        console.log(e, "catch");
-      });
+  searchUserByLogin(data: { login: string }) {
+    return this.http.post("/search", { data }).catch((e) => {
+      console.log(e, "catch");
+    });
   }
+  // searchUser(userName: string): Promise<any> {
+  //   return this.http
+  //     .post("/search", { data: { login: userName } })
+  //     .catch((e) => {
+  //       console.log(e, "catch");
+  //     });
+  // }
 
   delete: undefined;
   create: undefined;

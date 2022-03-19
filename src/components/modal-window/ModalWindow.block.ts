@@ -31,7 +31,6 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
             case document.getElementById("modal-window-form-delete-chat"):
               console.log("modal-window-delete-chat");
               chatsController.deleteChats();
-
               break;
 
             case document.getElementById("modal-window-form-pic-profile"):
@@ -53,6 +52,7 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               const formChatPicData = new FormData(
                 formChatPic as HTMLFormElement
               );
+              console.log([...formChatPicData.entries()]);
 
               chatsController.uploadAvatar(formChatPicData);
               break;
@@ -202,13 +202,13 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
             for="pic-chat"
             style="display: none;"
           >pic.jpg</label>
-          <label class="modal-window__label_file-input" for="upload-pic-chat">Выбрать файл на
+          <label class="modal-window__label_file-input" for="avatar">Выбрать файл на
             компьютере</label>
           <input
             class="modal-window__file-input"
             type="file"
-            name="upload-pic-chat"
-            id="pic-chat"
+            name="avatar"
+            id="avatar"
           />
           <div class="modal-window__btns">
             <button

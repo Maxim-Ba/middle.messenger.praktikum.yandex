@@ -5,10 +5,10 @@ import { IStore } from "../../modules/Store/StoreTypes";
 
 const withChats = withStore((state: IStore) => ({
   ...state.chatsState,
-  chats: state.chats,
-  modalWindow: state.modalWindow,
+  chats: [...state.chats],
+  modalWindow: { ...state.modalWindow },
   reason: state.reason,
-  messages: { ...state.messages },
+  messages: [...state.messages],
 }));
 
 export default withChats(Chats);

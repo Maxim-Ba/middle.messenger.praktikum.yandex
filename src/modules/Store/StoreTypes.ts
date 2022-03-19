@@ -11,7 +11,7 @@ export interface IStore {
   profileState: IProfileState;
   token?: string;
   webSocket?: WebSockeAPI;
-  messages?: IMessagesState[];
+  messages: IMessagesState[];
 }
 
 export interface IUserStore {

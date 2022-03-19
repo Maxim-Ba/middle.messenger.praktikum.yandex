@@ -1,4 +1,5 @@
 import { Block } from "../../../../modules/Block/Block";
+import { arrayToChildrenString } from "../../../../utils/arrayChildrenString";
 
 export class MessagesBlock extends Block<any> {
   static get componentName() {
@@ -12,11 +13,8 @@ export class MessagesBlock extends Block<any> {
 
   render() {
     return ` 
-    <div class="first-stub" >
-    {{#each messages}}
-      {{messages.content}}
-      {{messages.time}}
-    {{/each}}
+    <div class="messages" >
+      ${arrayToChildrenString("SingleMessage", this.props.messages)}
 
     </div>
     

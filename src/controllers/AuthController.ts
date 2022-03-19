@@ -61,7 +61,8 @@ class AuthController {
       store.set("reason", null);
       const user = await this.api.getUser();
       if (user.response.reason) {
-        console.log(user.response.reason, 'user.response.reason');
+        console.log(user.response.reason, "user.response.reason");
+        store.set("reason", user.response.reason);
         return;
       }
 
@@ -72,18 +73,28 @@ class AuthController {
         title: "",
       });
 
-      const router = new Router();
-      router.go("/messenger");
+      this.redirect();
 
       return user.response;
     } catch (e) {
       console.log(e);
     }
   }
-  redirect(){
+  redirect() {
+    const router = new Router();
     if (!store.getState().currentUser) {
-      const router = new Router();
       router.go("/");
+      return;
+    }
+    console.log(location.pathname, "location.pathname");
+    if (location.pathname === "/") {
+      router.go("/messenger");
+    }
+    if (location.pathname === "/sign-up") {
+      router.go("/messenger");
+    }
+    if (location.pathname === "/settings") {
+      router.go("/settings");
     }
   }
 }

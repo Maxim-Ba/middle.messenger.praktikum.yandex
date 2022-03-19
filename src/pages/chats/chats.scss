@@ -365,3 +365,25 @@
 .first-stub {
   flex-grow: 1;
 }
+.messages {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  &__item {
+    background-color: #3369f3;
+    margin-bottom: 5px;
+    width: 50%;
+    border-radius: 8px;
+    padding: 6px;
+    &_my-message {
+      align-self: flex-end;
+      background-color: #e4edfd;
+    }
+  }
+  &__content {
+    font-size: 12px;
+  }
+  &__time {
+    text-align: end;
+  }
+}

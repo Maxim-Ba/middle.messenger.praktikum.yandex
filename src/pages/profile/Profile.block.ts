@@ -1,4 +1,3 @@
-import AuthController from "../../controllers/AuthController";
 import profileController from "../../controllers/ProfileController";
 import { Block } from "../../modules/Block/Block";
 import { FormCheck } from "../../services/formCheck/FormCheck";
@@ -90,7 +89,13 @@ export class Profile extends Block<Record<string, any>> {
             isPasswordFormVisible=isPasswordFormVisible
             ButtonTextProfile=ButtonTextProfile
           }}}
-          <div class="login__form-warning"><p class="visibility-hidden form-warning form-warning-text" id="form-warning"></p></div>
+          <div class="login__form-warning">
+            <p class="visibility-hidden form-warning form-warning-text" id="form-warning">
+            </p>
+            <p class="modal-window__warning ${
+              this.props.reason ? `` : `display-none`
+            }">{{reason}}</p>
+          </div>
         </div>
   
         <div class="profile__control-wrapper">
@@ -98,6 +103,7 @@ export class Profile extends Block<Record<string, any>> {
             disabledInputs=disabledInputs
             ButtonTextProfile=ButtonTextProfile
           }}}
+          
           {{{СonfirmPasswordAndData
             disabledInputs=disabledInputs 
             isChangeProfileData=isChangeProfileData
@@ -120,8 +126,6 @@ export class Profile extends Block<Record<string, any>> {
   }
 
   componentDidMount(): void {
-    AuthController.redirect();
-
     const formEl = document.querySelector("form");
     const infoEl = document.getElementById("form-warning");
 

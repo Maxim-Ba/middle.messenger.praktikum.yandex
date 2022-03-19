@@ -35,6 +35,9 @@ export class WebSockeAPI {
       console.log("--typeof", typeof data);
       switch (event.type) {
         case "message":
+          if (data.type === "pong") {
+            break;
+          }
           if (Array.isArray(data)) {
             getMessages(data);
           } else {
@@ -42,6 +45,8 @@ export class WebSockeAPI {
           }
           break;
         case "file":
+          break;
+
           break;
         default:
           break;

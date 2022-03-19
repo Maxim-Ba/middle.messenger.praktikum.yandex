@@ -1,4 +1,3 @@
-import authController from "../../controllers/AuthController";
 import chatsController from "../../controllers/ChatsController";
 import { Block } from "../../modules/Block/Block";
 import { IChatsStore } from "../../modules/Store/StoreTypes";
@@ -139,6 +138,7 @@ export class Chats extends Block<object> {
               bottomMenuButtons=bottomMenuButtons
               actionsBottomBtn=actionsBottomBtn
             }}}
+            <div class="first-stub"></div>
 
             {{{MessagesBlock messages=messages}}}
 
@@ -177,12 +177,10 @@ export class Chats extends Block<object> {
       reason=reason
     }}}
   </div>
-  
     `;
   }
 
   componentDidMount(): void {
-    authController.redirect();
     const formEl = document.querySelector("#chats__send-msg-form");
 
     const infoEl = document.getElementById("form-warning");

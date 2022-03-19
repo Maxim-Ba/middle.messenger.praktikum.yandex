@@ -51,7 +51,7 @@ export class ChatsAPI extends BaseAPI {
   getNewMessagesCount(chatId: number): Promise<any> {
     return this.http.get(`/new/${chatId}`);
   }
-  uploadAvatar(data: UploadChatAvatarData): Promise<any> {
+  uploadAvatar(data: FormData): Promise<any> {
     return this.http
       .put("/avatar", {
         data,
@@ -66,6 +66,7 @@ export class ChatsAPI extends BaseAPI {
       console.log(e, "catch");
     });
   }
+
   deleteUsers(data: AddUsersData): Promise<any> {
     return this.http.delete("/users", { data });
   }

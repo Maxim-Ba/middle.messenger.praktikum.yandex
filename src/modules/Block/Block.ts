@@ -117,7 +117,7 @@ export class Block<T extends Props> {
   private _componentDidUpdate(oldProps: any, newProps: any) {
     const response = this.componentDidUpdate(oldProps, newProps);
 
-    if (response) {
+    if (!response) {
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
   }
@@ -178,8 +178,9 @@ export class Block<T extends Props> {
         throw new Error("Нет доступа");
       },
       set(target, prop: string, value) {
-        target[prop] = value;
         const oldProps = { ...target };
+
+        target[prop] = value;
 
         self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         return true;

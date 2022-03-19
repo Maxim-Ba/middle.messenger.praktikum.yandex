@@ -52,7 +52,7 @@ registerComponent(ButtonClose);
 const withUser = withStore((state: IStore) => ({
   ...state.profileState,
   ...state.currentUser,
-  modalWindow: state.modalWindow,
+  modalWindow: { ...state.modalWindow },
   reason: state.reason,
 }));
 

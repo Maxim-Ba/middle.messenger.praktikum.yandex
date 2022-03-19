@@ -10,7 +10,7 @@ export class ToProfileButton extends Block<Record<string, any>> {
       ...props,
       events: {
         click: () => {
-          const router = new Router("#root");
+          const router = new Router();
           router.go("/settings");
         },
       },

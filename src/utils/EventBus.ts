@@ -22,12 +22,13 @@ export class EventBus {
     );
   }
 
-  emit(event: string, ...args) {
+  emit(event: string, ...args: any[]) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event].forEach(function (listener) {
+    this.listeners[event].forEach(function (listener: (arg0: any) => void) {
+      // @ts-ignore
       listener(...args);
     });
   }

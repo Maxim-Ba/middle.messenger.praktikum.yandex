@@ -25,7 +25,7 @@ export class Block<T extends Props> {
   public _id: string;
   children: Block<Record<string, any>>;
   tmpBlock: HTMLElement;
-  name: string;
+  name: T;
   constructor(propsAndChildren = {}) {
     this.eventBus = new EventBus();
     this._id = makeUUID();

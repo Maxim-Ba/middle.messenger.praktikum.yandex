@@ -18,37 +18,6 @@ registerComponent(ToLoginButton);
 registerComponent(ToChatsButton);
 registerComponent(ButtonClose);
 
-// export const profile = new Profile({
-//   ...profileState,
-//   openWindow() {
-//     profile.setProps({
-//       isOpenWindow: !profile.props.isOpenWindow,
-//       modalWindow: { changeAva: true },
-//     });
-//   },
-//   closeWindow() {
-//     profile.setProps({
-//       isOpenWindow: !profile.props.isOpenWindow,
-//       modalWindow: { changeAva: false },
-//     });
-//   },
-//   isChangeProfileData() {
-//     profile.setProps({
-//       disabledInputs: !profile.props.disabledInputs,
-//     });
-//   },
-//   makePasswordFormVisible() {
-//     profile.setProps({
-//       isPasswordFormVisible: true,
-//     });
-//   },
-//   makePasswordFormHidden() {
-//     profile.setProps({
-//       isPasswordFormVisible: false,
-//     });
-//   },
-// });
-
 const withUser = withStore((state: IStore) => ({
   ...state.profileState,
   ...state.currentUser,

@@ -1,16 +1,25 @@
 import { expect } from "chai";
 import { Router } from "./Router";
-import LoginWithStore from "../../pages/login/login.index";
-import RegistrationWithStore from "../../pages/registration/registration.index";
-import ChatsWithStore from "../../pages/chats/chats.index";
-import ProfileWithStore from "../../pages/profile/profile.index";
+import { Block } from "../Block/Block";
+import { dom } from "../../utils/JsDOM.test";
+global.window = dom.window;
+global.document = window.document;
+
+class Component extends Block<any> {
+  static get componentName() {
+    return "Component";
+  }
+  render() {
+    return `<card class="component"</card>`;
+  }
+}
 describe("Проверяем переходы у Роута", () => {
   const router = new Router();
   router
-    .use("/", LoginWithStore)
-    .use("/sign-up", RegistrationWithStore)
-    .use("/messenger", ChatsWithStore)
-    .use("/settings", ProfileWithStore)
+    .use("/", Component)
+    .use("/sign-up", Component)
+    .use("/messenger", Component)
+    .use("/settings", Component)
     .start();
   it("Переход на /", () => {
     router.go("/");

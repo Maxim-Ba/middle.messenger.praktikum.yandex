@@ -25,7 +25,7 @@ export class Block<T extends Props> {
   public _id: string;
   children: Block<Record<string, any>>;
   tmpBlock: HTMLElement;
-  name: T;
+  name: string;
   constructor(propsAndChildren = {}) {
     this.eventBus = new EventBus();
     this._id = makeUUID();
@@ -216,12 +216,5 @@ export class Block<T extends Props> {
     });
 
     return fragment.content;
-  }
-
-  hide() {
-    this._element.style.display = "none";
-  }
-  show() {
-    this._element.style.display = "block";
   }
 }

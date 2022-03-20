@@ -2,9 +2,10 @@ import { Block } from "./Block";
 
 import { expect } from "chai";
 import { registerComponent } from "../../utils/registerComponent";
-import { document } from "./JsDOM.test";
-console.log(document);
 
+import { dom } from "./JsDOM.test";
+global.window = dom.window;
+global.document = window.document;
 class Component extends Block<any> {
   static get componentName() {
     return "Component";

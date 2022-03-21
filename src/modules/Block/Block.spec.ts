@@ -12,7 +12,7 @@ class Component extends Block<any> {
     return "Component";
   }
   render() {
-    return `<card class="component">{{{ChildrenComponent}}}</card>`;
+    return `<div class="component">{{{ChildrenComponent}}}</div>`;
   }
 }
 class ChildrenComponent extends Block<any> {
@@ -28,12 +28,10 @@ registerComponent(ChildrenComponent);
 
 describe("Проверяем отрисовку children", () => {
   const component = new Component(new ChildrenComponent());
-  console.log(component.element.innerHTML, "-----");
-
   it("Проверяем правильную разметку из метода render", () => {
-    expect(component.element.innerHTML).to.eq(`
-      <card class="component <p>ChildrenComponent</p></card>
-    `);
+    expect(component.element.outerHTML).to.eq(
+      '<div class="component"><p>ChildrenComponent</p></div>'
+    );
   });
 });
 

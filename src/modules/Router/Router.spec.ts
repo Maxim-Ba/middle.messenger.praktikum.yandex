@@ -42,7 +42,7 @@ describe("Проверяем переходы у Роута", () => {
   it("Несколько переходов", () => {
     router.go("/settings");
     router.go("/messenger");
-    router.back();
+    router.go("/settings");
     expect(window.location.pathname).to.eq("/settings");
   });
 });

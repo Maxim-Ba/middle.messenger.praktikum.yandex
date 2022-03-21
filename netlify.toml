@@ -1,3 +1,10 @@
 [build]
 
   publish = "dist" 
+<<<<<<< HEAD
+=======
+[[redirects]]
+  from = "*"
+  to = "/"
+  status = 200
+>>>>>>> sprint_3

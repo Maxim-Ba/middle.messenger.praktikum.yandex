@@ -1,18 +1,20 @@
-import { Block } from "../../../../modules/Block";
-
-export class СonfirmPasswordAndData extends Block {
-  constructor(props: Record<string, any> | undefined) {
+import profileController from "../../../../controllers/ProfileController";
+import { Block } from "../../../../modules/Block/Block";
+interface Iprops {
+  disabledInputs: boolean;
+  isPasswordFormVisible: boolean;
+}
+export class СonfirmPasswordAndData extends Block<Iprops> {
+  constructor(props: Iprops) {
     super({
       ...props,
       events: {
         click: (event: Event) => {
-          if (event.target === document.querySelector(".button_grey")) {
-            this.props.isChangeProfileData();
-            this.props.makePasswordFormHidden();
-          }
-          if (event.target === document.querySelector(".button_blue")) {
-            // this.props.isChangeProfileData();
-            // this.props.makePasswordFormHidden();
+          if (
+            event.target === this.getContent().querySelector(".button_grey")
+          ) {
+            profileController.isChangeProfileData();
+            profileController.makePasswordFormHidden();
           }
         },
       },
@@ -24,21 +26,22 @@ export class СonfirmPasswordAndData extends Block {
   render() {
     return `
       <div class="profile__control profile__control_row ${
-  this.props.disabledInputs ? "display-none" : ""
-}">
+        this.props.disabledInputs ? "display-none" : ""
+      }">
           <button
+            type="button"
             class="profile__btn button button_b-r-8px button_grey button_auth"
           >
-            Отмена
+          {{ButtonTextProfile.CANCEL}}
           </button>
           <button
             class="profile__btn button button_b-r-8px button_blue button_auth"
             type="submit"
             form="${
-  this.props.isPasswordFormVisible ? "profile-password" : "profile"
-}"
+              this.props.isPasswordFormVisible ? "profile-password" : "profile"
+            }"
           >
-            Сохранить
+            {{ButtonTextProfile.SAVE}}
           </button>
       </div>
     `;

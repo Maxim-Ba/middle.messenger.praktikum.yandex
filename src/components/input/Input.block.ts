@@ -1,6 +1,6 @@
-import { Block } from "../../modules/Block";
+import { Block } from "../../modules/Block/Block";
 
-export class Input extends Block {
+export class Input extends Block<Record<string, any>> {
   static get componentName() {
     return "Input";
   }

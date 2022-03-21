@@ -1,32 +1,22 @@
-import { Block } from "../../../../modules/Block";
+import ChatsController from "../../../../controllers/ChatsController";
+import { Block } from "../../../../modules/Block/Block";
 interface MenuePropsI {
   topMenuButtons: Record<string, any>;
-  actionsBtn: Record<string, any>;
-  isOpenMenu: Record<string, any>;
+  isOpenMenu: boolean;
 }
-export class Menu extends Block {
+export class Menu extends Block<MenuePropsI> {
   static get componentName() {
     return "Menu";
   }
-  constructor({ topMenuButtons, actionsBtn, isOpenMenu }: MenuePropsI) {
+  actionsBtn = ChatsController.actionsBtn();
+  constructor({ topMenuButtons, isOpenMenu }: MenuePropsI) {
     super({
       topMenuButtons,
-      actionsBtn,
       isOpenMenu,
       events: {
         click: (event: Event) => {
-          switch (event.target) {
-            case document.getElementById("create"):
-              actionsBtn["create"]();
-              break;
-            case document.getElementById("delete"):
-              actionsBtn["delete"]();
-              break;
-            case document.getElementById("change"):
-              actionsBtn["change"]();
-              break;
-            default:
-              break;
+          if (this.actionsBtn[(event.target as HTMLElement).id]) {
+            this.actionsBtn[(event.target as HTMLElement).id]();
           }
         },
       },

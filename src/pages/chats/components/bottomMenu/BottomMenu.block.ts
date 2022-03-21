@@ -1,10 +1,10 @@
-import { Block } from "../../../../modules/Block";
-interface BottomMenuPropsI {
-  isOpenBottomMenu: Record<string, any>;
+import { Block } from "../../../../modules/Block/Block";
+import { IChatViewState } from "../../../../modules/Store/StoreTypes";
+interface BottomMenuPropsI extends IChatViewState {
+  isOpenBottomMenu: boolean;
   actionsBottomBtn: Record<string, any>;
-  bottomMenuButtons: Record<string, any>;
 }
-export class BottomMenu extends Block {
+export class BottomMenu extends Block<BottomMenuPropsI> {
   static get componentName() {
     return "BottomMenu";
   }
@@ -19,18 +19,8 @@ export class BottomMenu extends Block {
       bottomMenuButtons,
       events: {
         click: (event: Event) => {
-          switch (event.target) {
-            case document.getElementById("fotoOrVideo"):
-              actionsBottomBtn["fotoOrVideo"]();
-              break;
-            case document.getElementById("file"):
-              actionsBottomBtn["file"]();
-              break;
-            case document.getElementById("location"):
-              actionsBottomBtn["location"]();
-              break;
-            default:
-              break;
+          if (actionsBottomBtn[(event.target as HTMLElement).id]) {
+            actionsBottomBtn[(event.target as HTMLElement).id]();
           }
         },
       },

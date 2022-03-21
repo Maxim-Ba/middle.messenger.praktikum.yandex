@@ -1,0 +1,16 @@
+export enum ButtonTextProfile {
+  CHANGE_DATA = "Изменить данные",
+  CHANGE_PASWORD = "Изменить пароль",
+  CANCEL = "Отмена",
+  SAVE = "Сохранить",
+  LOGOUT = "Выйти",
+  EMAIL = "Почта",
+  LOGIN = "Логин",
+  NAME = "Имя",
+  SECOND_NAME = "Фамилия",
+  CHAT_NAME = "Имя в чате",
+  PHONE = "Телефон",
+  OLD_PASSWORD = "Старый пароль",
+  NEW_PASSWORD = "Новый пароль",
+  REAPET_PASSWORD = "Повторите пароль",
+}

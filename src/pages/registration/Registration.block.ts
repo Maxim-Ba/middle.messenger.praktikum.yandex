@@ -1,38 +1,41 @@
-import { Block } from "../../modules/Block";
-import { Validator } from "../../services/validator/Validator";
+import AuthController from "../../controllers/AuthController";
+import { Block } from "../../modules/Block/Block";
+import { SignupData } from "../../services/API/AuthAPI";
+import { FormCheck } from "../../services/formCheck/FormCheck";
 import { arrayToChildrenString } from "../../utils/arrayChildrenString";
-import { registrationState } from "./registration.state";
-
-export class Registration extends Block {
+import { registrationState, RegistrationStateType } from "./registration.state";
+export class Registration extends Block<RegistrationStateType> {
   registration: HTMLElement | null;
-  validator: Validator;
-  constructor(props: Record<string, any> | undefined) {
-    super(props);
+  validator: FormCheck;
+  constructor(props: RegistrationStateType & { reason: string }) {
+    super({
+      ...props,
+    });
+    this.onSignUp = this.onSignUp.bind(this);
+  }
+  onSignUp(data: SignupData) {
+    AuthController.signup(data);
   }
   render() {
     return `
     <div class="registration__wrapper">
       <main class="registration">
         <div class="title-wrapper">
-          <h1 class="login-registration__title">Регистрация</h1>
+          <h1 class="login-registration__title">{{TitleText.REGISTRATION}}</h1>
         </div>
         <form class="form" id="login-form">
           ${arrayToChildrenString("Input", registrationState.fields)}
             <div class="form-warning form-warning_pt-1rem" id="login__form-warning">
-              <p class="form-warning-text visibility-hidden">Пароли не совпадают</p>
+              <p class="form-warning-text visibility-hidden"></p>
             </div>
           
           <div class="registration__button-wrapper">
-            <button class="button button_grey button_auth button_b-r-8px"><a
-                href="../chats/chats.html"
-                class="button"
-              >Войти</a>
-            </button>
-            <button
-              class="button button_blue button_auth button_b-r-8px"
-              type="submit"
-            >Регистрация
-            </button>
+            {{{ToLoginButtonFromReg
+              buttonText=ButtonTextRegistration.TO_LOGIN
+            }}}
+            {{{SendRegistrationButton
+              buttonText=ButtonTextRegistration.REGISTRATION
+            }}}  
           </div>
         </form>
       </main>
@@ -41,15 +44,15 @@ export class Registration extends Block {
   }
 
   componentDidMount() {
-    const formEl = document.getElementById("login-form");
-    const infoEl = document.getElementById(
-      "login__form-warning",
+    const formEl = this.getContent().querySelector("#login-form");
+    const infoEl = this.getContent().querySelector(
+      "#login__form-warning"
     )?.firstElementChild;
     if (formEl) {
-      this.validator = new Validator(
+      this.validator = new FormCheck(
         formEl as HTMLFormElement,
-        console.log,
-        infoEl as HTMLElement,
+        this.onSignUp,
+        infoEl as HTMLElement
       );
     }
   }

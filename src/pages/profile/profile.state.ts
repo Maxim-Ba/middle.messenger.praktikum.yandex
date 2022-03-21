@@ -1,5 +1,6 @@
 import svgAvatarProfile from "../../../static/img/Avatar-profile.svg";
 import svgArrowLeft from "../../../static/img/Arrow.svg";
+import { ButtonTextProfile } from "./text";
 
 export const profileState = {
   disabledInputs: true,
@@ -7,12 +8,6 @@ export const profileState = {
     svgAvatarProfile,
     svgArrowLeft,
   },
-  emailValue: "max@max.ru",
-  loginValue: "maxmax",
-  firstNameValue: "NAME",
-  secondNameValue: "SECOND",
-  displayNameValue: "superMax",
-  phoneNameValue: "+71234567890",
   modalWindow: {
     create: false,
     delete: false,
@@ -23,4 +18,5 @@ export const profileState = {
   },
   isOpenWindow: false,
   isPasswordFormVisible: false,
+  ButtonTextProfile,
 };

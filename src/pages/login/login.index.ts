@@ -9,9 +9,7 @@ import { IStore } from "../../modules/Store/StoreTypes";
 registerComponent(RegistrationButton);
 registerComponent(AuthButton);
 registerComponent(Input);
-// export const login = new Login({ ...loginState });
 
-// render("#root", login);
 const withReason = withStore((state: IStore) => ({
   ...loginState,
   reason: state.reason,

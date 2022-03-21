@@ -68,4 +68,4 @@ class Router {
   }
 }
 
-export { Router };
+export default new Router();

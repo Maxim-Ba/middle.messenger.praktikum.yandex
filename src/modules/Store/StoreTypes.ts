@@ -79,12 +79,12 @@ export enum EnumChatActions {
   FILE = "file",
   LOCATION = "location",
 }
-interface IMenuButton {
+export interface IMenuButton {
   actionTitle: string;
   iconSvg: string;
   actionId: EnumChatActions;
 }
-interface IModalWindow {
+export interface IModalWindow {
   create: boolean;
   delete: boolean;
   change: boolean;

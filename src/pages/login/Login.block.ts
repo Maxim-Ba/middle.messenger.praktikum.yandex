@@ -54,7 +54,7 @@ export class Login extends Block<Record<string, any>> {
   }
 
   componentDidMount(): void {
-    const formEl = document.getElementById("login-form");
+    const formEl = this.getContent().querySelector("#login-form");
     if (formEl) {
       this.validator = new FormCheck(formEl as HTMLFormElement, this.onSignIn);
     }

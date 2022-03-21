@@ -18,6 +18,7 @@ export class RegistrationButton extends Block<Record<string, any>> {
   render() {
     return `
     <button
+      type="button"
       class="button button_grey button_auth button_b-r-8px"
     >
       {{buttonText}}

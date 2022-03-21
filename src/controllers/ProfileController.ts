@@ -32,6 +32,7 @@ class ProfileController {
       console.log(e);
     }
   }
+
   async changeUserAvatar(data: FormData) {
     try {
       store.set("reason", null);
@@ -50,6 +51,7 @@ class ProfileController {
       console.log(e);
     }
   }
+
   async changeUserPassword(data: PasswordData) {
     try {
       store.set("reason", null);
@@ -67,6 +69,7 @@ class ProfileController {
       console.log(e);
     }
   }
+
   openWindow() {
     store.set("profileState.isOpenWindow" as any, true);
     store.set("modalWindow", {
@@ -81,6 +84,7 @@ class ProfileController {
       changeAva: true,
     });
   }
+
   closeWindow() {
     store.set("reason", null);
 
@@ -97,18 +101,22 @@ class ProfileController {
       changeAva: false,
     });
   }
+
   isChangeProfileData() {
     store.set(
       "profileState.disabledInputs" as any,
       !store.getState().profileState.disabledInputs
     );
   }
+
   makePasswordFormVisible() {
     store.set("profileState.isPasswordFormVisible" as any, true);
   }
+
   makePasswordFormHidden() {
     store.set("profileState.isPasswordFormVisible" as any, false);
   }
+
   adapterForUserData(userData: IUserStore): IUserStore {
     if (userData.avatar) {
       userData.avatar = PREFIX + userData.avatar;

@@ -1,9 +1,9 @@
 import chatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
+import { IMenuButton } from "../../../../modules/Store/StoreTypes";
 interface MenuMessagesPropsI {
-  chatsTopMenuButtons: Record<string, any>;
-  actionMessagesBtns: Record<string, any>;
-  isOpenMenu: Record<string, any>;
+  chatsTopMenuButtons: IMenuButton[];
+  isOpenMenu: boolean;
 }
 export class MenuMessages extends Block<MenuMessagesPropsI> {
   static get componentName() {
@@ -11,30 +11,15 @@ export class MenuMessages extends Block<MenuMessagesPropsI> {
   }
   actionMessagesBtns = chatsController.actionMessagesBtns();
 
-  constructor({
-    chatsTopMenuButtons,
-    actionMessagesBtns,
-    isOpenMenu,
-  }: MenuMessagesPropsI) {
+  constructor({ chatsTopMenuButtons, isOpenMenu }: MenuMessagesPropsI) {
     super({
       chatsTopMenuButtons,
-      actionMessagesBtns,
       isOpenMenu,
       events: {
         click: (event: Event) => {
           if (this.actionMessagesBtns[(event.target as HTMLElement).id]) {
             this.actionMessagesBtns[(event.target as HTMLElement).id]();
           }
-          // switch (event.target) {
-          // case document.getElementById("addUser"):
-          //   actionMessagesBtns["addUser"]();
-          //   break;
-          // case document.getElementById("deleteUser"):
-          //   actionMessagesBtns["deleteUser"]();
-          //   break;
-          // default:
-          //   break;
-          // }
         },
       },
     });

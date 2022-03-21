@@ -1,16 +1,15 @@
 import { Block } from "../../../../modules/Block/Block";
-import { Router } from "../../../../modules/Router/Router";
+import router from "../../../../modules/Router/Router";
 
 export class ToProfileButton extends Block<Record<string, any>> {
   static get componentName() {
     return "ToProfileButton";
   }
-  constructor(props: Record<string, any> | undefined) {
+  constructor(props: object) {
     super({
       ...props,
       events: {
         click: () => {
-          const router = new Router();
           router.go("/settings");
         },
       },
@@ -20,6 +19,7 @@ export class ToProfileButton extends Block<Record<string, any>> {
     return `
     <button
       class="button chats__button button_b-r-5px button_blue"
+      type="button"
     >
       {{buttonText}}
     </button>

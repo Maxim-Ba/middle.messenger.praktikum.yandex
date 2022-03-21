@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Router } from "./Router";
+import router from "./Router";
 import { Block } from "../Block/Block";
 import { dom } from "../../utils/JsDOM.test";
 global.window = dom.window;
@@ -14,7 +14,6 @@ class Component extends Block<any> {
   }
 }
 describe("Проверяем переходы у Роута", () => {
-  const router = new Router();
   router
     .use("/", Component)
     .use("/sign-up", Component)

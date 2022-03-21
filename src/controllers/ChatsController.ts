@@ -26,7 +26,6 @@ class ChatsController {
     try {
       const getResponse = await this.api.getChats(data);
       if (getResponse.response.reason) {
-        console.log(getResponse.response.reason);
         store.set("reason", getResponse.response.reason);
       }
       store.set("chats", this._fillChats(getResponse.response));
@@ -34,6 +33,7 @@ class ChatsController {
       console.log(e);
     }
   }
+
   private _fillChats(chats: IChatsStore[]) {
     const fillChats = chats.map((chat) => {
       let avatar = chat.avatar;
@@ -63,12 +63,12 @@ class ChatsController {
 
     return fillChats;
   }
+
   async createChat(data: CreateChatData) {
     try {
       store.set("reason", null);
       const createResponse = await this.api.createChat(data);
       if (createResponse.response.reason) {
-        console.log(createResponse.response.reason);
         store.set("reason", createResponse.response.reason);
         return;
       }
@@ -78,6 +78,7 @@ class ChatsController {
       console.log(e);
     }
   }
+
   async deleteChats() {
     try {
       store.set("reason", null);
@@ -88,7 +89,6 @@ class ChatsController {
         chatId: selectChat[0].id,
       });
       if (deleteResponse.status !== 200) {
-        console.log(deleteResponse.response.reason);
         store.set("reason", deleteResponse.response.reason);
         return;
       }
@@ -100,6 +100,7 @@ class ChatsController {
       console.log(e);
     }
   }
+
   async getUsersChat() {
     try {
       store.set("reason", null);
@@ -118,7 +119,6 @@ class ChatsController {
         };
         const usersResponse = await this.api.getUsersChat(params);
         if (usersResponse.response.reason) {
-          console.log(usersResponse.response.reason);
           store.set("reason", usersResponse.response.reason);
           return;
         }
@@ -130,21 +130,19 @@ class ChatsController {
       console.log(e);
     }
   }
+
   async getNewMessagesCount(chatId: number) {
     try {
       const newMessagesResponse = await this.api.getNewMessagesCount(chatId);
       if (newMessagesResponse.status !== 200) {
-        console.log(newMessagesResponse.response.reason);
-
         throw new Error("status not 200" + newMessagesResponse.response.reason);
       }
     } catch (e) {
       console.log(e);
     }
   }
-  async uploadAvatar(avatar: FormData) {
-    console.log(avatar.get("avatar-chat"));
 
+  async uploadAvatar(avatar: FormData) {
     try {
       store.set("reason", null);
       const selectedChat = store
@@ -156,7 +154,6 @@ class ChatsController {
         avatar.delete("avatar-chat");
         const avatarResponse = await this.api.uploadAvatar(avatar);
         if (avatarResponse.response.reason) {
-          console.log(avatarResponse.response.reason);
           store.set("reason", avatarResponse.response.reason);
           return;
         }
@@ -174,6 +171,7 @@ class ChatsController {
       console.log(e);
     }
   }
+
   chatAdapter(chat: IChatsStore): IChatsStore {
     if (chat.avatar) {
       chat.avatar = PREFIX + chat.avatar;
@@ -182,6 +180,7 @@ class ChatsController {
     chat.avatar = store.getState().chatsState.svgDefault.svgDefaultChatPic;
     return chat;
   }
+
   async addUsers(userName: string) {
     try {
       store.set("reason", null);
@@ -200,9 +199,7 @@ class ChatsController {
           chatId: selectedChat.id,
           users: [selectedUser.response[0].id],
         });
-        console.log(addUsersResponse.response);
         if (addUsersResponse?.response?.reason) {
-          console.log(addUsersResponse.response.reason);
           store.set("reason", addUsersResponse.response.reason);
           return;
         }
@@ -212,6 +209,7 @@ class ChatsController {
       console.log(e);
     }
   }
+
   async deleteUsers(userName: string) {
     try {
       store.set("reason", null);
@@ -227,7 +225,6 @@ class ChatsController {
           users: [selectedUser.id],
         });
         if (deleteUsersResponse?.response?.reason) {
-          console.log(deleteUsersResponse.response.reason);
           store.set("reason", deleteUsersResponse.response.reason);
           return;
         }
@@ -239,11 +236,11 @@ class ChatsController {
       console.log(e);
     }
   }
+
   async getToken(id: number) {
     try {
       const tokenResponse = await this.api.getToken(id);
       if (tokenResponse.response.reason) {
-        console.log(tokenResponse.response.reason);
         alert("Ошибка при получении токена для обмена сообщениями");
         return;
       }
@@ -253,6 +250,7 @@ class ChatsController {
       console.log(e);
     }
   }
+
   openSearchField() {
     store.set(
       "chatsState.isResultSearchChat" as any,
@@ -270,6 +268,7 @@ class ChatsController {
       !store.getState().chatsState.isOpenBottomMenu
     );
   }
+
   searchChat(value: string) {
     const newChatsList = store.getState().chats.map((chat: IChatsStore) => {
       if (chat.title.match(new RegExp(`${value}`, "gi"))) {
@@ -279,10 +278,9 @@ class ChatsController {
     store.set("chatsState.isResultSearchChat" as any, true);
     store.set("chatsState.resultSearchChat" as any, newChatsList);
   }
+
   actionsBtn = () => ({
     create() {
-      console.log(store.getState());
-
       store.set(
         "chatsState.isOpenMenu" as any,
         !store.getState().chatsState.isOpenMenu
@@ -376,11 +374,13 @@ class ChatsController {
       });
     },
   });
+
   closeWindow() {
     store.set("reason", null);
 
     store.set("chatsState.isOpenWindow" as any, false);
   }
+
   openMenu() {
     store.set(
       "chatsState.isOpenMenu" as any,
@@ -403,8 +403,7 @@ class ChatsController {
       return { ...chat, isSelected: false };
     });
     store.set("chats", [...newChatsList]);
-    const usersChat = await this.getUsersChat();
-    console.log(usersChat);
+    await this.getUsersChat();
 
     const isToken = await this.getToken(chatId);
     if (isToken) {
@@ -421,6 +420,7 @@ class ChatsController {
       }
     }
   }
+
   getMessages(messages: IMessagesState[]) {
     const { chatUsers } = store.getState();
 
@@ -441,7 +441,6 @@ class ChatsController {
   }
 
   addDisplayNameToMessage(messages: IMessagesState[]): IMessagesState[] {
-    console.log("aaaa");
     const { chatUsers } = store.getState();
     return messages.map((message) => {
       for (let index = 0; index < chatUsers!.length; index++) {
@@ -450,27 +449,30 @@ class ChatsController {
           break;
         }
       }
-      console.log(message);
       return message;
     });
   }
+
   sendMessage(data: { message: string }) {
     const webSockeAPI = store.getState().webSocket;
-    console.log(data);
 
     webSockeAPI?.sendMessage(data.message as string);
   }
+
   closeWS() {
     const webSockeAPI = store.getState().webSocket;
     webSockeAPI?.closeWS();
   }
+
   openMessages() {
     store.set("chatsState.isMessagesOpen" as any, true);
   }
+
   closeMessages() {
     store.set("chatsState.isMessagesOpen" as any, false);
     store.set("messages", []);
   }
+
   actionsBottomBtn = () => ({
     fotoOrVideo() {
       store.set(
@@ -528,6 +530,7 @@ class ChatsController {
       });
     },
   });
+
   closeCurrentChat() {
     const newChatsList = store.getState().chats.map((chat: IChatsStore) => {
       return { ...chat, isSelected: false };

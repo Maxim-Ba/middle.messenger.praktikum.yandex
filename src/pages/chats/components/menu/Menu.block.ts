@@ -2,7 +2,7 @@ import ChatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
 interface MenuePropsI {
   topMenuButtons: Record<string, any>;
-  isOpenMenu: Record<string, any>;
+  isOpenMenu: boolean;
 }
 export class Menu extends Block<MenuePropsI> {
   static get componentName() {

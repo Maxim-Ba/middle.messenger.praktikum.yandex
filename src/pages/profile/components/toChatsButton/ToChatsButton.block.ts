@@ -1,5 +1,5 @@
 import { Block } from "../../../../modules/Block/Block";
-import { Router } from "../../../../modules/Router/Router";
+import router from "../../../../modules/Router/Router";
 
 export class ToChatsButton extends Block<Record<string, any>> {
   static get componentName() {
@@ -10,7 +10,6 @@ export class ToChatsButton extends Block<Record<string, any>> {
       ...props,
       events: {
         click: () => {
-          const router = new Router();
           router.go("/messenger");
         },
       },

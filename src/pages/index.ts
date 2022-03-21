@@ -1,4 +1,4 @@
-import { Router } from "../modules/Router/Router";
+import router from "../modules/Router/Router";
 import "../pages/login/login.scss";
 import "../pages/registration/registration.scss";
 import "../pages/chats/chats.scss";
@@ -58,19 +58,19 @@ registerComponent(ToChatsButton);
 registerComponent(ButtonClose);
 registerComponent(SingleMessage);
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const router = new Router();
-  router
-    .use("/", LoginWithStore)
-    .use("/sign-up", RegistrationWithStore)
-    .use("/messenger", ChatsWithStore)
-    .use("/settings", ProfileWithStore)
-    .start();
+router
+  .use("/", LoginWithStore)
+  .use("/sign-up", RegistrationWithStore)
+  .use("/messenger", ChatsWithStore)
+  .use("/settings", ProfileWithStore)
+  .start();
 
+async function fetch() {
   try {
     await AuthController.fetchUser();
-    // AuthController.redirect();
   } catch (error) {
     console.log(error);
   }
-});
+}
+
+fetch();

@@ -2,24 +2,30 @@ import chatsController from "../../controllers/ChatsController";
 import { Block } from "../../modules/Block/Block";
 import { IChatsStore } from "../../modules/Store/StoreTypes";
 import { FormCheck } from "../../services/formCheck/FormCheck";
+import authController from "../../controllers/AuthController";
 
-export class Chats extends Block<object> {
+export class Chats extends Block<IChatsStore> {
   validator: FormCheck;
 
-  constructor(props: Record<string, any> | undefined) {
+  constructor(props: IChatsStore | undefined) {
     super({
       ...props,
       events: {
         click: (event: Event) => {
-          if (event.target === document.getElementById("search")) {
+          if (event.target === this.getContent().querySelector("#search")) {
             chatsController.openSearchField();
           }
-          if (event.target === document.querySelector(".chats__file-menu")) {
+          if (
+            event.target ===
+            this.getContent().querySelector(".chats__file-menu")
+          ) {
             chatsController.openBottomMenu();
           }
         },
         input: (event: Event) => {
-          if (event.target === document.querySelector("#search-input")) {
+          if (
+            event.target === this.getContent().querySelector("#search-input")
+          ) {
             chatsController.searchChat(
               (event.target as HTMLInputElement).value
             );
@@ -37,8 +43,6 @@ export class Chats extends Block<object> {
       (chat: IChatsStore) => chat.isSelected
     );
     if (!selectChat.length) {
-      console.log(selectChat);
-      //rerender TODO
       return { avatar: "", title: "" };
     }
     return selectChat[0];
@@ -53,6 +57,7 @@ export class Chats extends Block<object> {
         buttonText=ButtonTextChats.PROFILE
       }}}
         <button
+          type="button"
           class="button chats__button button_b-r-5px button_grey"
           id="search"
         >
@@ -158,7 +163,7 @@ export class Chats extends Block<object> {
               type="text"
               placeholder="Сообщение"
             />
-            <button class="chats__send-btn">
+            <button class="chats__send-btn" type="submit">
               <img
                 class="chats__send"
                 src={{svgDefault.svgArrowRight}}
@@ -181,11 +186,12 @@ export class Chats extends Block<object> {
   }
 
   componentDidMount(): void {
-    const formEl = document.querySelector("#chats__send-msg-form");
+    authController.redirect();
+    const formEl = this.getContent().querySelector("#chats__send-msg-form");
 
-    const infoEl = document.getElementById("form-warning");
+    const infoEl = this.getContent().querySelector("#form-warning");
 
-    const btnSubmit = document.querySelector(".chats__send-btn");
+    const btnSubmit = this.getContent().querySelector(".chats__send-btn");
     if (formEl) {
       this.validator = new FormCheck(
         formEl as HTMLFormElement,

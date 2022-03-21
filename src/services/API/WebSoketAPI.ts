@@ -1,14 +1,9 @@
 export class WebSockeAPI {
   socket: WebSocket;
-  constructor(
-    socket: WebSocket,
-    getMessages: Function
-    //add callBacks
-  ) {
+  constructor(socket: WebSocket, getMessages: Function) {
     this.sendMessage = this.sendMessage.bind(this);
     this.sendPing = this.sendPing.bind(this);
     this.closeWS = this.closeWS.bind(this);
-    this.onMessage = this.onMessage.bind(this);
     this.getOldMessages = this.getOldMessages.bind(this);
 
     this.socket = socket;
@@ -20,19 +15,11 @@ export class WebSockeAPI {
     });
 
     this.socket.addEventListener("close", (event) => {
-      if (event.wasClean) {
-        console.log("Соединение закрыто чисто");
-      } else {
-        console.log("Обрыв соединения");
-      }
-
       console.log(`Код: ${event.code} | Причина: ${event.reason}`);
     });
 
     this.socket.addEventListener("message", (event) => {
       const data = JSON.parse(event.data);
-      console.log("--Получены данные", data);
-      console.log("--typeof", typeof data);
       switch (event.type) {
         case "message":
           if (data.type === "pong") {
@@ -47,7 +34,6 @@ export class WebSockeAPI {
         case "file":
           break;
 
-          break;
         default:
           break;
       }
@@ -57,6 +43,7 @@ export class WebSockeAPI {
       console.log("Ошибка", event.message);
     });
   }
+
   sendMessage(message: string) {
     this.socket.send(
       JSON.stringify({
@@ -65,6 +52,7 @@ export class WebSockeAPI {
       })
     );
   }
+
   sendPing() {
     if (this.socket.readyState !== WebSocket.CLOSED) {
       this.socket.send(
@@ -75,10 +63,10 @@ export class WebSockeAPI {
       setTimeout(this.sendPing, 5000);
     }
   }
+
   closeWS() {
     this.socket.close(1000, "close on client");
   }
-  onMessage() {}
 
   getOldMessages() {
     this.socket.send(

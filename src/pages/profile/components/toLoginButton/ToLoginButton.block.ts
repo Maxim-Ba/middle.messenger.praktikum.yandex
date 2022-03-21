@@ -18,6 +18,7 @@ export class ToLoginButton extends Block<Record<string, any>> {
   render() {
     return `
     <button
+      type="button"
       class="profile__change-data profile__change-data_red"
     >
       {{buttonText}}

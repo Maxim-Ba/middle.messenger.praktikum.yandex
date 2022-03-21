@@ -1,8 +1,8 @@
 import { Block } from "../../../../modules/Block/Block";
-interface BottomMenuPropsI {
-  isOpenBottomMenu: Record<string, any>;
+import { IChatViewState } from "../../../../modules/Store/StoreTypes";
+interface BottomMenuPropsI extends IChatViewState {
+  isOpenBottomMenu: boolean;
   actionsBottomBtn: Record<string, any>;
-  bottomMenuButtons: Record<string, any>;
 }
 export class BottomMenu extends Block<BottomMenuPropsI> {
   static get componentName() {

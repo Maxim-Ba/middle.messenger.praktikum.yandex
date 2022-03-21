@@ -1,15 +1,17 @@
 import chatsController from "../../controllers/ChatsController";
 import ProfileController from "../../controllers/ProfileController";
 import { Block } from "../../modules/Block/Block";
+import { IModalWindow } from "../../modules/Store/StoreTypes";
 
-export class ModalWindowBlock extends Block<Record<string, any>> {
-  constructor(props: any) {
+export class ModalWindowBlock extends Block<IModalWindow> {
+  constructor(props: IModalWindow) {
     super({
       ...props,
       events: {
         click: (event: Event) => {
           if (
-            event.target === document.getElementById("modal-window__wrapper")
+            event.target ===
+            this.getContent().querySelector("#modal-window__wrapper")
           ) {
             chatsController.closeWindow();
             ProfileController.closeWindow();
@@ -18,25 +20,28 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
         submit: (event: Event) => {
           event.preventDefault();
           switch (event.target) {
-            case document.getElementById("modal-window-form-create-chat"):
-              console.log("modal-window-create-chat");
-              const form = document.getElementById(
-                "modal-window-form-create-chat"
+            case this.getContent().querySelector(
+              "#modal-window-form-create-chat"
+            ):
+              const form = this.getContent().querySelector(
+                "#modal-window-form-create-chat"
               );
               const formData = new FormData(form as HTMLFormElement);
               chatsController.createChat(
                 Object.fromEntries(formData.entries())
               );
               break;
-            case document.getElementById("modal-window-form-delete-chat"):
-              console.log("modal-window-delete-chat");
+            case this.getContent().querySelector(
+              "#modal-window-form-delete-chat"
+            ):
               chatsController.deleteChats();
               break;
 
-            case document.getElementById("modal-window-form-pic-profile"):
-              console.log("modal-window-form-pic-profile");
-              const formAvatar = document.getElementById(
-                "modal-window-form-pic-profile"
+            case this.getContent().querySelector(
+              "#modal-window-form-pic-profile"
+            ):
+              const formAvatar = this.getContent().querySelector(
+                "#modal-window-form-pic-profile"
               );
               const formAvatarData = new FormData(
                 formAvatar as HTMLFormElement
@@ -44,23 +49,20 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
               ProfileController.changeUserAvatar(formAvatarData);
               break;
 
-            case document.getElementById("modal-window-form-pic-chat"):
-              console.log("modal-window-pic-chat");
-              const formChatPic = document.getElementById(
-                "modal-window-form-pic-chat"
+            case this.getContent().querySelector("#modal-window-form-pic-chat"):
+              const formChatPic = this.getContent().querySelector(
+                "#modal-window-form-pic-chat"
               );
               const formChatPicData = new FormData(
                 formChatPic as HTMLFormElement
               );
-              console.log([...formChatPicData.entries()]);
 
               chatsController.uploadAvatar(formChatPicData);
               break;
 
-            case document.getElementById("modal-window-form-add-user"):
-              console.log("modal-window-add-user");
-              const formAddUser = document.getElementById(
-                "modal-window-form-add-user"
+            case this.getContent().querySelector("modal-window-form-add-user"):
+              const formAddUser = this.getContent().querySelector(
+                "#modal-window-form-add-user"
               );
               const formDataAddUser = new FormData(
                 formAddUser as HTMLFormElement
@@ -69,26 +71,28 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
                 formDataAddUser.get("add-user") as string
               );
               break;
-            case document.getElementById("modal-window-form-delete-user"):
-              const formDeleteUser = document.getElementById(
-                "modal-window-form-delete-user"
+            case this.getContent().querySelector(
+              "#modal-window-form-delete-user"
+            ):
+              const formDeleteUser = this.getContent().querySelector(
+                "#modal-window-form-delete-user"
               );
               const formDataDeleteUser = new FormData(
                 formDeleteUser as HTMLFormElement
               );
-              console.log("modal-window-delete-user");
               chatsController.deleteUsers(
                 formDataDeleteUser.get("delete-user") as string
               );
               break;
-            case document.getElementById("modal-window-form-send-location"):
-              console.log("modal-window-send-location");
+            case this.getContent().querySelector(
+              "#modal-window-form-send-location"
+            ):
               break;
-            case document.getElementById("modal-window-form-file"):
-              console.log("modal-window-form-file");
+            case this.getContent().querySelector("#modal-window-form-file"):
               break;
-            case document.getElementById("modal-window-form-foto-or-video"):
-              console.log("modal-window-foto-or-video");
+            case this.getContent().querySelector(
+              "#modal-window-form-foto-or-video"
+            ):
               break;
             default:
               break;
@@ -148,6 +152,7 @@ export class ModalWindowBlock extends Block<Record<string, any>> {
           <div class="modal-window__btns">
             {{{ButtonClose}}}
             <button
+              type="submit"
               class="modal-window__button modal-window__button_small modal-window__button_b-r-8px modal-window__button_blue"
             >
               Удалить чат

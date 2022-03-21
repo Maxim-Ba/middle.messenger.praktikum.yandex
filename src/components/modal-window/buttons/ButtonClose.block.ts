@@ -1,8 +1,8 @@
 import chatsController from "../../../controllers/ChatsController";
 import { Block } from "../../../modules/Block/Block";
 
-export class ButtonClose extends Block<Record<string, any>> {
-  constructor(props: Record<string, any>) {
+export class ButtonClose extends Block<any> {
+  constructor(props: any) {
     super({
       ...props,
       events: {
@@ -18,6 +18,7 @@ export class ButtonClose extends Block<Record<string, any>> {
   render() {
     return `
             <button
+              type="button"
               class="modal-window__button modal-window__button_small modal-window__button_b-r-8px modal-window__button_grey"
             >
               Отмена

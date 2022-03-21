@@ -14,7 +14,6 @@ function queryStringify(data: object | ArrayLike<unknown> | undefined): string {
       ""
     );
   return str;
-  // return str.slice(0, -1);
 }
 
 export type OptionsType = {

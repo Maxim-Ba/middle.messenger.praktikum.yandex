@@ -1,18 +1,17 @@
 import { Block } from "../../../../modules/Block/Block";
+import { IChatsStore } from "../../../../modules/Store/StoreTypes";
 import { arrayToChildrenString } from "../../../../utils/arrayChildrenString";
 
 interface ChatsI {
-  chats: Record<string, any>;
-  selectChat: Record<string, any>;
-  openMessages: Record<string, any>;
+  chats: IChatsStore[];
 }
 
 export class ChatCard extends Block<ChatsI> {
   static get componentName() {
     return "ChatCard";
   }
-  constructor({ chats, selectChat, openMessages }: ChatsI) {
-    super({ chats, selectChat, openMessages });
+  constructor({ chats }: ChatsI) {
+    super({ chats });
   }
   render() {
     return `

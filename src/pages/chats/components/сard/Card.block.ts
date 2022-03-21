@@ -1,10 +1,8 @@
 import chatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
-import { IChatsStore } from "../../../../modules/Store/StoreTypes";
-interface CardPropsI extends IChatsStore {
+
+interface CardPropsI {
   isSelected: boolean;
-  selectChat: (number: number) => void;
-  openMessages: () => void;
 }
 export class Card extends Block<CardPropsI> {
   static get componentName() {

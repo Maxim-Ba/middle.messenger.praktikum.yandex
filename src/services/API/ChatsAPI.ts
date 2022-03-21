@@ -42,15 +42,18 @@ export class ChatsAPI extends BaseAPI {
       console.log(e, "catch");
     });
   }
+
   deleteChats(chatId: Record<string, number>): Promise<any> {
     return this.http.delete("/", { data: chatId });
   }
   getUsersChat({ params, id }: GetUsersChatData): Promise<any> {
     return this.http.get(`/${id}/users`, { data: params, isQueryParams: true });
   }
+
   getNewMessagesCount(chatId: number): Promise<any> {
     return this.http.get(`/new/${chatId}`);
   }
+
   uploadAvatar(data: FormData): Promise<any> {
     return this.http
       .put("/avatar", {
@@ -60,6 +63,7 @@ export class ChatsAPI extends BaseAPI {
         console.log(e, "catch");
       });
   }
+
   addUsers(data: AddUsersData): Promise<any> {
     return this.http.put("/users", { data }).catch((e) => {
       console.log(e, "catch");
@@ -69,14 +73,10 @@ export class ChatsAPI extends BaseAPI {
   deleteUsers(data: AddUsersData): Promise<any> {
     return this.http.delete("/users", { data });
   }
+
   getToken(id: number): Promise<any> {
     return this.http.post(`/token/${id}`).catch((e) => {
       console.log(e, "catch");
     });
   }
-
-  delete: undefined;
-  create: undefined;
-  update: undefined;
-  read: undefined;
 }

@@ -1,4 +1,3 @@
-export const geFormData =(form:HTMLFormElement)=>{
-        // event.preventDefault();  
-        return new FormData(form);
-}
+export const geFormData = (form: HTMLFormElement) => {
+  return new FormData(form);
+};

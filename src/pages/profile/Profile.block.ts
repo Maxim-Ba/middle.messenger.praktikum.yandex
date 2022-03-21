@@ -1,3 +1,4 @@
+import authController from "../../controllers/AuthController";
 import profileController from "../../controllers/ProfileController";
 import { Block } from "../../modules/Block/Block";
 import { FormCheck } from "../../services/formCheck/FormCheck";
@@ -10,13 +11,19 @@ export class Profile extends Block<Record<string, any>> {
       ...props,
       events: {
         click: (event: Event) => {
-          if (event.target === document.querySelector(".profile__img")) {
+          if (
+            event.target === this.getContent().querySelector(".profile__img")
+          ) {
             profileController.openWindow();
           }
-          if (event.target === document.getElementById("change-data")) {
+          if (
+            event.target === this.getContent().querySelector("#change-data")
+          ) {
             profileController.isChangeProfileData();
           }
-          if (event.target === document.getElementById("change-password")) {
+          if (
+            event.target === this.getContent().querySelector("#change-password")
+          ) {
             profileController.makePasswordFormVisible();
             profileController.isChangeProfileData();
           }
@@ -128,10 +135,12 @@ export class Profile extends Block<Record<string, any>> {
   }
 
   componentDidMount(): void {
-    const formEl = document.querySelector("form");
-    const infoEl = document.getElementById("form-warning");
+    authController.redirect();
 
-    const btnSubmit = document.querySelector("button[type='submit']");
+    const formEl = this.getContent().querySelector("form");
+    const infoEl = this.getContent().querySelector("#form-warning");
+
+    const btnSubmit = this.getContent().querySelector("button[type='submit']");
     if (formEl) {
       this.validator = new FormCheck(
         formEl as HTMLFormElement,

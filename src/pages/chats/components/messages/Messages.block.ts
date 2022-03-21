@@ -1,11 +1,12 @@
 import { Block } from "../../../../modules/Block/Block";
+import { IMessagesState } from "../../../../modules/Store/StoreTypes";
 import { arrayToChildrenString } from "../../../../utils/arrayChildrenString";
 
-export class MessagesBlock extends Block<any> {
+export class MessagesBlock extends Block<IMessagesState[]> {
   static get componentName() {
     return "MessagesBlock";
   }
-  constructor(props: any) {
+  constructor(props: IMessagesState[]) {
     super({
       ...props,
     });

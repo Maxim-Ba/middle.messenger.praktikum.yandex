@@ -1,7 +1,7 @@
 import chatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
 interface BackToChatListBtnI {
-  svgDefault: Record<string, any>;
+  svgDefault: string;
 }
 export class BackToChatListBtn extends Block<BackToChatListBtnI> {
   static get componentName() {

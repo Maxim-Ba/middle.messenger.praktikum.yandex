@@ -19,7 +19,7 @@ export type UserData = Omit<SignupData, "password"> & {
   display_name: string;
 };
 
-export class AuthAPI extends BaseAPI {
+class AuthAPI extends BaseAPI {
   constructor() {
     super("/auth");
   }
@@ -35,17 +35,12 @@ export class AuthAPI extends BaseAPI {
   }
 
   logout(): Promise<unknown> {
-    console.log("logout");
-
     return this.http.post("/logout");
   }
 
   getUser(): Promise<any> {
     return this.http.get("/user");
   }
-
-  delete: undefined;
-  create: undefined;
-  update: undefined;
-  read: undefined;
 }
+
+export default new AuthAPI();

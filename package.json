@@ -11,7 +11,7 @@
   "scripts": {
     "watch": "parcel serve \"src/pages/**/*.html\" --open --no-cache",
     "build:build1": "parcel build \"src/pages/profile/*.html\" \"src/pages/login/*.html\" \"src/pages/registration/*.html\" \"src/pages/chats/*.html\" \"src/pages/error-page/*.html\" --dist-dir dist/**  --public-url ../ --no-cache --no-content-hash --no-optimize",
-    "build:build2": "parcel build \"src/pages/index.html\" --public-url ./ --no-cache --no-content-hash --no-optimize",
+    "build:build2": "parcel build \"src/pages/index.html\" --public-url ./ --no-cache --no-content-hash",
     "build": "npm run clean && npm run build:build2",
     "clean": "rimraf dist/*",
     "server": "node server.js",

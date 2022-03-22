@@ -10,7 +10,7 @@
   },
   "scripts": {
     "watch": "parcel serve \"src/pages/**/*.html\" --open --no-cache",
-    "build:build2": "parcel build \"src/pages/index.html\" --public-url ./ --no-cache --no-content-hash",
+    "build:build2": "parcel build \"src/pages/index.html\" --no-optimize --public-url ./ --no-cache --no-content-hash",
     "build": "npm run clean && npm run build:build2",
     "clean": "rimraf dist/*",
     "server": "node server.js",

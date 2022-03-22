@@ -25,4 +25,4 @@ https://www.figma.com/file/j34Ef6am5xgwM5rxCZlGVW/Chat-(Copy)?node-id=20%3A287
 
 ### Демо на Netlify
 
-https://admiring-edison-601be4.netlify.app/login/index.html
+https://admiring-edison-601be4.netlify.app

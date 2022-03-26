@@ -1,14 +1,25 @@
+import AuthController from "../../controllers/AuthController";
 import { Block } from "../../modules/Block/Block";
+import { LoginData } from "../../services/API/AuthAPI";
 import { FormCheck } from "../../services/formCheck/FormCheck";
 import { arrayToChildrenString } from "../../utils/arrayChildrenString";
 import { loginState } from "./login.state";
 
 export class Login extends Block<Record<string, any>> {
-  static getComponentName = "Login";
+  classNamesReg: string;
+  classNamesAuth: string;
+  static get componentName() {
+    return "Login";
+  }
   validator: FormCheck;
 
   constructor(props: Record<string, any> | undefined) {
-    super(props);
+    super({ ...loginState });
+    this.onSignIn = this.onSignIn.bind(this);
+  }
+
+  onSignIn(data: LoginData) {
+    AuthController.login(data);
   }
 
   render() {
@@ -18,36 +29,34 @@ export class Login extends Block<Record<string, any>> {
     <main class="login">
       <div class="title-wrapper">
         <h1 class="login-registration__title">
-        {{TitleTextLogin.LOGIN}}
+          {{TitleTextLogin.LOGIN}}
         </h1>
       </div>
       <form class="form" id="login-form">
-        ${arrayToChildrenString("Input", loginState.fields)}
+        ${arrayToChildrenString("Input", this.props.fields)}
         <div class="form-warning form-warning_pt-3rem" id="login__form-warning">
-          <p class="form-warning-text visibility-hidden">Неверный логин или пароль</p>
+          <p class="form-warning-text ${
+            this.props.reason ? `` : `visibility-hidden`
+          }">{{reason}}</p>
         </div>
       
       <div class="login__button-wrapper">
-        <button class="button button_grey button_auth button_b-r-8px"><a
-            href="../registration/registration.html"
-            class="login__link-to-reg button"
-          >{{ButtonTextLogin.TO_REGISTRATION}}</a></button>
-        <button
-          type="submit"
-          class="button button_blue button_auth button_b-r-8px" id="auth-btn" for="login-form"
-        >{{ButtonTextLogin.LOGIN}}</button>
+      {{{RegistrationButton
+        buttonText=ButtonTextLogin.TO_REGISTRATION
+      }}}
+      {{{AuthButton
+        buttonText=ButtonTextLogin.LOGIN
+      }}}
       </div>
       </form>
     </main>
   </div>`;
   }
-  componentDidUpdate(_oldProps: any, _newProps: any): boolean {
-    return true;
-  }
+
   componentDidMount(): void {
-    const formEl = document.getElementById("login-form");
+    const formEl = this.getContent().querySelector("#login-form");
     if (formEl) {
-      this.validator = new FormCheck(formEl as HTMLFormElement);
+      this.validator = new FormCheck(formEl as HTMLFormElement, this.onSignIn);
     }
   }
   componentWillUnmount(): void {

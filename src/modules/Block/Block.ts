@@ -2,6 +2,7 @@ import { EventBus } from "../../utils/EventBus";
 import { v4 as makeUUID } from "uuid";
 import * as Handlebars from "handlebars";
 import { compile } from "./compileBlock";
+import { isEqual } from "../../utils/isEqual";
 interface Props {
   [prop: string]: any;
 }
@@ -14,6 +15,10 @@ export class Block<T extends Props> {
     FLOW_CDU: "flow:component-did-update",
     FLOW_CWU: "flow:component-will-unmount",
   };
+  static get componentName() {
+    return "Block";
+  }
+
   private _element: HTMLElement;
   eventBus: EventBus;
   props: Props;
@@ -27,12 +32,8 @@ export class Block<T extends Props> {
     this.initChildren = propsAndChildren;
     this.initProps = propsAndChildren;
 
-    // this.eventBus = () => eventBus;
     this._registerEvents(this.eventBus);
     this.eventBus.emit(Block.EVENTS.INIT);
-  }
-  static get componentName() {
-    return this.name;
   }
 
   set initChildren(
@@ -95,6 +96,9 @@ export class Block<T extends Props> {
   protected componentWillUnmount(): void {
     return;
   }
+  public dispatchComponentWillUnmount(): void {
+    this.componentWillUnmount();
+  }
   private _componentDidMount() {
     this.componentDidMount();
     Object.values(this.children).forEach((child) => {
@@ -113,13 +117,13 @@ export class Block<T extends Props> {
   private _componentDidUpdate(oldProps: any, newProps: any) {
     const response = this.componentDidUpdate(oldProps, newProps);
 
-    if (response) {
+    if (!response) {
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
   componentDidUpdate(oldProps: any, newProps: any): boolean {
-    return oldProps !== newProps;
+    return isEqual(oldProps, newProps);
   }
 
   setProps = (nextProps: Record<string, any> | Block<Record<string, any>>) => {
@@ -174,8 +178,9 @@ export class Block<T extends Props> {
         throw new Error("Нет доступа");
       },
       set(target, prop: string, value) {
-        target[prop] = value;
         const oldProps = { ...target };
+
+        target[prop] = value;
 
         self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         return true;

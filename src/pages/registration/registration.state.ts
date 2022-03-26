@@ -1,4 +1,3 @@
-import { TitleTextLogin } from "../login/text";
 import { ButtonTextRegistration, TitleText } from "./text";
 
 export type RegistrationStateType = {

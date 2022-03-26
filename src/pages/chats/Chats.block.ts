@@ -1,26 +1,51 @@
+import chatsController from "../../controllers/ChatsController";
 import { Block } from "../../modules/Block/Block";
+import { IChatsStore } from "../../modules/Store/StoreTypes";
 import { FormCheck } from "../../services/formCheck/FormCheck";
+import authController from "../../controllers/AuthController";
 
-export class Chats extends Block<object> {
+export class Chats extends Block<IChatsStore> {
   validator: FormCheck;
 
-  constructor(props: Record<string, any> | undefined) {
+  constructor(props: IChatsStore | undefined) {
     super({
       ...props,
       events: {
         click: (event: Event) => {
-          if (event.target === document.getElementById("search")) {
-            this.props.openSearchField();
+          if (event.target === this.getContent().querySelector("#search")) {
+            chatsController.openSearchField();
           }
-          if (event.target === document.querySelector(".chats__file-menu")) {
-            this.props.openBottomMenu();
+          if (
+            event.target ===
+            this.getContent().querySelector(".chats__file-menu")
+          ) {
+            chatsController.openBottomMenu();
+          }
+        },
+        input: (event: Event) => {
+          if (
+            event.target === this.getContent().querySelector("#search-input")
+          ) {
+            chatsController.searchChat(
+              (event.target as HTMLInputElement).value
+            );
           }
         },
       },
     });
+    this.getSelectedChat = this.getSelectedChat.bind(this);
   }
   static get componentName() {
     return "Chats";
+  }
+  getSelectedChat() {
+    const selectChat = this.props.chats.filter(
+      (chat: IChatsStore) => chat.isSelected
+    );
+    if (!selectChat.length) {
+      return { avatar: "", title: "" };
+    }
+    return selectChat[0];
   }
 
   render() {
@@ -28,11 +53,11 @@ export class Chats extends Block<object> {
     <div class="chats__wrapper">
     <aside class="chats__aside">
       <div class="chats__top-btns">
-        <button class="button chats__button button_b-r-5px button_blue">
-          <a class="chats__link-to-profile" href="../profile/profile.html">
-          {{ButtonTextChats.PROFILE}}</a>
-        </button>
+      {{{ToProfileButton
+        buttonText=ButtonTextChats.PROFILE
+      }}}
         <button
+          type="button"
           class="button chats__button button_b-r-5px button_grey"
           id="search"
         >
@@ -51,6 +76,7 @@ export class Chats extends Block<object> {
             class="chats__search-input button_grey"
             type="text"
             placeholder="Поиск"
+            id="search-input"
           />
         </div>
       </div>
@@ -65,12 +91,18 @@ export class Chats extends Block<object> {
         <div class="chats__current-chat">
           ${
             this.props.isMessagesOpen
-              ? `<img
-                class="chats__current-chat-pic"
-                src={{svgDefault.svgDefaultChatPic}}
-                alt="картинка выбраного чата"
+              ? `
+                {{{BackToChatListBtn
+                  svgDefault=svgDefault
+                }}}
+                <img
+                  class="chats__current-chat-pic"
+                  src=${this.getSelectedChat().avatar}
+                  alt="картинка выбраного чата"
                 />
-                <p class="chats__current-chat-name">Андрей</p>`
+                <p class="chats__current-chat-name">${
+                  this.getSelectedChat().title
+                }</p>`
               : "<div></div>"
           }
         </div>
@@ -105,13 +137,18 @@ export class Chats extends Block<object> {
         </div>`
           : `<section class="chats__body">
           <div class="chats__messages">
+            
             {{{BottomMenu
               isOpenBottomMenu=isOpenBottomMenu
               bottomMenuButtons=bottomMenuButtons
               actionsBottomBtn=actionsBottomBtn
             }}}
-            {{{message}}}
-          </div>
+            <div class="first-stub"></div>
+
+            {{{MessagesBlock messages=messages}}}
+
+
+            </div>
           <form class="chats__footer" id="chats__send-msg-form">
           <div class="display-none" id="form-warning"></div>
             <img
@@ -126,7 +163,7 @@ export class Chats extends Block<object> {
               type="text"
               placeholder="Сообщение"
             />
-            <button class="chats__send-btn">
+            <button class="chats__send-btn" type="submit">
               <img
                 class="chats__send"
                 src={{svgDefault.svgArrowRight}}
@@ -138,25 +175,27 @@ export class Chats extends Block<object> {
       }
       
     </main>
-    {{{ModalWindowBlock modalWindow=modalWindow isOpenWindow=isOpenWindow closeWindow=closeWindow}}}
+    {{{ModalWindowBlock 
+      modalWindow=modalWindow 
+      isOpenWindow=isOpenWindow 
+      closeWindow=closeWindow
+      reason=reason
+    }}}
   </div>
-  
     `;
   }
 
-  componentDidUpdate(_oldProps: any, _newProps: any): boolean {
-    return true;
-  }
   componentDidMount(): void {
-    const formEl = document.querySelector("#chats__send-msg-form");
+    authController.redirect();
+    const formEl = this.getContent().querySelector("#chats__send-msg-form");
 
-    const infoEl = document.getElementById("form-warning");
+    const infoEl = this.getContent().querySelector("#form-warning");
 
-    const btnSubmit = document.querySelector(".chats__send-btn");
+    const btnSubmit = this.getContent().querySelector(".chats__send-btn");
     if (formEl) {
       this.validator = new FormCheck(
         formEl as HTMLFormElement,
-        console.log,
+        chatsController.sendMessage,
         infoEl as HTMLElement,
         btnSubmit as HTMLButtonElement
       );

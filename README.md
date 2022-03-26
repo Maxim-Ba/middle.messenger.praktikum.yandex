@@ -9,8 +9,11 @@
 - SASS
 - MVC шаблон
 - Компонентный подход
+- Роутинг
+- State менеджмент
 - ESlint
 - Stylelint
+- Тестирование
 
 ### Дизайн проекта в Figma
 
@@ -22,6 +25,7 @@ https://www.figma.com/file/j34Ef6am5xgwM5rxCZlGVW/Chat-(Copy)?node-id=20%3A287
 - npm run build - сборка проекта в папку ./dist
 - npm run start - сервер для раздачи статики, открывается на http://127.0.0.1:3000/login/index.html
 - npm run lint - проверка ESlint
+- npm run test - проверка тестов
 
 ### Демо на Netlify
 

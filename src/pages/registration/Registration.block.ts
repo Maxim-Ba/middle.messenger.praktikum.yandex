@@ -1,13 +1,20 @@
+import AuthController from "../../controllers/AuthController";
 import { Block } from "../../modules/Block/Block";
+import { SignupData } from "../../services/API/AuthAPI";
 import { FormCheck } from "../../services/formCheck/FormCheck";
 import { arrayToChildrenString } from "../../utils/arrayChildrenString";
-import { registrationState } from "./registration.state";
-
-export class Registration extends Block<Record<string, any>> {
+import { registrationState, RegistrationStateType } from "./registration.state";
+export class Registration extends Block<RegistrationStateType> {
   registration: HTMLElement | null;
   validator: FormCheck;
-  constructor(props: Record<string, any> | undefined) {
-    super(props);
+  constructor(props: RegistrationStateType & { reason: string }) {
+    super({
+      ...props,
+    });
+    this.onSignUp = this.onSignUp.bind(this);
+  }
+  onSignUp(data: SignupData) {
+    AuthController.signup(data);
   }
   render() {
     return `
@@ -23,16 +30,12 @@ export class Registration extends Block<Record<string, any>> {
             </div>
           
           <div class="registration__button-wrapper">
-            <button class="button button_grey button_auth button_b-r-8px"><a
-                href="../chats/chats.html"
-                class="button"
-              >{{ButtonTextRegistration.TO_LOGIN}}</a>
-            </button>
-            <button
-              class="button button_blue button_auth button_b-r-8px"
-              type="submit"
-            >{{ButtonTextRegistration.REGISTRATION}}
-            </button>
+            {{{ToLoginButtonFromReg
+              buttonText=ButtonTextRegistration.TO_LOGIN
+            }}}
+            {{{SendRegistrationButton
+              buttonText=ButtonTextRegistration.REGISTRATION
+            }}}  
           </div>
         </form>
       </main>
@@ -41,14 +44,14 @@ export class Registration extends Block<Record<string, any>> {
   }
 
   componentDidMount() {
-    const formEl = document.getElementById("login-form");
-    const infoEl = document.getElementById(
-      "login__form-warning"
+    const formEl = this.getContent().querySelector("#login-form");
+    const infoEl = this.getContent().querySelector(
+      "#login__form-warning"
     )?.firstElementChild;
     if (formEl) {
       this.validator = new FormCheck(
         formEl as HTMLFormElement,
-        console.log,
+        this.onSignUp,
         infoEl as HTMLElement
       );
     }

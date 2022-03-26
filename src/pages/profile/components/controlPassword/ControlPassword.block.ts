@@ -1,18 +1,20 @@
+import profileController from "../../../../controllers/ProfileController";
 import { Block } from "../../../../modules/Block/Block";
-
-export class СonfirmPasswordAndData extends Block<Record<string, any>> {
-  constructor(props: Record<string, any> | undefined) {
+interface Iprops {
+  disabledInputs: boolean;
+  isPasswordFormVisible: boolean;
+}
+export class СonfirmPasswordAndData extends Block<Iprops> {
+  constructor(props: Iprops) {
     super({
       ...props,
       events: {
         click: (event: Event) => {
-          if (event.target === document.querySelector(".button_grey")) {
-            this.props.isChangeProfileData();
-            this.props.makePasswordFormHidden();
-          }
-          if (event.target === document.querySelector(".button_blue")) {
-            // this.props.isChangeProfileData();
-            // this.props.makePasswordFormHidden();
+          if (
+            event.target === this.getContent().querySelector(".button_grey")
+          ) {
+            profileController.isChangeProfileData();
+            profileController.makePasswordFormHidden();
           }
         },
       },
@@ -27,6 +29,7 @@ export class СonfirmPasswordAndData extends Block<Record<string, any>> {
         this.props.disabledInputs ? "display-none" : ""
       }">
           <button
+            type="button"
             class="profile__btn button button_b-r-8px button_grey button_auth"
           >
           {{ButtonTextProfile.CANCEL}}

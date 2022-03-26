@@ -1,10 +1,11 @@
-import { render } from "../../utils/renderDOM";
 import { Registration } from "./Registration.block";
 import { registrationState } from "./registration.state";
-import { registerComponent } from "../../utils/registerComponent";
-import { Input } from "../../components/input/Input.block";
+import { withStore } from "../../modules/Store/Store";
+import { IStore } from "../../modules/Store/StoreTypes";
 
-registerComponent(Input);
-const registration = new Registration({ ...registrationState });
+const withReason = withStore((state: IStore) => ({
+  ...registrationState,
+  reason: state.reason,
+}));
 
-render("#root", registration);
+export default withReason(Registration);

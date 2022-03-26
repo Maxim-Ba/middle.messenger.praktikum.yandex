@@ -1,17 +1,17 @@
+import chatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
 interface TopButtonPropsI {
-  svgDefault: Record<string, any>;
-  openMenu: Record<string, any>;
+  svgDefault: string;
 }
 export class TopButton extends Block<TopButtonPropsI> {
   static get componentName() {
     return "TopButton";
   }
-  constructor({ svgDefault, openMenu }: TopButtonPropsI) {
+  constructor({ svgDefault }: TopButtonPropsI) {
     super({
       svgDefault,
       events: {
-        click: openMenu,
+        click: chatsController.openMenu,
       },
     });
   }

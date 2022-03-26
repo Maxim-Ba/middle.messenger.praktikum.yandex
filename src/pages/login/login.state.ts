@@ -1,6 +1,6 @@
 import { ButtonTextLogin, TitleTextLogin } from "./text";
 
-type LoginStateType = {
+export type LoginStateType = {
   fields: Array<{
     inputName: string;
     inputType: string;

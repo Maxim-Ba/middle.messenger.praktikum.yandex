@@ -110,7 +110,7 @@ export class FormCheck {
       : (this.formEl.querySelector(
           "button[type='submit']"
         ) as HTMLButtonElement);
-    this.buttonSubmit!.disabled = !isValid;
+    this.buttonSubmit!.disabled = typeof isValid === "number"; //!isValid;
   }
 
   onSubmit(event: Event) {
@@ -118,6 +118,7 @@ export class FormCheck {
     if (this.infoEl) {
       this.checkValidity(event);
     }
-    this.actionCB(...new FormData(this.formEl).entries());
+    const formData = new FormData(this.formEl);
+    this.actionCB(Object.fromEntries(formData.entries()));
   }
 }

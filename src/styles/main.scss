@@ -146,7 +146,7 @@ html {
 
 img {
   display: block;
-
+  object-fit: cover;
   &_round {
     border-radius: 50%;
   }

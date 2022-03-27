@@ -1,6 +1,6 @@
 export class WebSockeAPI {
   socket: WebSocket;
-  constructor(socket: WebSocket, getMessages: Function) {
+  constructor(socket: WebSocket, getMessages: (unknown) => void) {
     this.sendMessage = this.sendMessage.bind(this);
     this.sendPing = this.sendPing.bind(this);
     this.closeWS = this.closeWS.bind(this);

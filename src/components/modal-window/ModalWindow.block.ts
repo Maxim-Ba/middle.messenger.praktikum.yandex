@@ -22,7 +22,7 @@ export class ModalWindowBlock extends Block<IModalWindow> {
           switch (event.target) {
           case this.getContent().querySelector(
             "#modal-window-form-create-chat"
-          ):
+          ): {
             const form = this.getContent().querySelector(
               "#modal-window-form-create-chat"
             );
@@ -33,15 +33,16 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             }
 
             break;
+          }
           case this.getContent().querySelector(
             "#modal-window-form-delete-chat"
-          ):
+          ): {
             chatsController.deleteChats();
             break;
-
+          }
           case this.getContent().querySelector(
             "#modal-window-form-pic-profile"
-          ):
+          ): {
             const formAvatar = this.getContent().querySelector(
               "#modal-window-form-pic-profile"
             );
@@ -50,8 +51,10 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             );
             ProfileController.changeUserAvatar(formAvatarData);
             break;
-
-          case this.getContent().querySelector("#modal-window-form-pic-chat"):
+          }
+          case this.getContent().querySelector(
+            "#modal-window-form-pic-chat"
+          ): {
             const formChatPic = this.getContent().querySelector(
               "#modal-window-form-pic-chat"
             );
@@ -61,8 +64,10 @@ export class ModalWindowBlock extends Block<IModalWindow> {
 
             chatsController.uploadAvatar(formChatPicData);
             break;
-
-          case this.getContent().querySelector("modal-window-form-add-user"):
+          }
+          case this.getContent().querySelector(
+            "modal-window-form-add-user"
+          ): {
             const formAddUser = this.getContent().querySelector(
               "#modal-window-form-add-user"
             );
@@ -73,9 +78,10 @@ export class ModalWindowBlock extends Block<IModalWindow> {
                 formDataAddUser.get("add-user") as string
             );
             break;
+          }
           case this.getContent().querySelector(
             "#modal-window-form-delete-user"
-          ):
+          ): {
             const formDeleteUser = this.getContent().querySelector(
               "#modal-window-form-delete-user"
             );
@@ -86,16 +92,20 @@ export class ModalWindowBlock extends Block<IModalWindow> {
                 formDataDeleteUser.get("delete-user") as string
             );
             break;
+          }
           case this.getContent().querySelector(
             "#modal-window-form-send-location"
-          ):
+          ): {
             break;
-          case this.getContent().querySelector("#modal-window-form-file"):
+          }
+          case this.getContent().querySelector("#modal-window-form-file"): {
             break;
+          }
           case this.getContent().querySelector(
             "#modal-window-form-foto-or-video"
-          ):
+          ): {
             break;
+          }
           default:
             break;
           }

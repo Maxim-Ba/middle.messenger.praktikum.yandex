@@ -17,9 +17,7 @@ export class MenuMessages extends Block<MenuMessagesPropsI> {
       isOpenMenu,
       events: {
         click: (event: Event) => {
-          //@ts-ignore
           if (this.actionMessagesBtns[(event.target as HTMLElement).id]) {
-            //@ts-ignore
             this.actionMessagesBtns[(event.target as HTMLElement).id]();
           }
         },

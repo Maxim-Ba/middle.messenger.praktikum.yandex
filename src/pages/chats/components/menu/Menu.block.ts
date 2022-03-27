@@ -1,7 +1,7 @@
 import ChatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
 interface MenuePropsI {
-  topMenuButtons: Record<string, any>;
+  topMenuButtons: Record<string, unknown>;
   isOpenMenu: boolean;
 }
 export class Menu extends Block<MenuePropsI> {
@@ -15,9 +15,7 @@ export class Menu extends Block<MenuePropsI> {
       isOpenMenu,
       events: {
         click: (event: Event) => {
-          //@ts-ignore
           if (this.actionsBtn[(event.target as HTMLElement).id]) {
-            //@ts-ignore
             this.actionsBtn[(event.target as HTMLElement).id]();
           }
         },

@@ -16,9 +16,7 @@ export class BottomMenu extends Block<BottomMenuPropsI> {
       bottomMenuButtons,
       events: {
         click: (event: Event) => {
-          //@ts-ignore
           if (this.actionsBottomBtn[(event.target as HTMLElement).id]) {
-            //@ts-ignore
             this.actionsBottomBtn[(event.target as HTMLElement).id]();
           }
         },

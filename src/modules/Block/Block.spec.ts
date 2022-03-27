@@ -12,7 +12,7 @@ class Component extends Block<any> {
     return "Component";
   }
   render() {
-    return `<div class="component">{{{ChildrenComponent}}}</div>`;
+    return "<div class=\"component\">{{{ChildrenComponent}}}</div>";
   }
 }
 class ChildrenComponent extends Block<any> {
@@ -20,7 +20,7 @@ class ChildrenComponent extends Block<any> {
     return "ChildrenComponent";
   }
   render() {
-    return `<p>ChildrenComponent</p>`;
+    return "<p>ChildrenComponent</p>";
   }
 }
 registerComponent(Component);

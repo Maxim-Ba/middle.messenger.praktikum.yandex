@@ -28,3 +28,7 @@ https://www.figma.com/file/j34Ef6am5xgwM5rxCZlGVW/Chat-(Copy)?node-id=20%3A287
 ### Демо на Netlify
 
 https://admiring-edison-601be4.netlify.app
+
+### Демо на Heroku
+
+https://secret-inlet-45852.herokuapp.com/

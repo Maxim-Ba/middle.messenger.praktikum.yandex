@@ -17,10 +17,10 @@
     "start": "npm run build && npm run server",
     "lint": "eslint . --fix",
     "stylelint": "npx stylelint \"**/*.scss\" --fix",
-    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha",
+    "test1": "cross-env NODE_ENV=test ./node_modules/.bin/mocha",
     "serve": "webpack serve --mode=development --progress",
     "build": "npm run clean && webpack --config webpack.config.prod.js",
-    "precommit": "npm-run-all lint --parallel stylelint test",
+    "precommit": "npm-run-all lint --parallel stylelint test1",
     "prepare": "husky install"
   },
   "husky": {
@@ -85,8 +85,7 @@
     "webpack-cli": "4.9.2",
     "webpack-dev-server": "4.7.4",
     "webpack-merge": "5.8.0",
-    "webpack-node-externals": "3.0.0",
-    "husky": "^7.0.0"
+    "webpack-node-externals": "3.0.0"
   },
   "dependencies": {
     "@anikin/parcel-transformer-handlebars-precompile": "1.0.1",

@@ -36,8 +36,8 @@ class ChatsController {
 
   private _fillChats(chats: IChatsStore[]) {
     const fillChats = chats.map((chat) => {
-      let avatar = chat.avatar;
-      let last_message = chat.last_message;
+      let {avatar} = chat;
+      let {last_message} = chat;
       const isSelected = false;
       if (!chat.avatar) {
         avatar = store.getState().chatsState.svgDefault.svgDefaultChatPic;
@@ -213,9 +213,7 @@ class ChatsController {
   async deleteUsers(userName: string) {
     try {
       store.set("reason", null);
-      const selectedUser = store.getState().chatUsers?.find((user) => {
-        return user.login === userName;
-      });
+      const selectedUser = store.getState().chatUsers?.find((user) => user.login === userName);
       const selectedChat = store
         .getState()
         .chats.find((chat) => chat.isSelected);
@@ -532,9 +530,7 @@ class ChatsController {
   });
 
   closeCurrentChat() {
-    const newChatsList = store.getState().chats.map((chat: IChatsStore) => {
-      return { ...chat, isSelected: false };
-    });
+    const newChatsList = store.getState().chats.map((chat: IChatsStore) => ({ ...chat, isSelected: false }));
     store.set("chatsState.isOpenMenu" as any, false);
     store.set("chatsState.isOpenBottomMenu" as any, false);
     store.set("chats", newChatsList);

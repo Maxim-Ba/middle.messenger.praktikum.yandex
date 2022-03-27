@@ -17,10 +17,10 @@ export class SingleMessage extends Block<IMessagesState> {
   render() {
     return ` 
       <div class="messages__item ${
-        this.props.myId === this.props.user_id
-          ? "messages__item_my-message"
-          : ""
-      }"
+  this.props.myId === this.props.user_id
+    ? "messages__item_my-message"
+    : ""
+}"
       >
         <p class="messages__display-name">
           {{displayName}}
@@ -29,9 +29,9 @@ export class SingleMessage extends Block<IMessagesState> {
           {{content}}
         </p>
         <p class="messages__time"> ${new Date(this.props.time).getHours()}: ${
-          (new Date(this.props.time).getMinutes() < 10 ? "0" : "") +
+  (new Date(this.props.time).getMinutes() < 10 ? "0" : "") +
           new Date(this.props.time).getMinutes()
-        }
+}
         </p>
       </div>
     `;

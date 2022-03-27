@@ -86,11 +86,11 @@ class AuthController {
       router.go("/");
       return;
     }
-    if (location.pathname === "/") {
+    if (location.pathname === "/" && store.getState().currentUser) {
       router.go("/messenger");
       return;
     }
-    if (location.pathname === "/sign-up") {
+    if (location.pathname === "/sign-up" && store.getState().currentUser) {
       router.go("/messenger");
       return;
     }

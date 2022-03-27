@@ -1,6 +1,6 @@
 import { Validator } from "./Validator";
 
-enum warningMessages {
+const enum warningMessages {
   login = "Логин: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, (допустимы дефис и нижнее подчёркивание ",
   first_name = "Имя: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, допустим только дефис ",
   second_name = "Фамилия: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, допустим только дефис ",
@@ -48,39 +48,39 @@ export class FormCheck {
       inp.addEventListener("blur", this.checkValidity);
       inp.setAttribute("required", "");
       switch (inp.name) {
-        case "login":
-          inp.pattern = "^(?=.*[A-Za-z_-])[A-Za-z_0-9-]{3,20}$";
-          break;
-        case "name":
-          inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
-          break;
-        case "first_name":
-          inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
-          break;
-        case "second_name":
-          inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
-          break;
-        case "email":
-          inp.pattern =
+      case "login":
+        inp.pattern = "^(?=.*[A-Za-z_-])[A-Za-z_0-9-]{3,20}$";
+        break;
+      case "name":
+        inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
+        break;
+      case "first_name":
+        inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
+        break;
+      case "second_name":
+        inp.pattern = "^[А-ЯЁA-Z][а-яёa-z-]+$";
+        break;
+      case "email":
+        inp.pattern =
             "^[a-zA-Z0-9.!#$%&\\'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$";
-          break;
-        case "password":
-          inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
-          break;
-        case "oldPassword":
-          inp.pattern = "^.{1,40}$";
-          break;
-        case "newPassword":
-          inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
-          break;
-        case "phone":
-          inp.pattern = "^\\+?[\\d]{10,15}$";
-          break;
-        case "message":
-          inp.pattern = "^.+$";
-          break;
-        default:
-          break;
+        break;
+      case "password":
+        inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
+        break;
+      case "oldPassword":
+        inp.pattern = "^.{1,40}$";
+        break;
+      case "newPassword":
+        inp.pattern = "^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*_-]{8,40}$";
+        break;
+      case "phone":
+        inp.pattern = "^\\+?[\\d]{10,15}$";
+        break;
+      case "message":
+        inp.pattern = "^.+$";
+        break;
+      default:
+        break;
       }
     });
   }
@@ -101,6 +101,7 @@ export class FormCheck {
       this.infoEl?.classList.add("visibility-hidden");
     } else {
       const nameInp = this.inputs[isValid].name;
+      //@ts-ignore
       warningMessage = warningMessages[nameInp];
       this.infoEl?.classList.remove("visibility-hidden");
       this.infoEl!.textContent = warningMessage;
@@ -108,9 +109,9 @@ export class FormCheck {
     this.buttonSubmit = this.buttonSubmit
       ? this.buttonSubmit
       : (this.formEl.querySelector(
-          "button[type='submit']"
-        ) as HTMLButtonElement);
-    this.buttonSubmit!.disabled = typeof isValid === "number"; //!isValid;
+        "button[type='submit']"
+      ) as HTMLButtonElement);
+    this.buttonSubmit!.disabled = typeof isValid === "number";
   }
 
   onSubmit(event: Event) {

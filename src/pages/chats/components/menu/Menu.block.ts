@@ -15,7 +15,9 @@ export class Menu extends Block<MenuePropsI> {
       isOpenMenu,
       events: {
         click: (event: Event) => {
+          //@ts-ignore
           if (this.actionsBtn[(event.target as HTMLElement).id]) {
+            //@ts-ignore
             this.actionsBtn[(event.target as HTMLElement).id]();
           }
         },
@@ -25,8 +27,8 @@ export class Menu extends Block<MenuePropsI> {
   render() {
     return `
     <menu class="chats__menu ${
-      this.props.isOpenMenu ? "" : "display-none"
-    }" id="chats">
+  this.props.isOpenMenu ? "" : "display-none"
+}" id="chats">
         <div class="chats__menu-content">
           {{#each topMenuButtons}}
             <div class="chats__menue-item" id={{actionId}}>

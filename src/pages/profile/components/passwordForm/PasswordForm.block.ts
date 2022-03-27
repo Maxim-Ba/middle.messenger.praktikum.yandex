@@ -5,11 +5,11 @@ export class PasswordForm extends Block<Record<string, any>> {
 
   constructor(props: Record<string, any> | undefined) {
     super({ ...props,
-    events:{
-      submit:{
+      events:{
+        submit:{
         
-      }
-    } });
+        }
+      } });
   }
   static get componentName() {
     return "PasswordForm";
@@ -17,8 +17,8 @@ export class PasswordForm extends Block<Record<string, any>> {
   render() {
     return `
     ${
-      this.props.isPasswordFormVisible
-        ? `
+  this.props.isPasswordFormVisible
+    ? `
     <form
       class="profile__form profile__form-password"
       id="profile-password"
@@ -37,8 +37,8 @@ export class PasswordForm extends Block<Record<string, any>> {
       </div>
     </form>
     `
-        : " <div></div>"
-    }
+    : " <div></div>"
+}
     `;
   }
 }

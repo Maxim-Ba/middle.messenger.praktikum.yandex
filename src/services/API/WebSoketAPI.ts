@@ -21,21 +21,21 @@ export class WebSockeAPI {
     this.socket.addEventListener("message", (event) => {
       const data = JSON.parse(event.data);
       switch (event.type) {
-        case "message":
-          if (data.type === "pong") {
-            break;
-          }
-          if (Array.isArray(data)) {
-            getMessages(data);
-          } else {
-            getMessages([data]);
-          }
+      case "message":
+        if (data.type === "pong") {
           break;
-        case "file":
-          break;
+        }
+        if (Array.isArray(data)) {
+          getMessages(data);
+        } else {
+          getMessages([data]);
+        }
+        break;
+      case "file":
+        break;
 
-        default:
-          break;
+      default:
+        break;
       }
     });
 

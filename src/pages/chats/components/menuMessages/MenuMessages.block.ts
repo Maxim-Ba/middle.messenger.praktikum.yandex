@@ -17,7 +17,9 @@ export class MenuMessages extends Block<MenuMessagesPropsI> {
       isOpenMenu,
       events: {
         click: (event: Event) => {
+          //@ts-ignore
           if (this.actionMessagesBtns[(event.target as HTMLElement).id]) {
+            //@ts-ignore
             this.actionMessagesBtns[(event.target as HTMLElement).id]();
           }
         },
@@ -27,8 +29,8 @@ export class MenuMessages extends Block<MenuMessagesPropsI> {
   render() {
     return `
     <menu class="chats__menu ${
-      this.props.isOpenMenu ? "" : "display-none"
-    }" id="chats">
+  this.props.isOpenMenu ? "" : "display-none"
+}" id="chats">
     <div class="chats__menu-content">
       {{#each chatsTopMenuButtons}}
         <div class="chats__menue-item" id={{actionId}}>

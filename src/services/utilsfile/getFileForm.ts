@@ -1,3 +1,1 @@
-export const geFormData = (form: HTMLFormElement) => {
-  return new FormData(form);
-};
+export const geFormData = (form: HTMLFormElement) => new FormData(form);

@@ -30,7 +30,7 @@ describe("Проверяем отрисовку children", () => {
   const component = new Component(new ChildrenComponent());
   it("Проверяем правильную разметку из метода render", () => {
     expect(component.element.outerHTML).to.eq(
-      '<div class="component"><p>ChildrenComponent</p></div>'
+      "<div class=\"component\"><p>ChildrenComponent</p></div>"
     );
   });
 });
@@ -38,6 +38,6 @@ describe("Проверяем отрисовку children", () => {
 describe("Проверяем работу props", () => {
   const component = new Component({ prop: "test" });
   it("Проверяем что props приходит", () => {
-    expect(component.props.prop).to.eq(`test`);
+    expect(component.props.prop).to.eq("test");
   });
 });

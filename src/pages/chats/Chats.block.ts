@@ -65,8 +65,8 @@ export class Chats extends Block<IChatsStore> {
           {{ButtonTextChats.SEARCH}}
         </button>
         <div class="chats__search ${
-          this.props.isOpenSearchField ? "" : "display-none"
-        } ">
+  this.props.isOpenSearchField ? "" : "display-none"
+} ">
           <img
             src={{svgDefault.svgSearch}}
             alt="Поиск"
@@ -90,8 +90,8 @@ export class Chats extends Block<IChatsStore> {
       <header class="chats__header">
         <div class="chats__current-chat">
           ${
-            this.props.isMessagesOpen
-              ? `
+  this.props.isMessagesOpen
+    ? `
                 {{{BackToChatListBtn
                   svgDefault=svgDefault
                 }}}
@@ -101,16 +101,16 @@ export class Chats extends Block<IChatsStore> {
                   alt="картинка выбраного чата"
                 />
                 <p class="chats__current-chat-name">${
-                  this.getSelectedChat().title
-                }</p>`
-              : "<div></div>"
-          }
+  this.getSelectedChat().title
+}</p>`
+    : "<div></div>"
+}
         </div>
         {{{TopButton openMenu=openMenu svgDefault=svgDefault }}}
       </header>
       ${
-        !this.props.isMessagesOpen
-          ? `
+  !this.props.isMessagesOpen
+    ? `
         {{{Menu 
           topMenuButtons=topMenuButtons 
           onClick=onClick 
@@ -118,7 +118,7 @@ export class Chats extends Block<IChatsStore> {
           isOpenMenu=isOpenMenu
         }}}
         `
-          : `
+    : `
         {{{MenuMessages 
           onClick=onClick 
           actionMessagesBtns = actionMessagesBtns
@@ -126,16 +126,16 @@ export class Chats extends Block<IChatsStore> {
           chatsTopMenuButtons=chatsTopMenuButtons
         }}}
         `
-      }
+}
       
       ${
-        !this.props.isMessagesOpen
-          ? `<div class="chats__no-chat-selection">
+  !this.props.isMessagesOpen
+    ? `<div class="chats__no-chat-selection">
           <p class="chats__no-chat-selection-p">
             {{SomeText.CHOOSE_CHAT}}
           </p>
         </div>`
-          : `<section class="chats__body">
+    : `<section class="chats__body">
           <div class="chats__messages">
             
             {{{BottomMenu
@@ -172,7 +172,7 @@ export class Chats extends Block<IChatsStore> {
             </button>
           </form>
         </section>`
-      }
+}
       
     </main>
     {{{ModalWindowBlock 
@@ -186,7 +186,7 @@ export class Chats extends Block<IChatsStore> {
   }
 
   componentDidMount(): void {
-    authController.redirect();
+    authController.fetchUser();
     const formEl = this.getContent().querySelector("#chats__send-msg-form");
 
     const infoEl = this.getContent().querySelector("#form-warning");

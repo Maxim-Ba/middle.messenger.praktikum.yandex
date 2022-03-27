@@ -15,16 +15,17 @@
     "clean": "rimraf dist/*",
     "server": "node server.js",
     "start": "npm run build && npm run server",
-    "test:lint": "eslint . --fix",
-    "test:stylelint": "npx stylelint \"**/*.scss\" --fix",
-    "test:test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha",
+    "lint": "eslint . --fix",
+    "stylelint": "npx stylelint \"**/*.scss\" --fix",
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha",
     "serve": "webpack serve --mode=development --progress",
     "build": "npm run clean && webpack --config webpack.config.prod.js",
+    "precommit": "npm run test && npm run lint && npm run stylelint",
     "prepare": "husky install"
   },
   "husky":{
     "hooks":{
-      "pre-commit":"npm-run-all --parallel test:*"
+      "pre-commit":"npm-run-all --parallel lint stylelint test"
     }
   },
   "keywords": [],

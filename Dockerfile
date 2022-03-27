@@ -1,3 +1,11 @@
-FROM ubuntu:18.04
-RUN apt update && apt install -y nodejs && apt install -y npm
-CMD node -v
+FROM node:14
+
+WORKDIR /workdir
+COPY package*.json ./
+
+RUN npm install
+COPY . .
+RUN npm run build
+EXPOSE 3000
+
+CMD npm run server

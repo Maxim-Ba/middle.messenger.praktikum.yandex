@@ -20,12 +20,12 @@
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha",
     "serve": "webpack serve --mode=development --progress",
     "build": "npm run clean && webpack --config webpack.config.prod.js",
-    "precommit": "npm run test && npm run lint && npm run stylelint",
+    "precommit": "npm-run-all lint --parallel stylelint test",
     "prepare": "husky install"
   },
   "husky":{
     "hooks":{
-      "pre-commit":"npm-run-all lint --parallel stylelint "
+      "pre-commit":"npm run precommit"
     }
   },
   "keywords": [],

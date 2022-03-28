@@ -95,6 +95,9 @@ class AuthController {
       return;
     }
   }
+  goToChats() {
+    router.go("/messenger");
+  }
 }
 
 export default new AuthController();

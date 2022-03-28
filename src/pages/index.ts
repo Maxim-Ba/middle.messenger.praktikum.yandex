@@ -5,6 +5,7 @@ import "../pages/chats/chats.scss";
 import "../pages/profile/profile.scss";
 import "../styles/main.scss";
 import "../styles/modalWindow.scss";
+import "../pages/error-page-404/error-page.scss";
 
 import LoginWithStore from "./login/login.index";
 import RegistrationWithStore from "./registration/registration.index";
@@ -34,6 +35,9 @@ import { СonfirmPasswordAndData } from "./profile/components/controlPassword/Co
 import AuthController from "../controllers/AuthController";
 import { MessagesBlock } from "./chats/components/messages/Messages.block";
 import { SingleMessage } from "./chats/components/singleMessage/SingleMessage.block";
+import { ToChatsButtonError } from "../components/toChatsButton/ToChatsButtonError.block";
+import Error500Block from "./error-page-500/500.index";
+import Error404Block from "./error-page-404/404.index";
 
 registerComponent(MessagesBlock);
 registerComponent(RegistrationButton);
@@ -57,12 +61,15 @@ registerComponent(ToLoginButton);
 registerComponent(ToChatsButton);
 registerComponent(ButtonClose);
 registerComponent(SingleMessage);
+registerComponent(ToChatsButtonError);
 
 router
   .use("/", LoginWithStore)
   .use("/sign-up", RegistrationWithStore)
   .use("/messenger", ChatsWithStore)
   .use("/settings", ProfileWithStore)
+  .use("/500", Error500Block)
+  .useError404("/404", Error404Block)
   .start();
 
 async function fetch() {

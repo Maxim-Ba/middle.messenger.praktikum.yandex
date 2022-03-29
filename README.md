@@ -1,4 +1,4 @@
- Ссылка на PR: https://github.com/Maxim-Ba/middle.messenger.praktikum.yandex/pull/6
+ Ссылка на PR: https://github.com/Maxim-Ba/middle.messenger.praktikum.yandex/pull/7
 
 В этом проекте будут использованы такие технологии и инструменты:
 

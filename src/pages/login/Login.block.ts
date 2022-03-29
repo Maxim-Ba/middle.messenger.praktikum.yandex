@@ -26,6 +26,8 @@ export class Login extends Block<Record<string, any>> {
       
     <div class="login__wrapper">
     <main class="login">
+    ${this.props.isLoading ? "{{{Loader}}}" : ""}
+
       <div class="title-wrapper">
         <h1 class="login-registration__title">
           {{TitleTextLogin.LOGIN}}
@@ -35,8 +37,8 @@ export class Login extends Block<Record<string, any>> {
         ${arrayToChildrenString("Input", this.props.fields)}
         <div class="form-warning form-warning_pt-3rem" id="login__form-warning">
           <p class="form-warning-text ${
-  this.props.reason ? "" : "visibility-hidden"
-}">{{reason}}</p>
+            this.props.reason ? "" : "visibility-hidden"
+          }">{{reason}}</p>
         </div>
       
       <div class="login__button-wrapper">

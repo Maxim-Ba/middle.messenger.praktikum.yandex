@@ -6,6 +6,7 @@ import { IStore } from "../../modules/Store/StoreTypes";
 const withReason = withStore((state: IStore) => ({
   ...registrationState,
   reason: state.reason,
+  isLoading: state.isLoading,
 }));
 
 export default withReason(Registration);

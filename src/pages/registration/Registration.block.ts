@@ -7,7 +7,9 @@ import { registrationState, RegistrationStateType } from "./registration.state";
 export class Registration extends Block<RegistrationStateType> {
   registration: HTMLElement | null;
   validator: FormCheck;
-  constructor(props: RegistrationStateType & { reason: string }) {
+  constructor(
+    props: RegistrationStateType & { reason: string; isLoading: boolean }
+  ) {
     super({
       ...props,
     });
@@ -20,6 +22,7 @@ export class Registration extends Block<RegistrationStateType> {
     return `
     <div class="registration__wrapper">
       <main class="registration">
+      ${this.props.isLoading ? "{{{Loader}}}" : ""}
         <div class="title-wrapper">
           <h1 class="login-registration__title">{{TitleText.REGISTRATION}}</h1>
         </div>

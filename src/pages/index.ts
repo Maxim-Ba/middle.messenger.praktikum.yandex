@@ -6,6 +6,7 @@ import "../pages/profile/profile.scss";
 import "../styles/main.scss";
 import "../styles/modalWindow.scss";
 import "../pages/error-page-404/error-page.scss";
+import "../components/loader/loader.scss";
 
 import LoginWithStore from "./login/login.index";
 import RegistrationWithStore from "./registration/registration.index";
@@ -38,6 +39,7 @@ import { SingleMessage } from "./chats/components/singleMessage/SingleMessage.bl
 import { ToChatsButtonError } from "../components/toChatsButton/ToChatsButtonError.block";
 import Error500Block from "./error-page-500/500.index";
 import Error404Block from "./error-page-404/404.index";
+import { Loader } from "../components/loader/Loader.block";
 
 registerComponent(MessagesBlock);
 registerComponent(RegistrationButton);
@@ -62,6 +64,7 @@ registerComponent(ToChatsButton);
 registerComponent(ButtonClose);
 registerComponent(SingleMessage);
 registerComponent(ToChatsButtonError);
+registerComponent(Loader);
 
 router
   .use("/", LoginWithStore)

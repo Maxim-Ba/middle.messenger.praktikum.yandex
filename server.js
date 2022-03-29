@@ -6,7 +6,6 @@ const PORT = 3000;
 const port = process.env.PORT || PORT;
 
 app.use(express.static("./dist"));
-// app.use("*", express.static("./dist"));
 app.get("*", function (req, res) {
   res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 });

@@ -13,5 +13,4 @@ class LoaderConteroller {
 
   }
 }
-//adapterForUserData add '_'
 export default new LoaderConteroller();

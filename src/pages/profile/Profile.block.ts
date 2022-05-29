@@ -47,53 +47,53 @@ export class Profile extends Block<Record<string, any>> {
     <main class="profile">
       <div class="profile__data">
         <img class="img img_round profile__img" src=${
-          this.props.avatar
-        } alt="Аватар пользователя" />
+  this.props.avatar
+} alt="Аватар пользователя" />
         <h1 class="profile__owener">{{first_name}} {{second_name}}</h1>
         <div class="profile__form-container">
   
           ${
-            !this.props.isPasswordFormVisible
-              ? `<form class="profile__form" id="profile">
+  !this.props.isPasswordFormVisible
+    ? `<form class="profile__form" id="profile">
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="email">{{ButtonTextProfile.EMAIL}}</label>
                 <input ${
-                  this.props.disabledInputs && "disabled"
-                } class="profile__input mb-1rem" type="email" name="email" value={{email}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="email" name="email" value={{email}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="login">{{ButtonTextProfile.LOGIN}}</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="login" value={{login}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="login" value={{login}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="first_name">{{ButtonTextProfile.NAME}}</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="first_name" value={{first_name}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="first_name" value={{first_name}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="second_name">{{ButtonTextProfile.SECOND_NAME}}</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="second_name" value={{second_name}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="second_name" value={{second_name}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="display_name">{{ButtonTextProfile.CHAT_NAME}}</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="display_name" value={{display_name}} />
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="display_name" value={{display_name}} />
             </div>
             <div class="profile__field">
               <label class="profile__label mb-1rem" for="phone">{{ButtonTextProfile.PHONE}}</label>
               <input  ${
-                this.props.disabledInputs && "disabled"
-              } class="profile__input mb-1rem" type="text" name="phone" value="{{phone}}"/>
+  this.props.disabledInputs && "disabled"
+} class="profile__input mb-1rem" type="text" name="phone" value="{{phone}}"/>
             </div>
           </form>`
-              : " "
-          }
+    : " "
+}
           {{{PasswordForm 
             isPasswordFormVisible=isPasswordFormVisible
             ButtonTextProfile=ButtonTextProfile
@@ -102,8 +102,8 @@ export class Profile extends Block<Record<string, any>> {
             <p class="visibility-hidden form-warning form-warning-text" id="form-warning">
             </p>
             <p class="modal-window__warning ${
-              this.props.reason ? `` : `display-none`
-            }">{{reason}}</p>
+  this.props.reason ? "" : "display-none"
+}">{{reason}}</p>
           </div>
         </div>
   
@@ -135,7 +135,7 @@ export class Profile extends Block<Record<string, any>> {
   }
 
   componentDidMount(): void {
-    authController.redirect();
+    authController.fetchUser();
 
     const formEl = this.getContent().querySelector("form");
     const infoEl = this.getContent().querySelector("#form-warning");

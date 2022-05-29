@@ -1,7 +1,7 @@
 import ChatsController from "../../../../controllers/ChatsController";
 import { Block } from "../../../../modules/Block/Block";
 interface MenuePropsI {
-  topMenuButtons: Record<string, any>;
+  topMenuButtons: Record<string, unknown>;
   isOpenMenu: boolean;
 }
 export class Menu extends Block<MenuePropsI> {
@@ -25,8 +25,8 @@ export class Menu extends Block<MenuePropsI> {
   render() {
     return `
     <menu class="chats__menu ${
-      this.props.isOpenMenu ? "" : "display-none"
-    }" id="chats">
+  this.props.isOpenMenu ? "" : "display-none"
+}" id="chats">
         <div class="chats__menu-content">
           {{#each topMenuButtons}}
             <div class="chats__menue-item" id={{actionId}}>

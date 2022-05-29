@@ -1,6 +1,6 @@
 export class WebSockeAPI {
   socket: WebSocket;
-  constructor(socket: WebSocket, getMessages: Function) {
+  constructor(socket: WebSocket, getMessages: (unknown) => void) {
     this.sendMessage = this.sendMessage.bind(this);
     this.sendPing = this.sendPing.bind(this);
     this.closeWS = this.closeWS.bind(this);
@@ -21,21 +21,21 @@ export class WebSockeAPI {
     this.socket.addEventListener("message", (event) => {
       const data = JSON.parse(event.data);
       switch (event.type) {
-        case "message":
-          if (data.type === "pong") {
-            break;
-          }
-          if (Array.isArray(data)) {
-            getMessages(data);
-          } else {
-            getMessages([data]);
-          }
+      case "message":
+        if (data.type === "pong") {
           break;
-        case "file":
-          break;
+        }
+        if (Array.isArray(data)) {
+          getMessages(data);
+        } else {
+          getMessages([data]);
+        }
+        break;
+      case "file":
+        break;
 
-        default:
-          break;
+      default:
+        break;
       }
     });
 

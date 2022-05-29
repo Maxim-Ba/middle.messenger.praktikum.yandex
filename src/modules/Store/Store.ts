@@ -24,6 +24,7 @@ enum StoreEvents {
 
 class Store extends EventBus {
   private state: IStore = {
+    isLoading: false,
     chats: [],
     chatsState: {
       svgDefault: {

@@ -12,6 +12,7 @@ export interface IStore {
   token?: string;
   webSocket?: WebSockeAPI;
   messages: IMessagesState[];
+  isLoading: boolean;
 }
 
 export interface IUserStore {

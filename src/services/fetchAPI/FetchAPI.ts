@@ -120,6 +120,7 @@ export class HTTPTransport {
       xhr.responseType = "json";
       xhr.open(method as string, url);
       if (data instanceof FormData) {
+        console.log(data);
       } else {
         if (headers) {
           for (const key of Object.keys(headers)) {
@@ -138,8 +139,6 @@ export class HTTPTransport {
       if (method === METHODS.GET) {
         xhr.send();
       } else if (data instanceof FormData) {
-        console.log([...data.entries()]);
-
         xhr.send(data);
       } else {
         xhr.send(this.dataWrapper(data));

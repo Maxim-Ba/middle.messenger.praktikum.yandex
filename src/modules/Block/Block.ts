@@ -23,7 +23,7 @@ export class Block<T extends Props> {
   eventBus: EventBus;
   props: Props;
   public _id: string;
-  children: Block<Record<string, any>>;
+  children: Block<T>;
   tmpBlock: HTMLElement;
   name: string;
   constructor(propsAndChildren = {}) {

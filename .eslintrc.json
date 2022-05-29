@@ -9,6 +9,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "rules": {
+    "no-prototype-builtins": "off",
     "no-unused-vars": "warn",
     "no-var": 2,
     "semi": "error",

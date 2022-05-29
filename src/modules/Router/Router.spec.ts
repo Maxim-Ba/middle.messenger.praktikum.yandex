@@ -10,7 +10,7 @@ class Component extends Block<any> {
     return "Component";
   }
   render() {
-    return `<card class="component"</card>`;
+    return "<card class=\"component\"</card>";
   }
 }
 describe("Проверяем переходы у Роута", () => {

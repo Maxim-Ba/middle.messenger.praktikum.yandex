@@ -57,6 +57,7 @@
       color: #999;
     }
   }
+
   &__link {
     min-width: 34px;
     height: 34px;
@@ -66,12 +67,14 @@
     display: flex;
     cursor: pointer;
   }
+
   &__arrow {
     align-self: center;
     margin: 0 auto;
     min-width: 24px;
     height: 24px;
   }
+
   &__link-to-profile {
     color: white;
     text-decoration: none;
@@ -363,32 +366,39 @@
   border-radius: 12px;
   box-shadow: 0 0 6px rgb(0 0 0 / 14%);
   z-index: 1;
-  background: #ffffff;
+  background: #fff;
 }
+
 .first-stub {
   flex-grow: 1;
 }
+
 .messages {
   display: flex;
   width: 100%;
   flex-direction: column;
+
   &__item {
     background-color: #efefef;
     margin-bottom: 5px;
     width: 50%;
     border-radius: 8px;
     padding: 6px;
+
     &_my-message {
       align-self: flex-end;
       background-color: #e4edfd;
     }
   }
+
   &__content {
     font-size: 12px;
   }
+
   &__time {
     text-align: end;
   }
+
   &__display-name {
     text-align: center;
     font-weight: 600;

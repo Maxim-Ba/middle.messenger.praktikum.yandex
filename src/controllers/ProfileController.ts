@@ -63,7 +63,7 @@ class ProfileController {
       }
       this.isChangeProfileData();
       this.makePasswordFormHidden();
-      alert("Пароль успешно изменён");
+      console.log("Пароль успешно изменён");
       return;
     } catch (e) {
       console.log(e);

@@ -17,8 +17,8 @@
     "sourceMap": true,
     "removeComments": true,
     "suppressImplicitAnyIndexErrors": false,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
   }
 }

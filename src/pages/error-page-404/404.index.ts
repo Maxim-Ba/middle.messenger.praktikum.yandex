@@ -1,13 +1,10 @@
-import { Login } from "./Login.block";
-import { loginState } from "./login.state";
+
 import { withStore } from "../../modules/Store/Store";
 import { IStore } from "../../modules/Store/StoreTypes";
-
+import { Error404Block } from "./Error404.block";
 
 const withReason = withStore((state: IStore) => ({
-  ...loginState,
   reason: state.reason,
-  isLoading: state.isLoading,
 }));
 
-export default withReason(Login);
+export default withReason(Error404Block);

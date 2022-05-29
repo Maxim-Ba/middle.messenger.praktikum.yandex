@@ -20,82 +20,94 @@ export class ModalWindowBlock extends Block<IModalWindow> {
         submit: (event: Event) => {
           event.preventDefault();
           switch (event.target) {
-            case this.getContent().querySelector(
+          case this.getContent().querySelector(
+            "#modal-window-form-create-chat"
+          ): {
+            const form = this.getContent().querySelector(
               "#modal-window-form-create-chat"
-            ):
-              const form = this.getContent().querySelector(
-                "#modal-window-form-create-chat"
-              );
-              const formData = new FormData(form as HTMLFormElement);
-              chatsController.createChat(
-                Object.fromEntries(formData.entries())
-              );
-              break;
-            case this.getContent().querySelector(
-              "#modal-window-form-delete-chat"
-            ):
-              chatsController.deleteChats();
-              break;
+            );
+            const formData = new FormData(form as HTMLFormElement);
+            const data = Object.fromEntries(formData.entries());
+            if (typeof data["title"] === "string") {
+              chatsController.createChat({ title: data["title"] });
+            }
 
-            case this.getContent().querySelector(
+            break;
+          }
+          case this.getContent().querySelector(
+            "#modal-window-form-delete-chat"
+          ): {
+            chatsController.deleteChats();
+            break;
+          }
+          case this.getContent().querySelector(
+            "#modal-window-form-pic-profile"
+          ): {
+            const formAvatar = this.getContent().querySelector(
               "#modal-window-form-pic-profile"
-            ):
-              const formAvatar = this.getContent().querySelector(
-                "#modal-window-form-pic-profile"
-              );
-              const formAvatarData = new FormData(
+            );
+            const formAvatarData = new FormData(
                 formAvatar as HTMLFormElement
-              );
-              ProfileController.changeUserAvatar(formAvatarData);
-              break;
-
-            case this.getContent().querySelector("#modal-window-form-pic-chat"):
-              const formChatPic = this.getContent().querySelector(
-                "#modal-window-form-pic-chat"
-              );
-              const formChatPicData = new FormData(
+            );
+            ProfileController.changeUserAvatar(formAvatarData);
+            break;
+          }
+          case this.getContent().querySelector(
+            "#modal-window-form-pic-chat"
+          ): {
+            const formChatPic = this.getContent().querySelector(
+              "#modal-window-form-pic-chat"
+            );
+            const formChatPicData = new FormData(
                 formChatPic as HTMLFormElement
-              );
+            );
 
-              chatsController.uploadAvatar(formChatPicData);
-              break;
-
-            case this.getContent().querySelector("modal-window-form-add-user"):
-              const formAddUser = this.getContent().querySelector(
-                "#modal-window-form-add-user"
-              );
-              const formDataAddUser = new FormData(
+            chatsController.uploadAvatar(formChatPicData);
+            break;
+          }
+          case this.getContent().querySelector(
+            "modal-window-form-add-user"
+          ): {
+            const formAddUser = this.getContent().querySelector(
+              "#modal-window-form-add-user"
+            );
+            const formDataAddUser = new FormData(
                 formAddUser as HTMLFormElement
-              );
-              chatsController.addUsers(
+            );
+            chatsController.addUsers(
                 formDataAddUser.get("add-user") as string
-              );
-              break;
-            case this.getContent().querySelector(
+            );
+            break;
+          }
+          case this.getContent().querySelector(
+            "#modal-window-form-delete-user"
+          ): {
+            const formDeleteUser = this.getContent().querySelector(
               "#modal-window-form-delete-user"
-            ):
-              const formDeleteUser = this.getContent().querySelector(
-                "#modal-window-form-delete-user"
-              );
-              const formDataDeleteUser = new FormData(
+            );
+            const formDataDeleteUser = new FormData(
                 formDeleteUser as HTMLFormElement
-              );
-              chatsController.deleteUsers(
+            );
+            chatsController.deleteUsers(
                 formDataDeleteUser.get("delete-user") as string
-              );
-              break;
-            case this.getContent().querySelector(
-              "#modal-window-form-send-location"
-            ):
-              break;
-            case this.getContent().querySelector("#modal-window-form-file"):
-              break;
-            case this.getContent().querySelector(
-              "#modal-window-form-foto-or-video"
-            ):
-              break;
-            default:
-              break;
+            );
+            break;
+          }
+          case this.getContent().querySelector(
+            "#modal-window-form-send-location"
+          ): {
+            break;
+          }
+          case this.getContent().querySelector("#modal-window-form-file"): {
+            break;
+          }
+          case this.getContent().querySelector(
+            "#modal-window-form-foto-or-video"
+          ): {
+            break;
+          }
+          default:
+            break;
           }
         },
       },
@@ -107,14 +119,14 @@ export class ModalWindowBlock extends Block<IModalWindow> {
   render() {
     return `
     <section class="modal-window ${
-      this.props.isOpenWindow ? "" : "display-none"
-    } " 
+  this.props.isOpenWindow ? "" : "display-none"
+} " 
       id="modal-window">
       <div id="modal-window__wrapper" class="modal-window__wrapper"></div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.create ? "" : "display-none"
-        }"
+  this.props.modalWindow.create ? "" : "display-none"
+}"
         id="modal-window-create-chat"
       >
         <p class="modal-window__title">Создать чат</p>
@@ -137,14 +149,14 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             </button>
           </div>
           <p class="modal-window__warning  ${
-            this.props.reason ? `` : `display-none`
-          }">{{reason}}</p>
+  this.props.reason ? "" : "display-none"
+}">{{reason}}</p>
         </form>
       </div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.delete ? "" : "display-none"
-        }"
+  this.props.modalWindow.delete ? "" : "display-none"
+}"
         id="modal-window-delete-chat"
       >
         <p class="modal-window__title">Удалить чат</p>
@@ -159,13 +171,13 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `vissible-hidden`
-          }">{{reason}}</p>
+  this.props.reason ? "" : "vissible-hidden"
+}">{{reason}}</p>
         </form>
       </div>
       <div class="modal-window__container ${
-        this.props.modalWindow.changeAva ? "" : "display-none"
-      }" id="modal-window-upload-pic-profile">
+  this.props.modalWindow.changeAva ? "" : "display-none"
+}" id="modal-window-upload-pic-profile">
         <p class="modal-window__title">Загрузите файл</p>
         <form class="modal-window__form" id="modal-window-form-pic-profile">
           <label
@@ -190,14 +202,14 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `vissible-hidden`
-          }">{{reason}}</p>
+  this.props.reason ? "" : "vissible-hidden"
+}">{{reason}}</p>
         </form>
       </div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.change ? "" : "display-none"
-        }"
+  this.props.modalWindow.change ? "" : "display-none"
+}"
         id="modal-window-upload-pic-chat"
       >
         <p class="modal-window__title">Изменить аватар чата</p>
@@ -224,13 +236,13 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `display-none`
-          }">{{reason}}</p>
+  this.props.reason ? "" : "display-none"
+}">{{reason}}</p>
         </form>
       </div>
       <div class="modal-window__container ${
-        this.props.modalWindow.addUser ? "" : "display-none"
-      }" id="modal-window-add-user">
+  this.props.modalWindow.addUser ? "" : "display-none"
+}" id="modal-window-add-user">
         <p class="modal-window__title">Добавить пользователя</p>
         <form class="modal-window__form" id="modal-window-form-add-user">
           <label class="modal-window__label" for="add-user">Логин пользователя</label>
@@ -251,14 +263,14 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `display-none`
-          }">{{reason}}</p>
+  this.props.reason ? "" : "display-none"
+}">{{reason}}</p>
         </form>
       </div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.deleteUser ? "" : "display-none"
-        }"
+  this.props.modalWindow.deleteUser ? "" : "display-none"
+}"
         id="modal-window-delete-user"
       >
         <p class="modal-window__title">Удалить пользователя</p>
@@ -282,15 +294,15 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `display-none`
-          }">{{reason}}</p>
+  this.props.reason ? "" : "display-none"
+}">{{reason}}</p>
         </form>
       </div>
 
       <div
         class="modal-window__container ${
-          this.props.modalWindow.location ? "" : "display-none"
-        }"
+  this.props.modalWindow.location ? "" : "display-none"
+}"
         id="modal-window-send-location"
       >
         <p class="modal-window__title">Прикрепить локацию</p>
@@ -316,14 +328,14 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `display-none`
-          }">{{reason}}</p>
+  this.props.reason ? "" : "display-none"
+}">{{reason}}</p>
         </form>
       </div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.file ? "" : "display-none"
-        }"
+  this.props.modalWindow.file ? "" : "display-none"
+}"
         id="modal-window-file"
       >
         <p class="modal-window__title">Прикрепить файл</p>
@@ -350,14 +362,14 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `display-none`
-          }">{{reason}}</p>
+  this.props.reason ? "" : "display-none"
+}">{{reason}}</p>
         </form>
       </div>
       <div
         class="modal-window__container ${
-          this.props.modalWindow.fotoOrVideo ? "" : "display-none"
-        }"
+  this.props.modalWindow.fotoOrVideo ? "" : "display-none"
+}"
         id="modal-window-foto-or-video"
       >
         <p class="modal-window__title">Прикрепить фото или видео</p>
@@ -384,8 +396,8 @@ export class ModalWindowBlock extends Block<IModalWindow> {
             </button>
           </div>
           <p class="modal-window__warning ${
-            this.props.reason ? `` : `display-none`
-          }">{{reason}}</p>
+  this.props.reason ? "" : "display-none"
+}">{{reason}}</p>
         </form>
       </div>
     </section>

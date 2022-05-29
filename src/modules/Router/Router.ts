@@ -7,12 +7,14 @@ class Router {
   history: History;
   private _currentRoute: Route | null;
   private _rootQuery: string;
+  path404: null | Route;
 
   constructor() {
     if (Router.__instance) {
       return Router.__instance;
     }
     this.routes = [];
+    this.path404 = null;
     this.history = window.history;
     this._currentRoute = null;
     this._rootQuery = "#root";
@@ -24,8 +26,15 @@ class Router {
     const route = new Route(pathname, block, {
       rootQuery: this._rootQuery,
     });
-
     this.routes.push(route);
+    return this;
+  }
+
+  useError404(pathname: string, block: typeof Block) {
+    const route = new Route(pathname, block, {
+      rootQuery: this._rootQuery,
+    });
+    this.path404 = route;
     return this;
   }
 
@@ -39,6 +48,8 @@ class Router {
   _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
     if (!route) {
+      this._currentRoute = this.path404;
+      this.path404?.render();
       return;
     }
     if (this._currentRoute) {
